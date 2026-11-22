@@ -1,0 +1,37 @@
+{
+  "object_id": "item",
+  "role": "rigid_object",
+  "geometry": {
+    "local_mesh": "geometry/item.glb"
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.235
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.035
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_nodes": [],
+  "declared": {},
+  "label": "item",
+  "movable": true
+}

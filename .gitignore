@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.egg-info/
+/build/
+/dist/
+/runs/
+/runtime/
+lab.local.json
+.env
+.env.*
+.codex-home/
+auth.json

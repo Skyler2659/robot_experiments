@@ -1,0 +1,37 @@
+{
+  "object_id": "box",
+  "role": "rigid_object",
+  "geometry": {
+    "local_mesh": "geometry/box.glb"
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.365
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.02
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_nodes": [],
+  "declared": {},
+  "label": "box",
+  "movable": false
+}

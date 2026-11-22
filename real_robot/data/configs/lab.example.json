@@ -1,0 +1,207 @@
+{
+  "backend": "lab",
+  "frame": "right_piper_base",
+  "video_fps": 15,
+  "driver": {
+    "robot_type": "bi_piper_follower",
+    "robot_id": "bi_piper",
+    "cameras": {
+      "l_wrist": {
+        "type": "opencv",
+        "index_or_path": "/dev/l_wrist",
+        "width": 480,
+        "height": 640,
+        "fps": 120,
+        "rotation": -90,
+        "fourcc": "MJPG"
+      },
+      "top": {
+        "type": "opencv",
+        "index_or_path": "/dev/top",
+        "width": 640,
+        "height": 480,
+        "fps": 120,
+        "rotation": 0,
+        "fourcc": "MJPG"
+      },
+      "r_wrist": {
+        "type": "opencv",
+        "index_or_path": "/dev/r_wrist",
+        "width": 480,
+        "height": 640,
+        "fps": 120,
+        "rotation": 90,
+        "fourcc": "MJPG"
+      }
+    },
+    "camera_map": {
+      "top": "top",
+      "l_wrist": "l_wrist",
+      "r_wrist": "r_wrist"
+    },
+    "robot_options": {},
+    "motor_keys": {
+      "left": null,
+      "right": null
+    },
+    "state_scale": [
+      1.7453292519943296e-05,
+      1.7453292519943296e-05,
+      1.7453292519943296e-05,
+      1.7453292519943296e-05,
+      1.7453292519943296e-05,
+      1.7453292519943296e-05,
+      1e-06
+    ],
+    "action_scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "site_module": null,
+    "flange_fk": null
+  },
+  "cameras": {
+    "top": {
+      "mount": "fixed",
+      "K": null,
+      "image_size": [
+        640,
+        480
+      ],
+      "T_W_camera": null
+    },
+    "l_wrist": {
+      "mount": "wrist",
+      "K": null,
+      "image_size": null,
+      "T_flange_camera": null,
+      "arm": "left"
+    },
+    "r_wrist": {
+      "mount": "wrist",
+      "K": null,
+      "image_size": null,
+      "T_flange_camera": null,
+      "arm": "right"
+    }
+  },
+  "view_tolerance_ns": 15000000,
+  "state_tolerance_ns": 15000000,
+  "robot_asset": {
+    "urdf": "../assets/piper_description/urdf/piper_description.urdf",
+    "packages": {
+      "piper_description": "../assets/piper_description"
+    },
+    "instances": [
+      {
+        "arm": "left",
+        "joints": {
+          "joint1": {
+            "state": "left.joints.0"
+          },
+          "joint2": {
+            "state": "left.joints.1"
+          },
+          "joint3": {
+            "state": "left.joints.2"
+          },
+          "joint4": {
+            "state": "left.joints.3"
+          },
+          "joint5": {
+            "state": "left.joints.4"
+          },
+          "joint6": {
+            "state": "left.joints.5"
+          },
+          "joint7": {
+            "state": "left.gripper_width_m",
+            "scale": 0.5
+          },
+          "joint8": {
+            "state": "left.gripper_width_m",
+            "scale": -0.5
+          }
+        }
+      },
+      {
+        "arm": "right",
+        "joints": {
+          "joint1": {
+            "state": "right.joints.0"
+          },
+          "joint2": {
+            "state": "right.joints.1"
+          },
+          "joint3": {
+            "state": "right.joints.2"
+          },
+          "joint4": {
+            "state": "right.joints.3"
+          },
+          "joint5": {
+            "state": "right.joints.4"
+          },
+          "joint6": {
+            "state": "right.joints.5"
+          },
+          "joint7": {
+            "state": "right.gripper_width_m",
+            "scale": 0.5
+          },
+          "joint8": {
+            "state": "right.gripper_width_m",
+            "scale": -0.5
+          }
+        }
+      }
+    ]
+  },
+  "reconstruction": {
+    "runtime": "../../../runtime",
+    "model": "gpt-6-astra",
+    "reasoning": "high"
+  },
+  "arms": {
+    "left": {
+      "T_W_base": null,
+      "T_flange_tcp": null,
+      "max_gripper_width_m": null
+    },
+    "right": {
+      "T_W_base": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "T_flange_tcp": null,
+      "max_gripper_width_m": null
+    }
+  }
+}

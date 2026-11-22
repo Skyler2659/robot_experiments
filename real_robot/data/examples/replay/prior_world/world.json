@@ -1,0 +1,18 @@
+{
+  "schema": "agent-codeworld-v1",
+  "objects": {
+    "item": "objects/item.json",
+    "box": "objects/box.json"
+  },
+  "frame": "piper_base",
+  "units": "m",
+  "matrix_convention": "row-major T_W_object; column vectors",
+  "bound_files": {
+    "objects/item.json": "6b7f02c88ce5cc5fe133956d75800cebe4838d27cdf334fd26611dce2f076593",
+    "objects/box.json": "6efd94df89edb94e0e60a40ab0b2395b2b6702fe4c6a984a89c4969957a438f2",
+    "geometry/item.glb": "76ca21662162c73655d0caa0bfce8e6e30b6cd1006d55c1356bba39dd6a28674",
+    "geometry/box.glb": "8d05fd48328915eced084408390008edf00b2d4b4844a90f0ec0e8a179c9a8f1"
+  },
+  "geometry_revision": "2d9297cc62715cb51b883106b3752485992a16b1c7146f62234b1e9c11bd2790",
+  "geometry_accuracy_verified": false
+}
