@@ -1,0 +1,41 @@
+{
+  "threadId": "01a20845-8b8f-7210-ac21-84aa0ff6717c",
+  "turnId": "01a20845-8bad-72d2-ad39-239769560912",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop.",
+    "tool_params": {
+      "status": "success",
+      "summary": "右夹爪已原位张开，实测开度约0.069 m；释放后的顶视确认柠檬已落在盘子内部。随后工具连接中断，观察更新是否提交成功无法确认；未执行额外机械臂位移。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "success",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "右夹爪已原位张开，实测开度约0.069 m；释放后的顶视确认柠檬已落在盘子内部。随后工具连接中断，观察更新是否提交成功无法确认；未执行额外机械臂位移。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

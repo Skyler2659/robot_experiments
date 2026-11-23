@@ -1,0 +1,190 @@
+{
+  "object_id": "rear_left_post",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/rear_left_post/local.glb",
+    "local_bounds_m": [
+      [
+        -0.019999999552965164,
+        -0.02500000037252903,
+        -0.20999999344348907
+      ],
+      [
+        0.019999999552965164,
+        0.02500000037252903,
+        0.20999999344348907
+      ]
+    ],
+    "vertices": 24,
+    "faces": 12
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -0.061
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.177
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.21
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/0",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -0.061,
+      0.177,
+      0.21,
+      1
+    ],
+    "user_data": {
+      "object_id": "rear_left_post",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/0",
+      "name": "rear_left_post",
+      "type": "Group",
+      "object_id": "rear_left_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.177,
+        0.21,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.177,
+        0.21,
+        1
+      ],
+      "user_data": {
+        "object_id": "rear_left_post",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/0/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_left_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.177,
+        0.21,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.04,
+      0.05,
+      0.42
+    ],
+    "position_W_m": [
+      -0.061,
+      0.177,
+      0.21
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Simple dark upright visible behind left mount; hidden depth, upper endpoint, section and attachment are estimated."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

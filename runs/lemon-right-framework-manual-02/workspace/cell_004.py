@@ -1,0 +1,6 @@
+print('world_api', [name for name in dir(world) if not name.startswith('_')])
+print('snapshot_api', [name for name in dir(snap) if not name.startswith('_')])
+print('lemon_bounds', world.bounds('lemon'))
+print('lemon_parts', world.parts('lemon'))
+print('plate_bounds', world.bounds('plate'))
+display(robo.image('top'))

@@ -1,0 +1,7 @@
+ctx = world.read_context()
+review = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Initial calibrated top RGB and reconstructed panels agree on lemon and plate identity and placement, with small single-view pose uncertainty. Opening right gripper caused no visible object displacement; neither object is held.', poses={}, held={}, relations={})
+print('review', review)
+print('move_rotation_type', robo.move_to.__annotations__)
+print('target_types', world.target.__annotations__)
+approach = world.target('lemon_staging', lambda scene: scene.position('lemon') + np.array([-0.063, -0.148, 0.186]))
+print('approach', approach)

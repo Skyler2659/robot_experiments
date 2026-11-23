@@ -1,0 +1,35 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nstate0 = robo.state()\nlog(ctx)\nlog(state0)\ndef find_tcp(value):\n    if isinstance(value, dict):\n        if 'T_W_tcp' in value:\n            return np.asarray(value['T_W_tcp'], dtype=float)\n        if 'right' in value:\n            found = find_tcp(value['right'])\n            if found is not None:\n                return found\n        for key, item in value.items():\n            if key != 'left':\n                found = find_tcp(item)\n                if found is not None:\n                    return found\n    return None\nstart_tcp = find_tcp(state0)\nif start_tcp is None:\n    raise ValueError('No measured T_W_tcp found; no motion issued.')\nassert start_tcp.shape == (4, 4) and np.isfinite(start_tcp).all()\nassert abs(float(start_tcp[2, 3]) - 0.046) < 0.015\nlift_xyz = start_tcp[:3, 3].copy()\nlift_xyz[2] = 0.160\nworld.expect_contacts(grasp={'right': 'lemon'})\nlog(robo.move_to(lift_xyz.tolist(), rotation=start_tcp[:3, :3].tolist(), arm='right'))\nrobo.show('top')\nlog(robo.state())"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nstate0 = robo.state()\nlog(ctx)\nlog(state0)\ndef find_tcp(value):\n    if isinstance(value, dict):\n        if 'T_W_tcp' in value:\n            return np.asarray(value['T_W_tcp'], dtype=float)\n        if 'right' in value:\n            found = find_tcp(value['right'])\n            if found is not None:\n                return found\n        for key, item in value.items():\n            if key != 'left':\n                found = find_tcp(item)\n                if found is not None:\n                    return found\n    return None\nstart_tcp = find_tcp(state0)\nif start_tcp is None:\n    raise ValueError('No measured T_W_tcp found; no motion issued.')\nassert start_tcp.shape == (4, 4) and np.isfinite(start_tcp).all()\nassert abs(float(start_tcp[2, 3]) - 0.046) < 0.015\nlift_xyz = start_tcp[:3, 3].copy()\nlift_xyz[2] = 0.160\nworld.expect_contacts(grasp={'right': 'lemon'})\nlog(robo.move_to(lift_xyz.tolist(), rotation=start_tcp[:3, :3].tolist(), arm='right'))\nrobo.show('top')\nlog(robo.state())",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

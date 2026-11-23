@@ -1,0 +1,6 @@
+ctx = world.read_context()
+print("pending_update:", ctx["interaction"]["pending_update"])
+print("robot_state:", robo.state())
+print("lemon_bounds:", world.bounds("lemon"))
+print("plate_bounds:", world.bounds("plate"))
+print("commit_step_help:", world.commit_step.__doc__)

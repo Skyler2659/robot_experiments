@@ -1,0 +1,8 @@
+{
+  "mode": "imported_prior",
+  "frame": "right_piper_base",
+  "world": "/data/jlb/robot_experiments/runs/lemon-right-framework-manual-02/world",
+  "initial_capture": "observations/83cc44951e6e4339b875a4d6432d17bc/capture.json",
+  "backend": "lab",
+  "scene_collision_checker": true
+}

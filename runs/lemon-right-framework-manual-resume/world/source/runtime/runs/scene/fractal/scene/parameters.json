@@ -1,0 +1,376 @@
+{
+  "schema": "rcwm-operation-scene-v1",
+  "frame": "right_piper_base",
+  "units": "m",
+  "objects": {
+    "left_mounting_plate": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.111,
+        0.247,
+        0.007
+      ],
+      "position_W_m": [
+        -0.0115,
+        0.004,
+        0.0035
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        -0.019
+      ],
+      "unknowns": [
+        "Single RGB estimate; rear edge is occluded by public robot. Thickness estimated at 7 mm; central clearance surrounds the unchanged public base footprint so the fixture does not bury its flange. Clearance/pocket construction is occluded and estimated; tabletop datum is inherited."
+      ]
+    },
+    "left_checker_card": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.054,
+        0.065,
+        0.001
+      ],
+      "position_W_m": [
+        0.008,
+        -0.075,
+        0.0074
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        -0.025
+      ],
+      "unknowns": [
+        "Card dimensions, backing and attachment inferred from visible checker corners; 5 columns by 4 rows estimated."
+      ]
+    },
+    "left_support_bracket": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.076,
+        0.0795,
+        0.0635
+      ],
+      "position_W_m": [
+        -0.015,
+        0.098,
+        0.007
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Rounded upright/gusset silhouette and foot inferred from crop; hidden rear profile, thickness, fasteners and depth are estimates. Independent of supplied robot base flange."
+      ]
+    },
+    "rear_sensor_bracket": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.08113814277901278,
+        0.15509790255420364,
+        0.1697329386560355
+      ],
+      "position_W_m": [
+        0.055569072164366774,
+        0.6937534972539875,
+        0.08486646953663401
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+      ]
+    },
+    "rear_sensor_housing": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.04972573661149472,
+        0.105499998550862,
+        0.04422755757110425
+      ],
+      "position_W_m": [
+        0.01969951474095808,
+        0.6949831000076008,
+        0.16854277828063038
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+      ]
+    },
+    "rear_sensor_black_cable": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.009758148342370987,
+        0.033972978591918945,
+        0.06661508232355118
+      ],
+      "position_W_m": [
+        0.033840397372841835,
+        0.6358560919761658,
+        0.14936776086688042
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+      ]
+    },
+    "rear_sensor_pale_cable": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.11780606955289841,
+        0.15246444940567017,
+        0.21502700448036194
+      ],
+      "position_W_m": [
+        0.08714905753731728,
+        0.5821728408336639,
+        0.29379524290561676
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+      ]
+    },
+    "rear_sensor_thin_cable": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.10512387752532959,
+        0.057910919189453125,
+        0.30769671499729156
+      ],
+      "position_W_m": [
+        0.09057261049747467,
+        0.5453959107398987,
+        0.24680178612470627
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+      ]
+    },
+    "rear_center_post": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.03,
+        0.03,
+        0.46
+      ],
+      "position_W_m": [
+        -0.024,
+        0.334,
+        0
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Post section, foot attachment and upper continuation inferred from RGB; upper endpoint outside image."
+      ]
+    },
+    "rear_mount_base": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.095,
+        0.24,
+        0.0152
+      ],
+      "position_W_m": [
+        0.0125,
+        0.681,
+        0.007
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Black base perimeter and thickness estimated; underside not observed."
+      ]
+    },
+    "rear_checker_card": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.056,
+        0.062,
+        0.0015
+      ],
+      "position_W_m": [
+        0.025,
+        0.596,
+        0.015
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Checker card size and grid inferred from crop; flat on base assumed."
+      ]
+    },
+    "rear_left_post": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.42
+      ],
+      "position_W_m": [
+        -0.061,
+        0.177,
+        0.21
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Simple dark upright visible behind left mount; hidden depth, upper endpoint, section and attachment are estimated."
+      ]
+    },
+    "floor": {
+      "movable": false,
+      "dimensions_m": [
+        6,
+        6,
+        0.06
+      ],
+      "position_W_m": [
+        0.2,
+        0.4,
+        -0.79
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Visible left background interpreted as floor; height, extent, underside and finish are estimates."
+      ]
+    },
+    "tabletop": {
+      "movable": false,
+      "dimensions_m": [
+        1.3,
+        1.2,
+        0.76
+      ],
+      "position_W_m": [
+        0.2,
+        0.4,
+        -0.0225
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Table boundary and thickness estimated from single RGB; top assumed at W z=0; hidden legs and frame estimated to complete table."
+      ]
+    },
+    "plate": {
+      "movable": true,
+      "dimensions_m": [
+        0.202,
+        0.202,
+        0.022
+      ],
+      "position_W_m": [
+        0.373,
+        0.102,
+        0.001
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Diameter, glaze, underside and profile estimated from single RGB."
+      ]
+    },
+    "lemon": {
+      "movable": true,
+      "dimensions_m": [
+        0.072,
+        0.052,
+        0.052
+      ],
+      "position_W_m": [
+        0.313,
+        0.298,
+        0.026
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0.55
+      ],
+      "unknowns": [
+        "Size, depth, underside, and peel geometry estimated from single RGB."
+      ]
+    },
+    "known_robot": {
+      "movable": false,
+      "dimensions_m": [
+        0.5061340928077698,
+        0.14500025659799576,
+        0.25739577412605286
+      ],
+      "position_W_m": [
+        0,
+        0,
+        0
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Public GLB retained unchanged at identity in supplied W frame; no fitted robot geometry or surface-accuracy claim."
+      ]
+    }
+  }
+}

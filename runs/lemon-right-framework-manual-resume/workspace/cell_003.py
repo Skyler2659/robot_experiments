@@ -1,0 +1,10 @@
+ctx = world.read_context()
+tcp_start = np.array(robo.state()['right']['T_W_tcp'])
+approach_xyz = tcp_start[:3, 3].copy()
+approach_xyz[2] = 0.046
+lemon_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'lemon'))
+plate_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'plate'))
+print('lemon_bounds', world.bounds('lemon'))
+print('plate_bounds', world.bounds('plate'))
+print(robo.move_to(approach_xyz.tolist(), arm='right'))
+robo.show('top')

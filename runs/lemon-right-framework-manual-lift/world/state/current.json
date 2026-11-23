@@ -1,0 +1,2562 @@
+{
+  "revision": 6,
+  "branch": "current",
+  "history": [
+    {
+      "kind": "host_table_height_prior",
+      "revision": 1,
+      "table_object_id": "tabletop",
+      "source_top_z_m": -0.011999999999999997,
+      "target_z_m": -0.012,
+      "delta_z_m": -3.469446951953614e-18,
+      "source": "lab_measurement",
+      "translated_objects": [
+        "rear_left_post",
+        "floor",
+        "tabletop",
+        "plate",
+        "lemon",
+        "left_mounting_plate",
+        "left_checker_card",
+        "left_support_bracket",
+        "rear_center_post",
+        "rear_mount_base",
+        "rear_checker_card",
+        "rear_sensor_bracket",
+        "rear_sensor_housing",
+        "rear_sensor_black_cable",
+        "rear_sensor_pale_cable",
+        "rear_sensor_thin_cable"
+      ],
+      "fixed_robot_objects": [
+        "known_robot"
+      ],
+      "T_aligned_reconstructed": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -3.469446951953614e-18
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "metric_validation": false,
+      "recorded_at_ns": 1795434709913976486
+    },
+    {
+      "revision": 2,
+      "kind": "agent_feedback",
+      "affected_objects": [],
+      "result": {
+        "primitive": {
+          "index": 5,
+          "tool": "move_pose",
+          "kwargs": {
+            "arm": "right",
+            "T_W_tcp": [
+              [
+                -0.7887631083844306,
+                -0.5216574410979116,
+                0.32515576728532575,
+                0.31333754117135126
+              ],
+              [
+                -0.48224375655927754,
+                0.8531550301638282,
+                0.19891569512171037,
+                0.29817983086685684
+              ],
+              [
+                -0.38117413095765884,
+                9.302330806021386e-05,
+                -0.9245032575579911,
+                0.16
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "started_at": 1795434755.1079807,
+          "elapsed_s": 15.21180267794989,
+          "ok": true,
+          "stateful": true,
+          "env_steps": 1,
+          "error": null,
+          "summary": {
+            "status": "completed",
+            "message": "Measured motor feedback reached the target",
+            "reached": true,
+            "blocked": false
+          }
+        },
+        "codeworld_read": {
+          "revision": 1,
+          "host_step": 0
+        }
+      },
+      "recorded_at_ns": 1795434770436746697
+    },
+    {
+      "revision": 3,
+      "kind": "action_observation_update",
+      "observation_id": "5065525aabe34b88a6d5074f0bbc8084",
+      "poses": {
+        "lemon": {
+          "T_W_object": [
+            [
+              0.852525,
+              -0.522687,
+              0.0,
+              0.31281654390421026
+            ],
+            [
+              0.522687,
+              0.852525,
+              0.0,
+              0.2978225461507903
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.12779998945076543
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "time_basis": "current",
+          "translation_observed_axes": [
+            true,
+            true,
+            true
+          ],
+          "orientation_observed_axes": [
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      "unchanged": {},
+      "unresolved": {
+        "lemon": "Exact orientation partly hidden; original rotation is only a prior."
+      },
+      "retained": [
+        "floor",
+        "left_checker_card",
+        "left_mounting_plate",
+        "left_support_bracket",
+        "plate",
+        "rear_center_post",
+        "rear_checker_card",
+        "rear_left_post",
+        "rear_mount_base",
+        "rear_sensor_black_cable",
+        "rear_sensor_bracket",
+        "rear_sensor_housing",
+        "rear_sensor_pale_cable",
+        "rear_sensor_thin_cable",
+        "tabletop"
+      ],
+      "held": {
+        "right": "lemon"
+      },
+      "rejected_held": {
+        "right": {
+          "object_id": "lemon",
+          "status": "unconfirmed",
+          "reason": "Need two current observed poses during object/hand motion"
+        }
+      },
+      "deferred": {},
+      "fit_failed": {},
+      "disturbed": {},
+      "note": "Top RGB confirms lemon lifted together with fingers and remains held; plate stationary. Translation estimated from actual TCP lift and RGB; orientation unresolved.",
+      "recorded_at_ns": 1795434911560678462
+    },
+    {
+      "revision": 4,
+      "kind": "agent_feedback",
+      "affected_objects": [
+        "lemon"
+      ],
+      "result": {
+        "primitive": {
+          "index": 26,
+          "tool": "move_pose",
+          "kwargs": {
+            "arm": "right",
+            "T_W_tcp": [
+              [
+                -0.7887631083844306,
+                -0.5216574410979116,
+                0.32515576728532575,
+                0.373
+              ],
+              [
+                -0.48224375655927754,
+                0.8531550301638282,
+                0.19891569512171037,
+                0.102
+              ],
+              [
+                -0.38117413095765884,
+                9.302330806021386e-05,
+                -0.9245032575579911,
+                0.16
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "started_at": 1795434911.5859418,
+          "elapsed_s": 24.642701091011986,
+          "ok": true,
+          "stateful": true,
+          "env_steps": 1,
+          "error": null,
+          "summary": {
+            "status": "completed",
+            "message": "Measured motor feedback reached the target",
+            "reached": true,
+            "blocked": false
+          }
+        },
+        "codeworld_read": {
+          "revision": 3,
+          "host_step": 1
+        }
+      },
+      "recorded_at_ns": 1795434936357558614
+    },
+    {
+      "revision": 5,
+      "kind": "action_observation_update",
+      "observation_id": "023aa651921040938483a465f2c67c85",
+      "poses": {
+        "lemon": {
+          "T_W_object": [
+            [
+              0.852525,
+              -0.522687,
+              0.0,
+              0.3725250264928205
+            ],
+            [
+              0.522687,
+              0.852525,
+              0.0,
+              0.10173040654312479
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.12810873772401074
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "time_basis": "current",
+          "translation_observed_axes": [
+            true,
+            true,
+            false
+          ],
+          "orientation_observed_axes": [
+            false,
+            false,
+            false
+          ]
+        }
+      },
+      "unchanged": {},
+      "unresolved": {
+        "lemon": "Depth and partly occluded orientation are estimates; RGB confirms continued attachment over two motions."
+      },
+      "retained": [
+        "floor",
+        "left_checker_card",
+        "left_mounting_plate",
+        "left_support_bracket",
+        "plate",
+        "rear_center_post",
+        "rear_checker_card",
+        "rear_left_post",
+        "rear_mount_base",
+        "rear_sensor_black_cable",
+        "rear_sensor_bracket",
+        "rear_sensor_housing",
+        "rear_sensor_pale_cable",
+        "rear_sensor_thin_cable",
+        "tabletop"
+      ],
+      "held": {
+        "right": "lemon"
+      },
+      "rejected_held": {
+        "right": {
+          "object_id": "lemon",
+          "status": "unconfirmed",
+          "reason": "Need two current observed poses during object/hand motion"
+        }
+      },
+      "deferred": {},
+      "fit_failed": {},
+      "disturbed": {},
+      "note": "Top RGB shows lemon still between the right fingers after lateral transport and above the unchanged plate. Attachment is supported by both lift and transport observations. Position estimate follows measured TCP; precise orientation and depth remain unresolved.",
+      "recorded_at_ns": 1795434985895473691
+    },
+    {
+      "revision": 6,
+      "kind": "agent_feedback",
+      "affected_objects": [
+        "lemon"
+      ],
+      "result": {
+        "primitive": {
+          "index": 36,
+          "tool": "move_pose",
+          "kwargs": {
+            "arm": "right",
+            "T_W_tcp": [
+              [
+                -0.7887631083844306,
+                -0.5216574410979116,
+                0.32515576728532575,
+                0.373
+              ],
+              [
+                -0.48224375655927754,
+                0.8531550301638282,
+                0.19891569512171037,
+                0.102
+              ],
+              [
+                -0.38117413095765884,
+                9.302330806021386e-05,
+                -0.9245032575579911,
+                0.08
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "started_at": 1795434985.9200199,
+          "elapsed_s": 9.352158726018388,
+          "ok": true,
+          "stateful": true,
+          "env_steps": 1,
+          "error": null,
+          "summary": {
+            "status": "completed",
+            "message": "Measured motor feedback reached the target",
+            "reached": true,
+            "blocked": false
+          }
+        },
+        "codeworld_read": {
+          "revision": 5,
+          "host_step": 2
+        }
+      },
+      "recorded_at_ns": 1795434995397309359
+    }
+  ],
+  "objects": {
+    "rear_left_post": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.061
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.177
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.19799999910593033
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985893501184,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "floor": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.2
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.4
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.8020000008940698
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985891805959,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "tabletop": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.2
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.4
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.03450000089406967
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985895425385,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "plate": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.373
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.102
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.011000000894069675
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "host_table_height_aligned_prior",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "unreviewed"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "lemon": {
+      "T_W_object": [
+        [
+          0.8519841952523741,
+          -0.5235680499647395,
+          6.074769915870304e-05,
+          0.3728390559790119
+        ],
+        [
+          0.5235679751412904,
+          0.8519841254995932,
+          0.0004482153800768329,
+          0.1017848660744762
+        ],
+        [
+          -0.00028642732785466585,
+          -0.00035006687005156465,
+          0.9999998977063399,
+          0.047740168508468406
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "grasp_motion_prediction",
+      "evidence": {
+        "references": [
+          "observations/023aa651921040938483a465f2c67c85/capture.json"
+        ],
+        "note": "Depth and partly occluded orientation are estimates; RGB confirms continued attachment over two motions."
+      },
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "predicted",
+          "revision": 6
+        }
+      },
+      "pose_refresh": {
+        "reason": "Depth and partly occluded orientation are estimates; RGB confirms continued attachment over two motions.",
+        "since_revision": 5,
+        "last_estimate_only": true
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5
+      },
+      "last_observation_recorded_at_ns": 1795434936741634606
+    },
+    "left_mounting_plate": {
+      "T_W_object": [
+        [
+          0.9998195054299763,
+          0.018998856853967315,
+          0.0,
+          -0.0115
+        ],
+        [
+          -0.018998856853967315,
+          0.9998195054299763,
+          0.0,
+          0.004
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.008500000894069677
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985892274046,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "left_checker_card": {
+      "T_W_object": [
+        [
+          0.9996875162757026,
+          0.02499739591471233,
+          0.0,
+          0.008
+        ],
+        [
+          -0.02499739591471233,
+          0.9996875162757026,
+          0.0,
+          -0.075
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.004600000894069676
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985892056429,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "left_support_bracket": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.015
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.098
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.005000000894069676
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985892500363,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_center_post": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.024
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.334
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.012000000894069676
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985893080050,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_mount_base": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0125
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.681
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.005000000894069676
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985893812390,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_checker_card": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.025
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.596
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0029999991059303233
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985893292810,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_sensor_bracket": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.055569072164366774
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.6937534972539875
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.07286646864256434
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985894343027,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_sensor_housing": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.01969951474095808
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.6949831000076008
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.15654277738656072
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985894631924,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_sensor_black_cable": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.033840397372841835
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.6358560919761658
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.13736775997281075
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985894024382,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_sensor_pale_cable": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.08714905753731728
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.5821728408336639
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.2817952420115471
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985894848225,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "rear_sensor_thin_cable": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.09057261049747467
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.5453959107398987
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.2348017852306366
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "confirmed_unchanged",
+      "evidence": "source/executed_binding.json",
+      "basis_before_height_alignment": "imported_prior",
+      "review": {
+        "pose": {
+          "status": "observed",
+          "revision": 5,
+          "actor": {
+            "role": "agent"
+          },
+          "recorded_at_ns": 1795434985895190537,
+          "evidence": [
+            "observations/023aa651921040938483a465f2c67c85/capture.json"
+          ],
+          "note": "Stable background confirmed unchanged"
+        }
+      },
+      "last_step_review": {
+        "observation_id": "023aa651921040938483a465f2c67c85",
+        "revision": 5,
+        "assessment": "retained"
+      }
+    },
+    "known_robot": {
+      "T_W_object": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "imported_prior",
+      "evidence": "source/executed_binding.json",
+      "review": {
+        "pose": {
+          "status": "unreviewed"
+        }
+      }
+    }
+  },
+  "geometry_revision": "5f4969fb9d227d721c907042e9790051c0b152c6807a4af6aaa93dd9d55ff266",
+  "height_alignment": {
+    "table_object_id": "tabletop",
+    "source_top_z_m": -0.011999999999999997,
+    "target_z_m": -0.012,
+    "delta_z_m": -3.469446951953614e-18,
+    "source": "lab_measurement",
+    "translated_objects": [
+      "rear_left_post",
+      "floor",
+      "tabletop",
+      "plate",
+      "lemon",
+      "left_mounting_plate",
+      "left_checker_card",
+      "left_support_bracket",
+      "rear_center_post",
+      "rear_mount_base",
+      "rear_checker_card",
+      "rear_sensor_bracket",
+      "rear_sensor_housing",
+      "rear_sensor_black_cable",
+      "rear_sensor_pale_cable",
+      "rear_sensor_thin_cable"
+    ],
+    "fixed_robot_objects": [
+      "known_robot"
+    ],
+    "T_aligned_reconstructed": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        -3.469446951953614e-18
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "kind": "host_table_height_prior",
+    "metric_validation": false
+  },
+  "control_policy": {
+    "observation_consistency": true,
+    "version": "observation-control-v1"
+  },
+  "tracking": {
+    "robot_state": {
+      "step": 3,
+      "timestamp_ns": 366969125217825,
+      "right": {
+        "timestamp_ns": 366969125217825,
+        "joints": [
+          0.20488334826134533,
+          1.821458891484929,
+          -1.0791605661426016,
+          0.24427794756907525,
+          0.5603078492850753,
+          -0.5281076537516294
+        ],
+        "gripper_width_m": 0.04999999999999999,
+        "gripper": 0.7173601147776182,
+        "eef_pos": [
+          0.3424035107639489,
+          0.08311372488202809,
+          0.1674615702060378
+        ],
+        "eef_quat": [
+          0.18635038025007086,
+          -0.2659230173439631,
+          0.9443433945447112,
+          0.05266913524169876
+        ],
+        "T_base_flange": [
+          [
+            -0.7891169692546726,
+            -0.5218751165318063,
+            0.32394563059135956,
+            0.3424035107639489
+          ],
+          [
+            -0.4826154630128744,
+            0.8530218220791479,
+            0.19858521072234792,
+            0.08311372488202809
+          ],
+          [
+            -0.3799693720488388,
+            0.00036578912517318263,
+            -0.9249989959470913,
+            0.1674615702060378
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "T_base_tcp": [
+          [
+            -0.7891169692546726,
+            -0.5218751165318063,
+            0.32394563059135956,
+            0.3731783456701281
+          ],
+          [
+            -0.4826154630128744,
+            0.8530218220791479,
+            0.19858521072234792,
+            0.10197931990065115
+          ],
+          [
+            -0.3799693720488388,
+            0.00036578912517318263,
+            -0.9249989959470913,
+            0.07958666559106413
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "T_W_flange": [
+          [
+            -0.7891169692546726,
+            -0.5218751165318063,
+            0.32394563059135956,
+            0.3424035107639489
+          ],
+          [
+            -0.4826154630128744,
+            0.8530218220791479,
+            0.19858521072234792,
+            0.08311372488202809
+          ],
+          [
+            -0.3799693720488388,
+            0.00036578912517318263,
+            -0.9249989959470913,
+            0.1674615702060378
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "T_W_tcp": [
+          [
+            -0.7891169692546726,
+            -0.5218751165318063,
+            0.32394563059135956,
+            0.3731783456701281
+          ],
+          [
+            -0.4826154630128744,
+            0.8530218220791479,
+            0.19858521072234792,
+            0.10197931990065115
+          ],
+          [
+            -0.3799693720488388,
+            0.00036578912517318263,
+            -0.9249989959470913,
+            0.07958666559106413
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "action_before": {
+      "robot_state": {
+        "step": 2,
+        "timestamp_ns": 366910085057132,
+        "right": {
+          "timestamp_ns": 366910085057132,
+          "joints": [
+            0.20488334826134533,
+            1.7059293396143875,
+            -1.2675771115904761,
+            0.17079724105891236,
+            0.8577405664874528,
+            -0.4312451349750434
+          ],
+          "gripper_width_m": 0.04999999999999999,
+          "gripper": 0.7173601147776182,
+          "eef_pos": [
+            0.34206286783427925,
+            0.08303708768187082,
+            0.24781990959284925
+          ],
+          "eef_quat": [
+            0.18646595854281064,
+            -0.26539470213713606,
+            0.944463211984254,
+            0.05277631656944117
+          ],
+          "T_base_flange": [
+            [
+              -0.789592196764503,
+              -0.520993038563047,
+              0.32420736663044725,
+              0.34206286783427925
+            ],
+            [
+              -0.4816290927331284,
+              0.853560624973806,
+              0.19866473398011397,
+              0.08303708768187082
+            ],
+            [
+              -0.3802335858938154,
+              0.0007164238753748498,
+              -0.9248902134281457,
+              0.24781990959284925
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "T_base_tcp": [
+            [
+              -0.789592196764503,
+              -0.520993038563047,
+              0.32420736663044725,
+              0.37286256766417175
+            ],
+            [
+              -0.4816290927331284,
+              0.853560624973806,
+              0.19866473398011397,
+              0.10191023740998165
+            ],
+            [
+              -0.3802335858938154,
+              0.0007164238753748498,
+              -0.9248902134281457,
+              0.1599553393171754
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "T_W_flange": [
+            [
+              -0.789592196764503,
+              -0.520993038563047,
+              0.32420736663044725,
+              0.34206286783427925
+            ],
+            [
+              -0.4816290927331284,
+              0.853560624973806,
+              0.19866473398011397,
+              0.08303708768187082
+            ],
+            [
+              -0.3802335858938154,
+              0.0007164238753748498,
+              -0.9248902134281457,
+              0.24781990959284925
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "T_W_tcp": [
+            [
+              -0.789592196764503,
+              -0.520993038563047,
+              0.32420736663044725,
+              0.37286256766417175
+            ],
+            [
+              -0.4816290927331284,
+              0.853560624973806,
+              0.19866473398011397,
+              0.10191023740998165
+            ],
+            [
+              -0.3802335858938154,
+              0.0007164238753748498,
+              -0.9248902134281457,
+              0.1599553393171754
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      },
+      "anchors": {
+        "right": {
+          "rear_left_post": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.061
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.177
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.19799999910593033
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "floor": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.2
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.4
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.8020000008940698
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "tabletop": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.2
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.4
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.03450000089406967
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "plate": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.373
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.102
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.011000000894069675
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "lemon": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                0.852525,
+                -0.522687,
+                0.0,
+                0.3725250264928205
+              ],
+              [
+                0.522687,
+                0.852525,
+                0.0,
+                0.10173040654312479
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.12810873772401074
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "left_mounting_plate": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                0.9998195054299763,
+                0.018998856853967315,
+                0.0,
+                -0.0115
+              ],
+              [
+                -0.018998856853967315,
+                0.9998195054299763,
+                0.0,
+                0.004
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.008500000894069677
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "left_checker_card": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                0.9996875162757026,
+                0.02499739591471233,
+                0.0,
+                0.008
+              ],
+              [
+                -0.02499739591471233,
+                0.9996875162757026,
+                0.0,
+                -0.075
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.004600000894069676
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "left_support_bracket": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.015
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.098
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.005000000894069676
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_center_post": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                -0.024
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.334
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.012000000894069676
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_mount_base": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0125
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.681
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                -0.005000000894069676
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_checker_card": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.025
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.596
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.0029999991059303233
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_sensor_bracket": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.055569072164366774
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.6937534972539875
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.07286646864256434
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_sensor_housing": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.01969951474095808
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.6949831000076008
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.15654277738656072
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_sensor_black_cable": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.033840397372841835
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.6358560919761658
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.13736775997281075
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_sensor_pale_cable": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.08714905753731728
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.5821728408336639
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.2817952420115471
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "rear_sensor_thin_cable": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.09057261049747467
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.5453959107398987
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.2348017852306366
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          "known_robot": {
+            "T_W_E": [
+              [
+                -0.7895921967645033,
+                -0.5209930385630471,
+                0.3242073666304473,
+                0.34206286783427925
+              ],
+              [
+                -0.4816290927331285,
+                0.853560624973806,
+                0.19866473398011403,
+                0.08303708768187082
+              ],
+              [
+                -0.38023358589381545,
+                0.0007164238753748359,
+                -0.9248902134281459,
+                0.24781990959284925
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "T_W_object": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          }
+        }
+      },
+      "tool": "move_pose",
+      "kwargs": {
+        "arm": "right",
+        "T_W_tcp": [
+          [
+            -0.7887631083844306,
+            -0.5216574410979116,
+            0.32515576728532575,
+            0.373
+          ],
+          [
+            -0.48224375655927754,
+            0.8531550301638282,
+            0.19891569512171037,
+            0.102
+          ],
+          [
+            -0.38117413095765884,
+            9.302330806021386e-05,
+            -0.9245032575579911,
+            0.08
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "grasp_candidates": {}
+  },
+  "attachments": {
+    "right": {
+      "object_id": "lemon",
+      "T_E_object": [
+        [
+          -0.9248883531400589,
+          0.002108734267937673,
+          -0.3802335858938155,
+          0.012462279174536073
+        ],
+        [
+          0.001985452184721903,
+          0.9999980601531971,
+          0.0007164238753747981,
+          -4.5561233238955445e-07
+        ],
+        [
+          0.3802343590464859,
+          -9.232350557189517e-05,
+          -0.9248902134281459,
+          0.12430945075884452
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "provisional_payload_for_collision",
+      "initialization": "current_pose",
+      "confirmation": {
+        "object_id": "lemon",
+        "status": "unconfirmed",
+        "reason": "Motion prediction since last observation"
+      }
+    }
+  },
+  "observation_pairs": {},
+  "relations": {},
+  "grasp_review": {
+    "right": {
+      "object_id": "lemon",
+      "status": "unconfirmed",
+      "reason": "Motion prediction since last observation"
+    }
+  }
+}

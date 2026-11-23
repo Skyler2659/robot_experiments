@@ -1,0 +1,74 @@
+{
+  "id": "6c21279661bd43249b3d3ba307766d7a",
+  "command": {
+    "kind": "grip",
+    "gripper_width_m": 0.0,
+    "arm": "right"
+  },
+  "check": {
+    "status": "CLEAR",
+    "hits": [],
+    "samples_checked": 19,
+    "geometry_accuracy_verified": false,
+    "state_revision": 3,
+    "phase": "planned_hardware_path",
+    "expected_contacts": [
+      {
+        "first": "right/link7",
+        "second": "lemon"
+      },
+      {
+        "first": "right/link8",
+        "second": "lemon"
+      }
+    ],
+    "initial_contacts_to_escape": [],
+    "unchanged_initial_contacts": [],
+    "invalidated_contact_intents": [],
+    "coverage": "sampled_URDF_and_reconstructed_meshes",
+    "max_joint_increment_rad": 0.025,
+    "max_finger_increment_m": 0.002,
+    "visual_fallback_links": [],
+    "unresolved_objects": []
+  },
+  "measured_start": {
+    "right": {
+      "joints_rad": [
+        0.8016346943350875,
+        2.0168079085308395,
+        -1.236581804067772,
+        -0.19795087666330952,
+        0.5062450481074459,
+        0.4069029047290436
+      ],
+      "width_m": 0.0693
+    }
+  },
+  "waypoints": [
+    {
+      "joints_rad": [
+        0.8016346943350875,
+        2.0168079085308395,
+        -1.236581804067772,
+        -0.19795087666330952,
+        0.5062450481074459,
+        0.4069029047290436
+      ],
+      "width_m": 0.0,
+      "other_arms": {},
+      "measured_start": {
+        "right": {
+          "joints_rad": [
+            0.8016346943350875,
+            2.0168079085308395,
+            -1.236581804067772,
+            -0.19795087666330952,
+            0.5062450481074459,
+            0.4069029047290436
+          ],
+          "width_m": 0.0693
+        }
+      }
+    }
+  ]
+}

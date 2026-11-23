@@ -1,0 +1,23 @@
+import * as THREE from 'three';
+import {build as buildLeftFixture,objectSpecs as leftSpecs} from '../left_fixture/component.js';
+import {build as buildRearFixture,objectSpecs as rearSpecs} from '../rear_fixture/component.js';
+export const objectSpecs={
+ ...leftSpecs,...rearSpecs,
+ rear_left_post:{movable:false,role:'fixed_obstacle',dimensions_m:[.040,.050,.42],position_W_m:[-.061,.177,.21],rotation_XYZ_rad:[0,0,0],unknowns:['Simple dark upright visible behind left mount; hidden depth, upper endpoint, section and attachment are estimated.']},
+ floor:{movable:false,dimensions_m:[6,6,.06],position_W_m:[.2,.4,-.79],rotation_XYZ_rad:[0,0,0],unknowns:['Visible left background interpreted as floor; height, extent, underside and finish are estimates.']},
+ tabletop:{movable:false,dimensions_m:[1.3,1.2,.76],position_W_m:[.20,.40,-.0225],rotation_XYZ_rad:[0,0,0],unknowns:['Table boundary and thickness estimated from single RGB; top assumed at W z=0; hidden legs and frame estimated to complete table.']},
+ plate:{movable:true,dimensions_m:[.202,.202,.022],position_W_m:[.373,.102,.001],rotation_XYZ_rad:[0,0,0],unknowns:['Diameter, glaze, underside and profile estimated from single RGB.']},
+ lemon:{movable:true,dimensions_m:[.072,.052,.052],position_W_m:[.313,.298,.026],rotation_XYZ_rad:[0,0,.55],unknowns:['Size, depth, underside, and peel geometry estimated from single RGB.']}
+};
+function root(id){const g=new THREE.Group();g.name=id;g.userData={object_id:id,geometry_origin:'single_rgb_rcwm'};const s=objectSpecs[id];g.position.fromArray(s.position_W_m);g.rotation.fromArray(s.rotation_XYZ_rad);return g;}
+function noiseTexture(base,variation,size=256){const c=document.createElement('canvas');c.width=c.height=size;const ctx=c.getContext('2d');const im=ctx.createImageData(size,size);let seed=351;for(let i=0;i<size*size;i++){seed=(1664525*seed+1013904223)>>>0;const n=(seed/4294967296-.5)*variation;for(let j=0;j<3;j++)im.data[i*4+j]=base[j]+n;im.data[i*4+3]=255;}ctx.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.colorSpace=THREE.SRGBColorSpace;return t;}
+export function build(){const g=new THREE.Group();
+const upright=root('rear_left_post');const up=new THREE.Mesh(new THREE.BoxGeometry(.04,.05,.42),new THREE.MeshStandardMaterial({color:0x0a1210,roughness:.92}));up.castShadow=up.receiveShadow=true;upright.add(up);g.add(upright);
+const floor=root('floor');const ft=noiseTexture([51,72,56],14);ft.repeat.set(18,18);const fm=new THREE.Mesh(new THREE.BoxGeometry(6,6,.06),new THREE.MeshStandardMaterial({map:ft,roughness:1}));fm.receiveShadow=true;floor.add(fm);g.add(floor);
+const t=root('tabletop');const texture=noiseTexture([9,21,14],12);texture.repeat.set(5,5);const table=new THREE.Mesh(new THREE.BoxGeometry(1.3,1.2,.045),new THREE.MeshStandardMaterial({map:texture,roughness:.88}));table.castShadow=table.receiveShadow=true;t.add(table);
+const frameMat=new THREE.MeshStandardMaterial({color:0x101614,roughness:.7,metalness:.35});
+for(const x of [-.55,.55])for(const y of [-.49,.49]){const leg=new THREE.Mesh(new THREE.BoxGeometry(.045,.045,.715),frameMat);leg.position.set(x,y,-.38);leg.castShadow=leg.receiveShadow=true;t.add(leg);}
+for(const y of [-.49,.49]){const rail=new THREE.Mesh(new THREE.BoxGeometry(1.1,.035,.075),frameMat);rail.position.set(0,y,-.060);t.add(rail);}
+for(const x of [-.55,.55]){const rail=new THREE.Mesh(new THREE.BoxGeometry(.035,.98,.075),frameMat);rail.position.set(x,0,-.060);t.add(rail);}g.add(t);
+const p=root('plate');const profile=[[0,.004],[.060,.004],[.078,.005],[.089,.009],[.093,.013],[.094,.0142],[.095,.014],[.098,.017],[.099,.0183],[.100,.018],[.103,.0204],[.106,.022],[.108,.021],[.108,.019],[.102,.016],[.092,.005],[.081,.001],[.072,0],[0,0]];const pg=new THREE.LatheGeometry(profile.reverse().map(([r,h])=>new THREE.Vector2(r*.935,h)),128);pg.rotateX(Math.PI/2);const glaze=noiseTexture([202,207,195],6);const pm=new THREE.Mesh(pg,new THREE.MeshStandardMaterial({map:glaze,roughness:.23,metalness:0}));pm.castShadow=pm.receiveShadow=true;p.add(pm);g.add(p);
+const l=root('lemon');const geom=new THREE.SphereGeometry(1,80,48);const a=geom.attributes.position;for(let i=0;i<a.count;i++){const x=a.getX(i),y=a.getY(i),z=a.getZ(i);const f=1+.003*Math.sin(y*45+x*31)*Math.sin(z*37-y*17);let xx=x*.0315;xx+=Math.sign(x)*.0045*Math.pow(Math.abs(x),40);a.setXYZ(i,xx*f,y*.026*f,z*.026*f);}geom.computeVertexNormals();const lt=noiseTexture([235,230,60],20);const lm=new THREE.Mesh(geom,new THREE.MeshStandardMaterial({map:lt,roughness:.72}));lm.castShadow=lm.receiveShadow=true;l.add(lm);g.add(l);g.add(buildLeftFixture());g.add(buildRearFixture());Object.assign(objectSpecs,leftSpecs,rearSpecs);return g;}

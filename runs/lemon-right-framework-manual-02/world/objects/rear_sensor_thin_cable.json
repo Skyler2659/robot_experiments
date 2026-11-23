@@ -1,0 +1,190 @@
+{
+  "object_id": "rear_sensor_thin_cable",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/rear_sensor_thin_cable/local.glb",
+    "local_bounds_m": [
+      [
+        -0.052561938762664795,
+        -0.028955459594726562,
+        -0.15384835749864578
+      ],
+      [
+        0.052561938762664795,
+        0.028955459594726562,
+        0.15384835749864578
+      ]
+    ],
+    "vertices": 1261,
+    "faces": 2304
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.09057261049747467
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.5453959107398987
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.24680178612470627
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/3/4",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.09057261049747467,
+      0.5453959107398987,
+      0.24680178612470627,
+      1
+    ],
+    "user_data": {
+      "object_id": "rear_sensor_thin_cable",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/3/4",
+      "name": "rear_sensor_thin_cable",
+      "type": "Group",
+      "object_id": "rear_sensor_thin_cable",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.09057261049747467,
+        0.5453959107398987,
+        0.24680178612470627,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.09057261049747467,
+        0.5453959107398987,
+        0.24680178612470627,
+        1
+      ],
+      "user_data": {
+        "object_id": "rear_sensor_thin_cable",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/3/4/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_sensor_thin_cable",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.09057261049747467,
+        -0.5453959107398987,
+        -0.24680178612470627,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "user_data": {},
+      "vertices": 1261
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.10512387752532959,
+      0.057910919189453125,
+      0.30769671499729156
+    ],
+    "position_W_m": [
+      0.09057261049747467,
+      0.5453959107398987,
+      0.24680178612470627
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

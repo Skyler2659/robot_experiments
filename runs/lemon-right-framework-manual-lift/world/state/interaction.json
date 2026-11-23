@@ -1,0 +1,65 @@
+{
+  "mode": "mandatory",
+  "action_count": 3,
+  "updated_count": 2,
+  "read_at": null,
+  "pending_update": {
+    "action": 3,
+    "phase": "awaiting_update",
+    "record": {
+      "index": 36,
+      "tool": "move_pose",
+      "kwargs": {
+        "arm": "right",
+        "T_W_tcp": [
+          [
+            -0.7887631083844306,
+            -0.5216574410979116,
+            0.32515576728532575,
+            0.373
+          ],
+          [
+            -0.48224375655927754,
+            0.8531550301638282,
+            0.19891569512171037,
+            0.102
+          ],
+          [
+            -0.38117413095765884,
+            9.302330806021386e-05,
+            -0.9245032575579911,
+            0.08
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "started_at": 1795434985.9200199,
+      "elapsed_s": 9.352158726018388,
+      "ok": true,
+      "stateful": true,
+      "env_steps": 1,
+      "error": null,
+      "summary": {
+        "status": "completed",
+        "message": "Measured motor feedback reached the target",
+        "reached": true,
+        "blocked": false
+      }
+    },
+    "codeworld_read": {
+      "revision": 5,
+      "host_step": 2
+    },
+    "after_action_ns": 1795434995272553412,
+    "capture": "observations/463df9ba20e54f62b1bd7d9f81815053/capture.json",
+    "capture_error": null,
+    "focus_objects": [
+      "lemon"
+    ]
+  }
+}

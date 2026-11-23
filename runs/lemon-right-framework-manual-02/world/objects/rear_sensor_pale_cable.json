@@ -1,0 +1,234 @@
+{
+  "object_id": "rear_sensor_pale_cable",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/rear_sensor_pale_cable/local.glb",
+    "local_bounds_m": [
+      [
+        -0.058903034776449203,
+        -0.07623222470283508,
+        -0.10751350224018097
+      ],
+      [
+        0.058903034776449203,
+        0.07623222470283508,
+        0.10751350224018097
+      ]
+    ],
+    "vertices": 2522,
+    "faces": 4608
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.08714905753731728
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.5821728408336639
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.29379524290561676
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/3/3",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.08714905753731728,
+      0.5821728408336639,
+      0.29379524290561676,
+      1
+    ],
+    "user_data": {
+      "object_id": "rear_sensor_pale_cable",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/3/3",
+      "name": "rear_sensor_pale_cable",
+      "type": "Group",
+      "object_id": "rear_sensor_pale_cable",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.08714905753731728,
+        0.5821728408336639,
+        0.29379524290561676,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.08714905753731728,
+        0.5821728408336639,
+        0.29379524290561676,
+        1
+      ],
+      "user_data": {
+        "object_id": "rear_sensor_pale_cable",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/3/3/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_sensor_pale_cable",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.08714905753731728,
+        -0.5821728408336639,
+        -0.29379524290561676,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "user_data": {},
+      "vertices": 1261
+    },
+    {
+      "path": "scene/0/6/3/3/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_sensor_pale_cable",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.08714905753731728,
+        -0.5821728408336639,
+        -0.29379524290561676,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "user_data": {},
+      "vertices": 1261
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.11780606955289841,
+      0.15246444940567017,
+      0.21502700448036194
+    ],
+    "position_W_m": [
+      0.08714905753731728,
+      0.5821728408336639,
+      0.29379524290561676
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20845-8b8f-7210-ac21-84aa0ff6717c",
+  "turnId": "01a20845-8bad-72d2-ad39-239769560912",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\ncurrent_image = robo.image(\"top\")\ndisplay(current_image[650:990, 350:700])\nlemon_record = next(obj for obj in ctx[\"objects\"] if obj[\"object_id\"] == \"lemon\")\nrelease_pose = np.array(lemon_record[\"T_W_object\"], dtype=float)\nlemon_crop = current_image[700:900, 450:650].astype(float)\nyellow_mask = (lemon_crop[:, :, 0] > 70) & (lemon_crop[:, :, 1] > 70) & (lemon_crop[:, :, 2] < 0.65 * np.minimum(lemon_crop[:, :, 0], lemon_crop[:, :, 1]))\nyellow_rows, yellow_cols = np.nonzero(yellow_mask)\nassert len(yellow_rows) > 100\npixel_center = np.array([float(np.mean(yellow_cols)) + 450, float(np.mean(yellow_rows)) + 700, 1.0])\nview = ctx[\"post_action_observation\"][\"views\"][0]\ncamera_pose = np.array(view[\"T_W_C\"])\nray_world = camera_pose[:3, :3] @ np.linalg.solve(np.array(view[\"K\"]), pixel_center)\nrelease_pose[:3, 3] = camera_pose[:3, 3] + ((0.025 - camera_pose[2, 3]) / ray_world[2]) * ray_world\nprint(\"release_center_estimate_m:\", release_pose[:3, 3].round(4).tolist())\nresult = world.commit_step(ctx[\"interaction\"][\"pending_update\"][\"capture\"], expected_revision=ctx[\"revision\"], note=\"Top RGB and paired geometry reviewed after in-place right jaw opening. Lemon visibly dropped below the open fingers and rests inside the plate near its center; plate has no visible displacement. Measured jaw width is 0.069 m. Release position is a calibrated RGB estimate assuming center z=0.025 m, not a depth measurement; orientation is retained as an uncertain prior and the partly occluded upper surface/underside are unresolved. No arm translation was commanded.\", poses={\"lemon\": release_pose.tolist()}, held={\"right\": None}, relations={\"lemon\": {\"inside\": \"plate\", \"supported_by\": \"plate\"}})\nprint(\"commit_result:\", result)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\ncurrent_image = robo.image(\"top\")\ndisplay(current_image[650:990, 350:700])\nlemon_record = next(obj for obj in ctx[\"objects\"] if obj[\"object_id\"] == \"lemon\")\nrelease_pose = np.array(lemon_record[\"T_W_object\"], dtype=float)\nlemon_crop = current_image[700:900, 450:650].astype(float)\nyellow_mask = (lemon_crop[:, :, 0] > 70) & (lemon_crop[:, :, 1] > 70) & (lemon_crop[:, :, 2] < 0.65 * np.minimum(lemon_crop[:, :, 0], lemon_crop[:, :, 1]))\nyellow_rows, yellow_cols = np.nonzero(yellow_mask)\nassert len(yellow_rows) > 100\npixel_center = np.array([float(np.mean(yellow_cols)) + 450, float(np.mean(yellow_rows)) + 700, 1.0])\nview = ctx[\"post_action_observation\"][\"views\"][0]\ncamera_pose = np.array(view[\"T_W_C\"])\nray_world = camera_pose[:3, :3] @ np.linalg.solve(np.array(view[\"K\"]), pixel_center)\nrelease_pose[:3, 3] = camera_pose[:3, 3] + ((0.025 - camera_pose[2, 3]) / ray_world[2]) * ray_world\nprint(\"release_center_estimate_m:\", release_pose[:3, 3].round(4).tolist())\nresult = world.commit_step(ctx[\"interaction\"][\"pending_update\"][\"capture\"], expected_revision=ctx[\"revision\"], note=\"Top RGB and paired geometry reviewed after in-place right jaw opening. Lemon visibly dropped below the open fingers and rests inside the plate near its center; plate has no visible displacement. Measured jaw width is 0.069 m. Release position is a calibrated RGB estimate assuming center z=0.025 m, not a depth measurement; orientation is retained as an uncertain prior and the partly occluded upper surface/underside are unresolved. No arm translation was commanded.\", poses={\"lemon\": release_pose.tolist()}, held={\"right\": None}, relations={\"lemon\": {\"inside\": \"plate\", \"supported_by\": \"plate\"}})\nprint(\"commit_result:\", result)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "brief.md": "8a8aaa1bc637f77602278849b6f2680a91d87cf76ff966c3d7dd57c24ed3d681",
+    "target.png": "f8cb176d755fc1126c47345335fa94d7a88a0d18841319a1b666a901c48e920b",
+    "view.json": "d2f430d2e12226d1a7d0771c408b79da09bdebd9dc5330eb60380b98006a6a14",
+    "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+    "refinement": null
+  },
+  "files": {
+    "part.json": "9895b82970b773bc5c851e056d32f036c2daa69e8a8daa4491e1f176ba4d89d1",
+    "target.png": "f8cb176d755fc1126c47345335fa94d7a88a0d18841319a1b666a901c48e920b",
+    "component.js": "b39f28eeffb60c40b8dd5f963a8428b11dd7fc92f3377b35a9225e3c0483b448",
+    "render.mjs": "ad6a1f6b5ee26f15e0dec4b2186267dca097789369595116f50353549defe2da"
+  },
+  "children": {
+    "rear_sensor_mount": {
+      "inputs": {
+        "brief.md": "aa1bbca09969d744764c06f08d82ca48bc6345592c5105e817fc8e954b5e630d",
+        "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+        "view.json": "1d58dbf077956fd92bc6e378f72190c8cfac255e114c3c1a8c245a7d2557749d",
+        "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+        "refinement": null
+      },
+      "files": {
+        "part.json": "300dd3d7ba871936ceeeb58454cb993af013a43bc5b5f5351cc847ccb5f586ce",
+        "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+        "component.js": "ed713806d78b4c013ecb315a97f0276d854873169860743bf8b46515db054a38",
+        "render.mjs": "61a7c8065c771903203c942c5306f1a344aade9e5e816acf7a836eedc7f7c8c3"
+      },
+      "children": {}
+    }
+  }
+}

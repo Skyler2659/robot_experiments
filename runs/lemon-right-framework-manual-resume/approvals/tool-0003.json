@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20839-29c3-7d30-9a6e-8e85b2e0a72d",
+  "turnId": "01a20839-29e1-7d41-aec9-5b1e396252a5",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\ntcp_start = np.array(robo.state()['right']['T_W_tcp'])\napproach_xyz = tcp_start[:3, 3].copy()\napproach_xyz[2] = 0.046\nlemon_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'lemon'))\nplate_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'plate'))\nprint('lemon_bounds', world.bounds('lemon'))\nprint('plate_bounds', world.bounds('plate'))\nprint(robo.move_to(approach_xyz.tolist(), arm='right'))\nrobo.show('top')"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\ntcp_start = np.array(robo.state()['right']['T_W_tcp'])\napproach_xyz = tcp_start[:3, 3].copy()\napproach_xyz[2] = 0.046\nlemon_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'lemon'))\nplate_pose_initial = np.array(next(obj['T_W_object'] for obj in ctx['objects'] if obj['object_id'] == 'plate'))\nprint('lemon_bounds', world.bounds('lemon'))\nprint('plate_bounds', world.bounds('plate'))\nprint(robo.move_to(approach_xyz.tolist(), arm='right'))\nrobo.show('top')",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

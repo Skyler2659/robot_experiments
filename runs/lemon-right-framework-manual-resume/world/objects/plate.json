@@ -1,0 +1,189 @@
+{
+  "object_id": "plate",
+  "movable": true,
+  "role": "rigid_object",
+  "geometry": {
+    "local_mesh": "geometry/plate/local.glb",
+    "local_bounds_m": [
+      [
+        -0.1009799987077713,
+        -0.1009799987077713,
+        -4.122161111248795e-18
+      ],
+      [
+        0.1009799987077713,
+        0.1009799987077713,
+        0.02199999988079071
+      ]
+    ],
+    "vertices": 2451,
+    "faces": 4608
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.373
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.102
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.001
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/3",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.373,
+      0.102,
+      0.001,
+      1
+    ],
+    "user_data": {
+      "object_id": "plate",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/3",
+      "name": "plate",
+      "type": "Group",
+      "object_id": "plate",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.373,
+        0.102,
+        0.001,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.373,
+        0.102,
+        0.001,
+        1
+      ],
+      "user_data": {
+        "object_id": "plate",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/3/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "plate",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.373,
+        0.102,
+        0.001,
+        1
+      ],
+      "user_data": {},
+      "vertices": 2451
+    }
+  ],
+  "declared": {
+    "movable": true,
+    "dimensions_m": [
+      0.202,
+      0.202,
+      0.022
+    ],
+    "position_W_m": [
+      0.373,
+      0.102,
+      0.001
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Diameter, glaze, underside and profile estimated from single RGB."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\ncommit1 = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB confirms lemon lifted together with fingers and remains held; plate stationary. Translation estimated from actual TCP lift and RGB; orientation unresolved.', poses={'lemon': {'T_W_object': lemon_lifted.tolist(), 'translation_observed_axes': [True, True, True], 'orientation_observed_axes': [False, False, False]}}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact orientation partly hidden; original rotation is only a prior.'})\nctx = world.read_context()\nassert ctx['interaction']['pending_update'] is None\nworld.expect_contacts(grasp={'right': 'lemon'})\ntransfer_receipt = robo.move_to([0.373, 0.102, 0.160], rotation=start_tcp[:3, :3].tolist(), arm='right')\nrobo.show('top')\nstate2 = robo.state()\nlog({'tcp_xyz': find_tcp(state2)[:3, 3].tolist(), 'jaw_m': state2['right']['gripper_width_m'], 'receipt': transfer_receipt})"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\ncommit1 = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB confirms lemon lifted together with fingers and remains held; plate stationary. Translation estimated from actual TCP lift and RGB; orientation unresolved.', poses={'lemon': {'T_W_object': lemon_lifted.tolist(), 'translation_observed_axes': [True, True, True], 'orientation_observed_axes': [False, False, False]}}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact orientation partly hidden; original rotation is only a prior.'})\nctx = world.read_context()\nassert ctx['interaction']['pending_update'] is None\nworld.expect_contacts(grasp={'right': 'lemon'})\ntransfer_receipt = robo.move_to([0.373, 0.102, 0.160], rotation=start_tcp[:3, :3].tolist(), arm='right')\nrobo.show('top')\nstate2 = robo.state()\nlog({'tcp_xyz': find_tcp(state2)[:3, 3].tolist(), 'jaw_m': state2['right']['gripper_width_m'], 'receipt': transfer_receipt})",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

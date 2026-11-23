@@ -1,0 +1,9 @@
+{
+  "pid": 3279172,
+  "start": 36707144,
+  "control": "/data/jlb/robot_experiments/runs/lemon-right-framework-manual-release/resource_guard/control.json",
+  "receipt": "/data/jlb/robot_experiments/runs/lemon-right-framework-manual-release/resource_guard/interruption.json",
+  "host_memory_bytes": 8589934592,
+  "tree_memory_bytes": 21474836480,
+  "tool_timeout_s": 240.0
+}

@@ -1,0 +1,41 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop.",
+    "tool_params": {
+      "status": "stuck",
+      "summary": "已确认右臂夹持柠檬抬升并移至盘中心上方，最后确认 TCP 约为 (0.373, 0.102, 0.080) m。张爪调用发生通信错误，随后状态复核被拒绝，无法确认是否已释放或柠檬是否留在盘内；不再发送动作。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "stuck",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "已确认右臂夹持柠檬抬升并移至盘中心上方，最后确认 TCP 约为 (0.373, 0.102, 0.080) m。张爪调用发生通信错误，随后状态复核被拒绝，无法确认是否已释放或柠檬是否留在盘内；不再发送动作。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

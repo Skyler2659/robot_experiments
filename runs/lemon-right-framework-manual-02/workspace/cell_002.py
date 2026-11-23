@@ -1,0 +1,7 @@
+snap = world.snapshot()
+state_now = robo.state()
+print('snapshot_type', type(snap), 'snapshot_keys', list(snap) if isinstance(snap, dict) else '')
+print('state', state_now)
+print('target_help', world.target.__doc__)
+print('commit_help', world.commit_step.__doc__)
+robo.show('top')

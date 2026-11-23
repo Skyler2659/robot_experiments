@@ -1,0 +1,67 @@
+{
+  "inputs": {
+    "brief.md": "fe39736c95539346e6bef8de1024b1d9e4bc2815a4b48d52065b0da51b255ad1",
+    "target.png": "0c4607526465bd78d14fe6ea147d861f8b3bf958856cc349880970a36bc40331",
+    "view.json": "209754663f5b7cd8e1d979af23da988b80d0c5ffbd5ec7e17843908de747c93c",
+    "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+    "refinement": null
+  },
+  "files": {
+    "part.json": "66dd85a72f33f403e086006131a30adbc59f20c04df7eb3d4a92b09277841de5",
+    "target.png": "0c4607526465bd78d14fe6ea147d861f8b3bf958856cc349880970a36bc40331",
+    "parameters.json": "b5acd036c3947e5f9961b0aa23b323f6c505add913c47c9dc2b93b9b884ca62e",
+    "component.js": "718dcd07114a1e7d2dd3d48a3187544026a320dc316e42b3b7b5d386442cd888",
+    "review_views.mjs": "9f8576678623126811cd7a23db9462eed554fd2e2bd1715de5508c5d181084a1"
+  },
+  "children": {
+    "left_fixture": {
+      "inputs": {
+        "brief.md": "8e23307a208e951419a335e9d82bf2b84c2d41df3b3b71796bd162da53aef8be",
+        "target.png": "efe747d60bb1184ad744271a3115e2563c38eb7f997b49d0d7b091ba6181d0dd",
+        "view.json": "94a51e9580fcf660048b0710c0134eb56c6b4815bd2a867b4b4c8d1260c499f8",
+        "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+        "refinement": null
+      },
+      "files": {
+        "part.json": "39dcb9306f2b7bc4ae79047d8c400713277ecb7a631a8a9c349c0ef5ef2e8596",
+        "target.png": "efe747d60bb1184ad744271a3115e2563c38eb7f997b49d0d7b091ba6181d0dd",
+        "component.js": "23941e8c528ff2124c677b668860e6b1d687e2ecee259fbc34d31fc0caaf0ddd",
+        "review.mjs": "2dc6ec11f64791e2c055c304afbe5fa7a6a8cacdfa559aadb84b8282d011353b"
+      },
+      "children": {}
+    },
+    "rear_fixture": {
+      "inputs": {
+        "brief.md": "8a8aaa1bc637f77602278849b6f2680a91d87cf76ff966c3d7dd57c24ed3d681",
+        "target.png": "f8cb176d755fc1126c47345335fa94d7a88a0d18841319a1b666a901c48e920b",
+        "view.json": "d2f430d2e12226d1a7d0771c408b79da09bdebd9dc5330eb60380b98006a6a14",
+        "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+        "refinement": null
+      },
+      "files": {
+        "part.json": "9895b82970b773bc5c851e056d32f036c2daa69e8a8daa4491e1f176ba4d89d1",
+        "target.png": "f8cb176d755fc1126c47345335fa94d7a88a0d18841319a1b666a901c48e920b",
+        "component.js": "b39f28eeffb60c40b8dd5f963a8428b11dd7fc92f3377b35a9225e3c0483b448",
+        "render.mjs": "ad6a1f6b5ee26f15e0dec4b2186267dca097789369595116f50353549defe2da"
+      },
+      "children": {
+        "rear_sensor_mount": {
+          "inputs": {
+            "brief.md": "aa1bbca09969d744764c06f08d82ca48bc6345592c5105e817fc8e954b5e630d",
+            "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+            "view.json": "1d58dbf077956fd92bc6e378f72190c8cfac255e114c3c1a8c245a7d2557749d",
+            "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+            "refinement": null
+          },
+          "files": {
+            "part.json": "300dd3d7ba871936ceeeb58454cb993af013a43bc5b5f5351cc847ccb5f586ce",
+            "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+            "component.js": "ed713806d78b4c013ecb315a97f0276d854873169860743bf8b46515db054a38",
+            "render.mjs": "61a7c8065c771903203c942c5306f1a344aade9e5e816acf7a836eedc7f7c8c3"
+          },
+          "children": {}
+        }
+      }
+    }
+  }
+}

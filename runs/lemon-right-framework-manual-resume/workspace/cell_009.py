@@ -1,0 +1,10 @@
+ctx = world.read_context()
+for proposal in pose_reviews.values():
+    proposal['orientation_observed_axes'] = proposal.pop('rotation_observed_axes')
+result = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Paired top RGB/geometry after descent: no visible displacement of lemon or plate; lemon between open fingers. Height and hidden orientation retained from prior, not newly measured.', poses=pose_reviews, held={}, relations={})
+print('commit', result)
+ctx = world.read_context()
+print('contacts', world.expect_contacts(grasp={'right': 'lemon'}))
+ctx = world.read_context()
+print('close', robo.set_gripper(0.0, arm='right'))
+robo.show('top')

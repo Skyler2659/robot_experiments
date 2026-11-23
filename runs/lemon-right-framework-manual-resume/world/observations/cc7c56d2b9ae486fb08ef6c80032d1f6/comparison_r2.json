@@ -1,0 +1,30 @@
+{
+  "revision": 2,
+  "capture": "observations/cc7c56d2b9ae486fb08ef6c80032d1f6/capture.json",
+  "files": [
+    "observations/cc7c56d2b9ae486fb08ef6c80032d1f6/comparison_r2_0.png"
+  ],
+  "cameras": [
+    "top"
+  ],
+  "objects": [
+    "rear_left_post",
+    "floor",
+    "tabletop",
+    "plate",
+    "lemon",
+    "left_mounting_plate",
+    "left_checker_card",
+    "left_support_bracket",
+    "rear_center_post",
+    "rear_mount_base",
+    "rear_checker_card",
+    "rear_sensor_bracket",
+    "rear_sensor_housing",
+    "rear_sensor_black_cable",
+    "rear_sensor_pale_cable",
+    "rear_sensor_thin_cable"
+  ],
+  "camera_match": "recorded_K_and_T_W_C",
+  "interpretation": "Compare object pose/shape; ignore lighting and real-robot occlusion."
+}

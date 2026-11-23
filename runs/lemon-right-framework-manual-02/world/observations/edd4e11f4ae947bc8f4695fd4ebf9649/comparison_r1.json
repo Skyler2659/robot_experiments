@@ -1,0 +1,16 @@
+{
+  "revision": 1,
+  "capture": "observations/edd4e11f4ae947bc8f4695fd4ebf9649/capture.json",
+  "files": [
+    "observations/edd4e11f4ae947bc8f4695fd4ebf9649/comparison_r1_0.png"
+  ],
+  "cameras": [
+    "top"
+  ],
+  "objects": [
+    "lemon",
+    "plate"
+  ],
+  "camera_match": "recorded_K_and_T_W_C",
+  "interpretation": "Compare object pose/shape; ignore lighting and real-robot occlusion."
+}

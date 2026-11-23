@@ -1,0 +1,112 @@
+{
+  "rear_sensor_bracket": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.08113814277901278,
+      0.15509790255420364,
+      0.1697329386560355
+    ],
+    "position_W_m": [
+      0.055569072164366774,
+      0.6937534972539875,
+      0.08486646953663401
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "rear_sensor_housing": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.04972573661149472,
+      0.105499998550862,
+      0.04422755757110425
+    ],
+    "position_W_m": [
+      0.01969951474095808,
+      0.6949831000076008,
+      0.16854277828063038
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "rear_sensor_black_cable": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.009758148342370987,
+      0.033972978591918945,
+      0.06661508232355118
+    ],
+    "position_W_m": [
+      0.033840397372841835,
+      0.6358560919761658,
+      0.14936776086688042
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "rear_sensor_pale_cable": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.11780606955289841,
+      0.15246444940567017,
+      0.21502700448036194
+    ],
+    "position_W_m": [
+      0.08714905753731728,
+      0.5821728408336639,
+      0.29379524290561676
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  },
+  "rear_sensor_thin_cable": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.10512387752532959,
+      0.057910919189453125,
+      0.30769671499729156
+    ],
+    "position_W_m": [
+      0.09057261049747467,
+      0.5453959107398987,
+      0.24680178612470627
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Estimated from assigned single RGB: metric depth, hidden faces, section thickness and exact attachments are not measured."
+    ]
+  }
+}

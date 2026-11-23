@@ -1,0 +1,189 @@
+{
+  "object_id": "lemon",
+  "movable": true,
+  "role": "rigid_object",
+  "geometry": {
+    "local_mesh": "geometry/lemon/local.glb",
+    "local_bounds_m": [
+      [
+        -0.035999998450279236,
+        -0.026063809171319008,
+        -0.026000000536441803
+      ],
+      [
+        0.035999998450279236,
+        0.026063809171319008,
+        0.026000000536441803
+      ]
+    ],
+    "vertices": 3969,
+    "faces": 7520
+  },
+  "initial_T_W_object": [
+    [
+      0.8525245220595057,
+      -0.5226872289306592,
+      0.0,
+      0.313
+    ],
+    [
+      0.5226872289306592,
+      0.8525245220595057,
+      0.0,
+      0.298
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.026
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/4",
+    "matrix_world_column_major": [
+      0.8525245220595057,
+      0.5226872289306592,
+      0,
+      0,
+      -0.5226872289306592,
+      0.8525245220595057,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.313,
+      0.298,
+      0.026,
+      1
+    ],
+    "user_data": {
+      "object_id": "lemon",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/4",
+      "name": "lemon",
+      "type": "Group",
+      "object_id": "lemon",
+      "matrix_local_column_major": [
+        0.8525245220595057,
+        0.5226872289306592,
+        0,
+        0,
+        -0.5226872289306592,
+        0.8525245220595057,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.313,
+        0.298,
+        0.026,
+        1
+      ],
+      "matrix_world_column_major": [
+        0.8525245220595057,
+        0.5226872289306592,
+        0,
+        0,
+        -0.5226872289306592,
+        0.8525245220595057,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.313,
+        0.298,
+        0.026,
+        1
+      ],
+      "user_data": {
+        "object_id": "lemon",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/4/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "lemon",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        0.8525245220595057,
+        0.5226872289306592,
+        0,
+        0,
+        -0.5226872289306592,
+        0.8525245220595057,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.313,
+        0.298,
+        0.026,
+        1
+      ],
+      "user_data": {},
+      "vertices": 3969
+    }
+  ],
+  "declared": {
+    "movable": true,
+    "dimensions_m": [
+      0.072,
+      0.052,
+      0.052
+    ],
+    "position_W_m": [
+      0.313,
+      0.298,
+      0.026
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0.55
+    ],
+    "unknowns": [
+      "Size, depth, underside, and peel geometry estimated from single RGB."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

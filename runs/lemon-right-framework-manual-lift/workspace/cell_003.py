@@ -1,0 +1,10 @@
+ctx = world.read_context()
+log({'start_tcp_xyz': start_tcp[:3, 3].tolist(), 'lift_tcp_xyz': lift_tcp[:3, 3].tolist(), 'jaw_m': state1['right']['gripper_width_m']})
+commit1 = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB confirms lemon rose together with the right fingers and remains held. Plate did not visibly move. Translation estimated from measured TCP lift; partly hidden orientation unresolved.', poses={'lemon': {'T_W_object': lemon_lifted.tolist()}}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact partly occluded orientation; translation estimate follows the observed TCP lift.'})
+ctx = world.read_context()
+assert ctx['interaction']['pending_update'] is None
+world.expect_contacts(grasp={'right': 'lemon'})
+transfer_receipt = robo.move_to([0.373, 0.102, 0.160], rotation=start_tcp[:3, :3].tolist(), arm='right')
+robo.show('top')
+state2 = robo.state()
+log({'transfer_receipt': transfer_receipt, 'tcp_xyz': find_tcp(state2)[:3, 3].tolist(), 'jaw_m': state2['right']['gripper_width_m']})

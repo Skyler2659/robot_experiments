@@ -1,0 +1,41 @@
+{
+  "threadId": "01a20829-e041-7710-b216-de5d85187fb6",
+  "turnId": "01a20829-e05b-7a92-bc01-87f9cc579174",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop.",
+    "tool_params": {
+      "status": "stuck",
+      "summary": "已核对顶视图与重建场景，并仅操作右臂；下探因指尖可能碰桌被安全检查拦截。随后抓取请求及只读复核均发生通信故障，最后一次夹爪动作是否执行无法确认，未能将柠檬放入盘内，停止进一步控制。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "stuck",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "已核对顶视图与重建场景，并仅操作右臂；下探因指尖可能碰桌被安全检查拦截。随后抓取请求及只读复核均发生通信故障，最后一次夹爪动作是否执行无法确认，未能将柠檬放入盘内，停止进一步控制。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

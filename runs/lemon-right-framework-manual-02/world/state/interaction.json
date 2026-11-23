@@ -1,0 +1,63 @@
+{
+  "mode": "mandatory",
+  "action_count": 7,
+  "updated_count": 6,
+  "read_at": null,
+  "pending_update": {
+    "action": 7,
+    "phase": "awaiting_update",
+    "record": {
+      "index": 80,
+      "tool": "move_pose",
+      "kwargs": {
+        "arm": "right",
+        "T_W_tcp": [
+          [
+            -0.7879904435821052,
+            -0.5226872289306592,
+            0.32537535483817087,
+            0.31299980186303633
+          ],
+          [
+            -0.48312104898141933,
+            0.8525245220595057,
+            0.1994893263267596,
+            0.29800014580309553
+          ],
+          [
+            -0.38166099205233167,
+            0.0,
+            -0.9243023786324636,
+            0.027999988676875094
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "started_at": 1795434063.5148737,
+      "elapsed_s": 0.17995784396771342,
+      "ok": true,
+      "stateful": true,
+      "env_steps": 1,
+      "error": null,
+      "summary": {
+        "status": "blocked",
+        "message": "Controller path check: COLLISION",
+        "reached": false,
+        "blocked": true
+      }
+    },
+    "codeworld_read": {
+      "revision": 13,
+      "host_step": 6
+    },
+    "after_action_ns": 1795434063777915468,
+    "capture": "observations/3b5f0a3592bc4c44a3731c19597d9c04/capture.json",
+    "capture_error": null,
+    "focus_objects": []
+  }
+}

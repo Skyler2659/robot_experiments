@@ -1,0 +1,5 @@
+ctx = world.read_context()
+print(ctx)
+print(world.snapshot())
+print(robo.state())
+robo.show('top')

@@ -1,0 +1,7 @@
+ctx = world.read_context()
+print('actual_tcp_before', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())
+world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Open fingers are aligned around the lemon in top RGB at the near-grasp height. Lemon silhouette is partly shadowed but has no visible displacement; plate is fully visible and unchanged. No grasp yet.', poses={}, held={}, relations={})
+ctx = world.read_context()
+grasp_target = world.target(lambda scene: scene.position('lemon') + np.array([0.0, 0.0, 0.014]))
+print('receipt', robo.move_to(grasp_target, rotation=grasp_rotation, arm='right'))
+print('contact_api', world.expect_contacts.__doc__)

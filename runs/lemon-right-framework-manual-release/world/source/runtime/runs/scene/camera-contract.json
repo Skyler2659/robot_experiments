@@ -1,0 +1,57 @@
+{
+  "K": [
+    [
+      1356.7672119140625,
+      0.0,
+      961.518310546875
+    ],
+    [
+      0.0,
+      1353.9486083984375,
+      553.8738403320312
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "T_W_C": [
+    [
+      0.019972727841955695,
+      0.8513131122742009,
+      -0.5242776697634223,
+      0.6395681755265095
+    ],
+    [
+      0.9997954989714638,
+      -0.018669097755332705,
+      0.007773353549397498,
+      0.3287295403275146
+    ],
+    [
+      -0.003170233264806081,
+      -0.5243257095155789,
+      -0.8515118906756568,
+      0.6801332239685496
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "image_size": [
+    1920,
+    1080
+  ],
+  "camera_axes": "opencv",
+  "frame": "right_piper_base",
+  "projection": "calibrated_perspective",
+  "three_camera_conversion": "T_W_C multiplied on right by diag(1,-1,-1,1)",
+  "near_m": 0.01,
+  "far_m": 20,
+  "locked": true,
+  "verification": "Full-frame overlay review/round2/overlay.png inspected by eye. Public robot silhouette supports supplied frame; robot material discrepancy retained unchanged."
+}

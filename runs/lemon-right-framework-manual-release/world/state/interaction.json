@@ -1,0 +1,44 @@
+{
+  "mode": "mandatory",
+  "action_count": 1,
+  "updated_count": 0,
+  "read_at": {
+    "revision": 2,
+    "host_step": 1
+  },
+  "pending_update": {
+    "action": 1,
+    "phase": "awaiting_update",
+    "record": {
+      "index": 4,
+      "tool": "grip",
+      "kwargs": {
+        "arm": "right",
+        "gripper": -1,
+        "opening": 1.0
+      },
+      "started_at": 1795435125.4294028,
+      "elapsed_s": 12.179481956001837,
+      "ok": true,
+      "stateful": true,
+      "env_steps": 1,
+      "error": null,
+      "summary": {
+        "status": "completed",
+        "message": "Measured motor feedback reached the target",
+        "reached": true,
+        "blocked": false
+      }
+    },
+    "codeworld_read": {
+      "revision": 1,
+      "host_step": 0
+    },
+    "after_action_ns": 1795435137609129755,
+    "capture": "observations/44ef0ad317b441f7b0b663ade7f83515/capture.json",
+    "capture_error": null,
+    "focus_objects": [
+      "lemon"
+    ]
+  }
+}

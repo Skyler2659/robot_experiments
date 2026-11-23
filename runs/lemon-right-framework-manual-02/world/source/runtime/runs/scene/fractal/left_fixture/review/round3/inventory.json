@@ -1,0 +1,14 @@
+[
+  {
+    "id": "left_mounting_plate",
+    "origin": "single_rgb_rcwm"
+  },
+  {
+    "id": "left_checker_card",
+    "origin": "single_rgb_rcwm"
+  },
+  {
+    "id": "left_support_bracket",
+    "origin": "single_rgb_rcwm"
+  }
+]

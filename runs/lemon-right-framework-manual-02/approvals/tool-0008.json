@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20829-e041-7710-b216-de5d85187fb6",
+  "turnId": "01a20829-e05b-7a92-bc01-87f9cc579174",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "comparison = world.compare_views(capture['capture'], object_ids=['lemon', 'plate'])\nprint(comparison)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "comparison = world.compare_views(capture['capture'], object_ids=['lemon', 'plate'])\nprint(comparison)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

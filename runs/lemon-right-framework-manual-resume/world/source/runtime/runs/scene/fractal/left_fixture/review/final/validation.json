@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "ids": [
+    "left_mounting_plate",
+    "left_checker_card",
+    "left_support_bracket"
+  ],
+  "synchronous_group": true,
+  "camera_axes": "OpenCV converted explicitly with Rx(pi)"
+}

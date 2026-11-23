@@ -1,0 +1,41 @@
+{
+  "kind": "Stationary robot-adjacent mounting assembly, dark photographic industrial hardware",
+  "frame": "right_piper_base",
+  "units": "m",
+  "parts": [
+    {
+      "id": "left_mounting_plate",
+      "form": "solid rectangular steel plate with clipped corners",
+      "bounds_estimate": "111 x 247 x 7 mm rotated plate with estimated central robot-footprint clearance"
+    },
+    {
+      "id": "left_checker_card",
+      "form": "thin backed 5-column by 4-row calibration checker card",
+      "position_estimate": [
+        0.008,
+        -0.075,
+        0.0074
+      ]
+    },
+    {
+      "id": "left_support_bracket",
+      "form": "rounded transverse lug with tapered mounting foot and longitudinal gusset",
+      "position_estimate": [
+        -0.015,
+        0.098,
+        0.007
+      ]
+    }
+  ],
+  "materials": [
+    "near-black satin coated metal",
+    "muted pale green-white and charcoal printed checker",
+    "small dull fasteners"
+  ],
+  "relations": [
+    "card attached on front-left of plate",
+    "bracket foot attached along right side of plate",
+    "public robot is unchanged context and occludes fixture"
+  ],
+  "uncertainty": "All inferred dimensions and occluded backs are estimates from a single calibrated RGB, not measurements."
+}

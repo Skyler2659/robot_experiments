@@ -1,0 +1,16 @@
+{
+  "inputs": {
+    "brief.md": "aa1bbca09969d744764c06f08d82ca48bc6345592c5105e817fc8e954b5e630d",
+    "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+    "view.json": "1d58dbf077956fd92bc6e378f72190c8cfac255e114c3c1a8c245a7d2557749d",
+    "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+    "refinement": null
+  },
+  "files": {
+    "part.json": "300dd3d7ba871936ceeeb58454cb993af013a43bc5b5f5351cc847ccb5f586ce",
+    "target.png": "40aa08836b27306805ff97f14ae992eb34b0f4871491e3874e26b9c00c8b3ba9",
+    "component.js": "ed713806d78b4c013ecb315a97f0276d854873169860743bf8b46515db054a38",
+    "render.mjs": "61a7c8065c771903203c942c5306f1a344aade9e5e816acf7a836eedc7f7c8c3"
+  },
+  "children": {}
+}

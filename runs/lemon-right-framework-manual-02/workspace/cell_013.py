@@ -1,0 +1,7 @@
+ctx = world.read_context()
+print('actual_tcp_before', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())
+world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Right arm reached elevated staging pose. Top RGB clearly shows lemon and plate in their original positions with no contact or displacement.', poses={}, held={}, relations={})
+ctx = world.read_context()
+pregrasp = world.target(lambda scene: scene.position('lemon') + np.array([0.0, 0.0, 0.126]))
+receipt = robo.move_to(pregrasp, rotation=down_rotation, arm='right')
+print('receipt', receipt)

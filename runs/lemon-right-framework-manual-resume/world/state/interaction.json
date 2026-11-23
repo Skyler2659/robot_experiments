@@ -1,0 +1,39 @@
+{
+  "mode": "mandatory",
+  "action_count": 2,
+  "updated_count": 1,
+  "read_at": null,
+  "pending_update": {
+    "action": 2,
+    "phase": "awaiting_update",
+    "record": {
+      "index": 31,
+      "tool": "grip",
+      "kwargs": {
+        "arm": "right",
+        "gripper": 1,
+        "opening": 0.0
+      },
+      "started_at": 1795434493.5409863,
+      "elapsed_s": 7.220411982038058,
+      "ok": true,
+      "stateful": true,
+      "env_steps": 1,
+      "error": null,
+      "summary": {
+        "status": "completed",
+        "message": "Site controller confirmed gripper contact",
+        "reached": true,
+        "blocked": false
+      }
+    },
+    "codeworld_read": {
+      "revision": 3,
+      "host_step": 1
+    },
+    "after_action_ns": 1795434500762037430,
+    "capture": "observations/bca066781c834e998ef7bb60cd93c91c/capture.json",
+    "capture_error": null,
+    "focus_objects": []
+  }
+}

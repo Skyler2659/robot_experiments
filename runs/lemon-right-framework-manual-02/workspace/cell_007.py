@@ -1,0 +1,5 @@
+print('observe_doc', world.observe.__doc__)
+capture = world.observe()
+print('capture', capture)
+comparison = world.compare_views(capture)
+print('comparison', comparison)

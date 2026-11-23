@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20829-e041-7710-b216-de5d85187fb6",
+  "turnId": "01a20829-e05b-7a92-bc01-87f9cc579174",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nprint('actual_tcp', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())\nworld.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Downward move was rejected because both fingertips would contact tabletop. Actual arm stayed at z about 0.060 m; lemon and plate have no visible displacement. Keep safe current height and attempt finger-only grasp.', poses={}, held={}, relations={})\nctx = world.read_context()\nprint('contacts', world.expect_contacts(grasp={'right':'lemon'}))\nctx = world.read_context()\nprint('receipt', robo.set_gripper(0.038, arm='right'))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nprint('actual_tcp', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())\nworld.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Downward move was rejected because both fingertips would contact tabletop. Actual arm stayed at z about 0.060 m; lemon and plate have no visible displacement. Keep safe current height and attempt finger-only grasp.', poses={}, held={}, relations={})\nctx = world.read_context()\nprint('contacts', world.expect_contacts(grasp={'right':'lemon'}))\nctx = world.read_context()\nprint('receipt', robo.set_gripper(0.038, arm='right'))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

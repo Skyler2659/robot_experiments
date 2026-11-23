@@ -1,0 +1,4 @@
+runs/lemon-right-framework-manual-02/videos.partial/top.mp4 filter=lfs diff=lfs merge=lfs -text
+runs/lemon-right-framework-manual-lift/videos.partial/top.mp4 filter=lfs diff=lfs merge=lfs -text
+runs/lemon-right-framework-manual-release/videos.partial/top.mp4 filter=lfs diff=lfs merge=lfs -text
+runs/lemon-right-framework-manual-resume/videos.partial/top.mp4 filter=lfs diff=lfs merge=lfs -text

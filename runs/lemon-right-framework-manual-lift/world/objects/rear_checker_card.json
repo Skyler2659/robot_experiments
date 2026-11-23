@@ -1,0 +1,234 @@
+{
+  "object_id": "rear_checker_card",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/rear_checker_card/local.glb",
+    "local_bounds_m": [
+      [
+        -0.028000000864267356,
+        -0.030999999493360526,
+        -0.000750000006519258
+      ],
+      [
+        0.028000000864267356,
+        0.030999999493360526,
+        0.0008
+      ]
+    ],
+    "vertices": 28,
+    "faces": 14
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.025
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.596
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.015
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/2",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.025,
+      0.596,
+      0.015,
+      1
+    ],
+    "user_data": {
+      "object_id": "rear_checker_card",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/2",
+      "name": "rear_checker_card",
+      "type": "Group",
+      "object_id": "rear_checker_card",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.025,
+        0.596,
+        0.015,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.025,
+        0.596,
+        0.015,
+        1
+      ],
+      "user_data": {
+        "object_id": "rear_checker_card",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/2/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_checker_card",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.025,
+        0.596,
+        0.015,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    },
+    {
+      "path": "scene/0/6/2/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_checker_card",
+      "matrix_local_column_major": [
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0.0008,
+        1
+      ],
+      "matrix_world_column_major": [
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.025,
+        0.596,
+        0.015799999999999998,
+        1
+      ],
+      "user_data": {},
+      "vertices": 4
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.056,
+      0.062,
+      0.0015
+    ],
+    "position_W_m": [
+      0.025,
+      0.596,
+      0.015
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Checker card size and grid inferred from crop; flat on base assumed."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

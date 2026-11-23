@@ -1,0 +1,35 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nstate1 = robo.state()\nlift_tcp = find_tcp(state1)\nlog(state1)\nsnapshot1 = world.snapshot()\nlog(world.bounds('plate'))\nlog(world.bounds('lemon'))\nlemon_initial = np.asarray(next(item['T_W_object'] for item in ctx['objects'] if item['object_id'] == 'lemon'), dtype=float)\nlemon_lifted = lemon_initial.copy()\nlemon_lifted[:3, 3] += lift_tcp[:3, 3] - start_tcp[:3, 3]\nlog(world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB shows lemon lifted with the right fingers and still enclosed between them; plate remains stationary. Lemon translation estimated from measured TCP displacement; exact partly occluded orientation remains unresolved.', poses={'lemon': lemon_lifted.tolist()}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact orientation and finger-contact surface are partly occluded; pose is a translation-only estimate from the observed lift.'}))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nstate1 = robo.state()\nlift_tcp = find_tcp(state1)\nlog(state1)\nsnapshot1 = world.snapshot()\nlog(world.bounds('plate'))\nlog(world.bounds('lemon'))\nlemon_initial = np.asarray(next(item['T_W_object'] for item in ctx['objects'] if item['object_id'] == 'lemon'), dtype=float)\nlemon_lifted = lemon_initial.copy()\nlemon_lifted[:3, 3] += lift_tcp[:3, 3] - start_tcp[:3, 3]\nlog(world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB shows lemon lifted with the right fingers and still enclosed between them; plate remains stationary. Lemon translation estimated from measured TCP displacement; exact partly occluded orientation remains unresolved.', poses={'lemon': lemon_lifted.tolist()}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact orientation and finger-contact surface are partly occluded; pose is a translation-only estimate from the observed lift.'}))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

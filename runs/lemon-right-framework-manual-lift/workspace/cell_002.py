@@ -1,0 +1,11 @@
+ctx = world.read_context()
+state1 = robo.state()
+lift_tcp = find_tcp(state1)
+log(state1)
+snapshot1 = world.snapshot()
+log(world.bounds('plate'))
+log(world.bounds('lemon'))
+lemon_initial = np.asarray(next(item['T_W_object'] for item in ctx['objects'] if item['object_id'] == 'lemon'), dtype=float)
+lemon_lifted = lemon_initial.copy()
+lemon_lifted[:3, 3] += lift_tcp[:3, 3] - start_tcp[:3, 3]
+log(world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB shows lemon lifted with the right fingers and still enclosed between them; plate remains stationary. Lemon translation estimated from measured TCP displacement; exact partly occluded orientation remains unresolved.', poses={'lemon': lemon_lifted.tolist()}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact orientation and finger-contact surface are partly occluded; pose is a translation-only estimate from the observed lift.'}))

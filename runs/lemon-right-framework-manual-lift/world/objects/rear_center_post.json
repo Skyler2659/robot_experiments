@@ -1,0 +1,322 @@
+{
+  "object_id": "rear_center_post",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/rear_center_post/local.glb",
+    "local_bounds_m": [
+      [
+        -0.014999999664723873,
+        -0.014999999664723875,
+        -1.8998980860773784e-10
+      ],
+      [
+        0.014999999664723873,
+        0.014999999664723875,
+        0.45999999606609343
+      ]
+    ],
+    "vertices": 784,
+    "faces": 512
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -0.024
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.334
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/0",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -0.024,
+      0.334,
+      0,
+      1
+    ],
+    "user_data": {
+      "object_id": "rear_center_post",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/0",
+      "name": "rear_center_post",
+      "type": "Group",
+      "object_id": "rear_center_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.024,
+        0.334,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.024,
+        0.334,
+        0,
+        1
+      ],
+      "user_data": {
+        "object_id": "rear_center_post",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/0/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_center_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0.004,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.024,
+        0.334,
+        0.004,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    },
+    {
+      "path": "scene/0/6/0/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_center_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0.234,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.024,
+        0.334,
+        0.234,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    },
+    {
+      "path": "scene/0/6/0/2",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_center_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0.012,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.024,
+        0.334,
+        0.012,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    },
+    {
+      "path": "scene/0/6/0/3",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "rear_center_post",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0.012,
+        0,
+        0.009,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.012,
+        0.334,
+        0.009,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.03,
+      0.03,
+      0.46
+    ],
+    "position_W_m": [
+      -0.024,
+      0.334,
+      0
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Post section, foot attachment and upper continuation inferred from RGB; upper endpoint outside image."
+    ]
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

@@ -1,0 +1,41 @@
+{
+  "threadId": "01a20839-29c3-7d30-9a6e-8e85b2e0a72d",
+  "turnId": "01a20839-29e1-7d41-aec9-5b1e396252a5",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop.",
+    "tool_params": {
+      "status": "stuck",
+      "summary": "右臂已通过原生碰撞检查下降至 z=0.046 m，并在声明柠檬预期接触后完成合爪；随后工具连接连续失败，无法读取最新状态或提交合爪后的观测。尚未抬升确认夹持，也未移动到盘上或松爪，已停止发送动作。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "stuck",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "右臂已通过原生碰撞检查下降至 z=0.046 m，并在声明柠檬预期接触后完成合爪；随后工具连接连续失败，无法读取最新状态或提交合爪后的观测。尚未抬升确认夹持，也未移动到盘上或松爪，已停止发送动作。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

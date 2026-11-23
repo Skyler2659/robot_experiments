@@ -1,0 +1,37 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [
+    "left_fixture",
+    "rear_fixture"
+  ],
+  "frame": "right_piper_base",
+  "units": "m",
+  "object_ids": [
+    "left_mounting_plate",
+    "left_checker_card",
+    "left_support_bracket",
+    "rear_sensor_bracket",
+    "rear_sensor_housing",
+    "rear_sensor_black_cable",
+    "rear_sensor_pale_cable",
+    "rear_sensor_thin_cable",
+    "rear_center_post",
+    "rear_mount_base",
+    "rear_checker_card",
+    "rear_left_post",
+    "floor",
+    "tabletop",
+    "plate",
+    "lemon",
+    "known_robot"
+  ],
+  "parameters": "parameters.json",
+  "scene_page": "../../scene/index.html",
+  "review": "review/final/comparison_full.png",
+  "compass_review": "review/compass.png",
+  "validation": "review/validation.json",
+  "robot_asset": "../../input/known_robot.glb",
+  "robot_loading": "Unchanged identity GLTFLoader loading in published scene page; synchronous component build returns only reconstructed scene objects.",
+  "estimate_notice": "Single RGB geometry and hidden completion are estimates; no independent contact, surface accuracy or robot task success established."
+}

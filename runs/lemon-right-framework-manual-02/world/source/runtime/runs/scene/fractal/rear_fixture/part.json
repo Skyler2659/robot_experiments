@@ -1,0 +1,25 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [
+    "rear_sensor_mount"
+  ],
+  "node_id": "rear_fixture",
+  "frame": "right_piper_base",
+  "units": "m",
+  "object_ids": [
+    "rear_center_post",
+    "rear_mount_base",
+    "rear_checker_card",
+    "rear_sensor_bracket",
+    "rear_sensor_housing",
+    "rear_sensor_black_cable",
+    "rear_sensor_pale_cable",
+    "rear_sensor_thin_cable"
+  ],
+  "object_specs": "object_specs.json",
+  "composition": "identity; roots already positioned in W",
+  "review": "review/final_comparison.png",
+  "completion_review": "review/compass.png",
+  "estimate_notice": "Single RGB derived fixed fixture; hidden dimensions and attachments are estimates."
+}

@@ -1,0 +1,17 @@
+{
+ "run": "/data/jlb/robot_experiments/runs/lemon-right-framework-02/reconstruction/runtime/runs/scene",
+ "reference": "/data/jlb/robot_experiments/runs/lemon-right-framework-02/reconstruction/runtime/runs/scene/input/reference.png",
+ "instruction": "/data/jlb/robot_experiments/runs/lemon-right-framework-02/reconstruction/runtime/runs/scene/solver_prompt.md",
+ "instruction_sha256": "732ba23dbc6c",
+ "max_depth": 4,
+ "max_cycles": 3,
+ "model": "gpt-6-astra",
+ "reasoning_effort": "high",
+ "codex_cli": "0.169.0",
+ "codex_home": "private (/data/jlb/robot_experiments/runs/lemon-right-framework-02/reconstruction/runtime/.codex-home); skills: worldgen-techniques ",
+ "node": "v22.14.0",
+ "three": "0.160.1",
+ "playwright": "1.62.1",
+ "python": "Python 3.12.13",
+ "code_commit": "e76b0d7"
+}

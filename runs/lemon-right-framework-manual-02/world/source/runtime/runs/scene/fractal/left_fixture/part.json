@@ -1,0 +1,14 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [],
+  "frame": "right_piper_base",
+  "units": "m",
+  "compose_transform": "identity",
+  "metadata_export": "objectSpecs",
+  "object_ids": ["left_mounting_plate", "left_checker_card", "left_support_bracket"],
+  "review": "review/final/comparison.png",
+  "compass_review": "review/final/compass.png",
+  "geometry_origin": "single_rgb_rcwm",
+  "uncertainty": "Single RGB estimate; hidden fixture shape, central clearance, fastening details and thickness are estimated. Public robot unchanged and excluded from this component."
+}

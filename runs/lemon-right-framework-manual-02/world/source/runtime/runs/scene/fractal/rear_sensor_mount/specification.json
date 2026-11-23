@@ -1,0 +1,52 @@
+{
+  "style": "photographic dark tabletop instrumentation",
+  "objects": [
+    {
+      "id": "rear_sensor_bracket",
+      "parts": [
+        "sloping thick side cheeks with open space between",
+        "transverse adjustment bar",
+        "short upper cradle",
+        "recessed fasteners",
+        "bottom shoes"
+      ],
+      "material": "dark coated metal",
+      "attachment": "under housing; lower ends at tabletop/base edge"
+    },
+    {
+      "id": "rear_sensor_housing",
+      "parts": [
+        "closed rounded shell",
+        "front row of narrow ventilation recesses",
+        "left connector block"
+      ],
+      "material": "pale gray polymer"
+    },
+    {
+      "id": "rear_sensor_black_cable",
+      "parts": [
+        "single looped tubular lead"
+      ],
+      "attachment": "housing left connector"
+    },
+    {
+      "id": "rear_sensor_pale_cable",
+      "parts": [
+        "thicker curved housing lead",
+        "strain-relief sleeve"
+      ],
+      "attachment": "housing and off-frame continuation"
+    },
+    {
+      "id": "rear_sensor_thin_cable",
+      "parts": [
+        "thin descending loose lead"
+      ],
+      "material": "pale cable jacket",
+      "attachment": "upper off-frame continuation; lower terminus uncertain"
+    }
+  ],
+  "unknowns": [
+    "All monocular depth, concealed faces, thickness, exact bracket topology and connector identities estimated."
+  ]
+}

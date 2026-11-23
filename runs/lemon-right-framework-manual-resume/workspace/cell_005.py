@@ -1,0 +1,8 @@
+ctx = world.read_context()
+result = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB/geometry after descent: lemon and plate have no visible displacement; open fingers straddle lemon. No attachment claimed.', poses={'lemon': {'T_W_object': lemon_pose_initial.tolist()}, 'plate': {'T_W_object': plate_pose_initial.tolist()}}, held={}, relations={})
+print('commit', result)
+ctx = world.read_context()
+print('expected_contacts', world.expect_contacts(grasp={'right': 'lemon'}))
+ctx = world.read_context()
+print('close', robo.set_gripper(0.0, arm='right'))
+robo.show('top')

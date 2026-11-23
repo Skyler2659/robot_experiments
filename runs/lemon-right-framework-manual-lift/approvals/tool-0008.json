@@ -1,0 +1,35 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nlower_tcp = find_tcp(state3)\nlemon_lowered = lemon_transferred.copy()\nlemon_lowered[:3, 3] += lower_tcp[:3, 3] - transfer_tcp[:3, 3]\ncommit3 = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB shows lemon remained between fingers during descent and is inside the plate footprint, just above its interior. Plate is unchanged. Release will occur at measured TCP z about 0.080 m.', poses={'lemon': {'T_W_object': lemon_lowered.tolist(), 'translation_observed_axes': [True, True, False], 'orientation_observed_axes': [False, False, False]}}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact depth and orientation partly occluded; translation estimated using measured TCP and the observed attachment.'})\nctx = world.read_context()\nworld.expect_contacts(grasp={'right': 'lemon'})\nrelease_receipt = robo.set_gripper(0.0697, arm='right')\nrobo.show('top')\nstate4 = robo.state()\nlog({'jaw_m': state4['right']['gripper_width_m'], 'tcp_xyz': find_tcp(state4)[:3, 3].tolist(), 'receipt': release_receipt})"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nlower_tcp = find_tcp(state3)\nlemon_lowered = lemon_transferred.copy()\nlemon_lowered[:3, 3] += lower_tcp[:3, 3] - transfer_tcp[:3, 3]\ncommit3 = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Top RGB shows lemon remained between fingers during descent and is inside the plate footprint, just above its interior. Plate is unchanged. Release will occur at measured TCP z about 0.080 m.', poses={'lemon': {'T_W_object': lemon_lowered.tolist(), 'translation_observed_axes': [True, True, False], 'orientation_observed_axes': [False, False, False]}}, held={'right': 'lemon'}, unresolved={'lemon': 'Exact depth and orientation partly occluded; translation estimated using measured TCP and the observed attachment.'})\nctx = world.read_context()\nworld.expect_contacts(grasp={'right': 'lemon'})\nrelease_receipt = robo.set_gripper(0.0697, arm='right')\nrobo.show('top')\nstate4 = robo.state()\nlog({'jaw_m': state4['right']['gripper_width_m'], 'tcp_xyz': find_tcp(state4)[:3, 3].tolist(), 'receipt': release_receipt})",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

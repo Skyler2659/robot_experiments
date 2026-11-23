@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20829-e041-7710-b216-de5d85187fb6",
+  "turnId": "01a20829-e05b-7a92-bc01-87f9cc579174",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nreview = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Initial calibrated top RGB and reconstructed panels agree on lemon and plate identity and placement, with small single-view pose uncertainty. Opening right gripper caused no visible object displacement; neither object is held.', poses={}, held={}, relations={})\nprint('review', review)\nprint('move_rotation_type', robo.move_to.__annotations__)\nprint('target_types', world.target.__annotations__)\napproach = world.target('lemon_staging', lambda scene: scene.position('lemon') + np.array([-0.063, -0.148, 0.186]))\nprint('approach', approach)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nreview = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Initial calibrated top RGB and reconstructed panels agree on lemon and plate identity and placement, with small single-view pose uncertainty. Opening right gripper caused no visible object displacement; neither object is held.', poses={}, held={}, relations={})\nprint('review', review)\nprint('move_rotation_type', robo.move_to.__annotations__)\nprint('target_types', world.target.__annotations__)\napproach = world.target('lemon_staging', lambda scene: scene.position('lemon') + np.array([-0.063, -0.148, 0.186]))\nprint('approach', approach)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

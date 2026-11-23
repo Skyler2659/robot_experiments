@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20829-e041-7710-b216-de5d85187fb6",
+  "turnId": "01a20829-e05b-7a92-bc01-87f9cc579174",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nprint('actual_tcp_before', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())\nworld.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Right arm reached elevated staging pose. Top RGB clearly shows lemon and plate in their original positions with no contact or displacement.', poses={}, held={}, relations={})\nctx = world.read_context()\npregrasp = world.target(lambda scene: scene.position('lemon') + np.array([0.0, 0.0, 0.126]))\nreceipt = robo.move_to(pregrasp, rotation=down_rotation, arm='right')\nprint('receipt', receipt)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nprint('actual_tcp_before', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())\nworld.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Right arm reached elevated staging pose. Top RGB clearly shows lemon and plate in their original positions with no contact or displacement.', poses={}, held={}, relations={})\nctx = world.read_context()\npregrasp = world.target(lambda scene: scene.position('lemon') + np.array([0.0, 0.0, 0.126]))\nreceipt = robo.move_to(pregrasp, rotation=down_rotation, arm='right')\nprint('receipt', receipt)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [],
+  "node_id": "rear_sensor_mount",
+  "frame": "right_piper_base",
+  "units": "m",
+  "object_ids": [
+    "rear_sensor_bracket",
+    "rear_sensor_housing",
+    "rear_sensor_black_cable",
+    "rear_sensor_pale_cable",
+    "rear_sensor_thin_cable"
+  ],
+  "object_specs": "object_specs.json",
+  "composition": "identity; object roots already positioned in W",
+  "review": "review/final_comparison.png",
+  "completion_review": "review/compass.png",
+  "estimate_notice": "Monocular fixture geometry and concealed attachments are estimates."
+}

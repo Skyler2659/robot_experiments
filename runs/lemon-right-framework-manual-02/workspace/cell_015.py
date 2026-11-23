@@ -1,0 +1,6 @@
+ctx = world.read_context()
+print('actual_tcp_before', np.array(robo.state()['right']['T_W_tcp'])[:3,3].tolist())
+world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Inclined pregrasp reached. Lemon remains on tabletop, mostly visible beneath the open fingers; plate is unchanged. No attachment or visible object displacement.', poses={}, held={}, relations={})
+ctx = world.read_context()
+near_grasp = world.target(lambda scene: scene.position('lemon') + np.array([0.0, 0.0, 0.046]))
+print('receipt', robo.move_to(near_grasp, rotation=grasp_rotation, arm='right'))

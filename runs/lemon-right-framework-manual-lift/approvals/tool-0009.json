@@ -1,0 +1,35 @@
+{
+  "threadId": "01a2083f-8c9b-7942-859a-77153048b1ed",
+  "turnId": "01a2083f-8cba-7502-93f0-450085c2553f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx = world.read_context()\nstate_now = robo.state()\nlog({'revision': ctx['revision'], 'interaction': ctx['interaction'], 'jaw_m': state_now['right']['gripper_width_m'], 'tcp_xyz': find_tcp(state_now)[:3, 3].tolist()})\nrobo.show('top')"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx = world.read_context()\nstate_now = robo.state()\nlog({'revision': ctx['revision'], 'interaction': ctx['interaction'], 'jaw_m': state_now['right']['gripper_width_m'], 'tcp_xyz': find_tcp(state_now)[:3, 3].tolist()})\nrobo.show('top')",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}
