@@ -1,0 +1,59 @@
+{
+  "task": "Pick up the yellow lemon from the table and place it in the plate.",
+  "framework": "real_robot run with CodeWorld reconstruction and manually reviewed physical actions",
+  "arm": "right",
+  "frame": "right_piper_base",
+  "stage": "Release the lemon into the plate",
+  "stage_status": "completed",
+  "source_run": "lemon-right-framework-manual-release",
+  "successful_actions": [
+    {
+      "step": 1,
+      "command": {
+        "kind": "grip",
+        "gripper_width_m": 0.0697,
+        "arm": "right"
+      },
+      "receipt": {
+        "status": "completed",
+        "message": "Measured motor feedback reached the target"
+      }
+    }
+  ],
+  "post_action_observation": {
+    "observation_id": "44ef0ad317b441f7b0b663ade7f83515",
+    "recorded_at_ns": 1795435138097661394,
+    "top_rgb_sha256": "810b3ebbc6e45a4a648ccae41f4d7b3a54574d5729287295f785d98edd26b9e5",
+    "measured_right_gripper_width_m": 0.06899999999999998,
+    "measured_right_joints_rad": [
+      0.20488334826134533,
+      1.821458891484929,
+      -1.0791605661426016,
+      0.24427794756907525,
+      0.5603078492850753,
+      -0.5281076537516294
+    ],
+    "measured_right_tcp_xyz_m": [
+      0.3731783456701281,
+      0.10197931990065115,
+      0.07958666559106413
+    ]
+  },
+  "verification": "The gripper opened. An independent top-view capture confirmed that the lemon remained in the plate.",
+  "independent_final_observation": {
+    "observation_id": "9c5468030319439c9485573899f17037",
+    "recorded_at_ns": 1795435369612012699,
+    "top_rgb_sha256": "5a0b99f6397d51da9b1be0726f61e725398cff7efb408b56656a7f4801abb07c",
+    "measured_right_gripper_width_m": 0.0693,
+    "measured_right_joints_rad": [
+      0.2047794811364947,
+      1.8205354894627652,
+      -1.0786134777324958,
+      0.24415410906148677,
+      0.5600237970874206,
+      -0.5278399256806451
+    ]
+  },
+  "physical_task_outcome": "Lemon stayed inside the plate after release.",
+  "session_note": "The task continued across multiple framework sessions after control service interruptions. The last session saved the release action and post-action image before its final episode report could be written."
+}
