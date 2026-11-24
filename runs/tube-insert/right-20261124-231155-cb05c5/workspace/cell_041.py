@@ -1,0 +1,5 @@
+ctx=world.read_context()
+world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Arm cleared rack and grasp area; open empty jaws visible. Rack remains unchanged and second hole appears empty. Tube not visible in the available top view, so further manipulation cannot be safely localized.',unresolved={'loose_tube':'Not visible after release and clearing the arm; no confirmed stable insertion.'},held={'right':None})
+ctx=world.read_context()
+robo.move_to([.25,.04,.26],rotation=np.array(initial_tcp)[:3,:3].tolist(),arm='right')
+observe_review()

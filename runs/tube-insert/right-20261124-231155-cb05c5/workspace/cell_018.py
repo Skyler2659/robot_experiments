@@ -1,0 +1,5 @@
+review('Jaws opened above tube; no object displacement visible.')
+ctx = world.read_context()
+print(robo.move_to([grasp_point[0],grasp_point[1],.018], rotation=pick_rotation.tolist(), arm='right'))
+observe_review()
+display(robo.image('top')[550:900,350:750])

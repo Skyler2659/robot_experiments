@@ -1,0 +1,5 @@
+ctx=world.read_context()
+world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Lifted approximately 59 mm; tube is absent from original tabletop position but remains hidden by wrist, so attachment still provisional.',unresolved={'loose_tube':'Tube hidden beneath wrist during verification lift.'},held={'right':'loose_tube'})
+ctx=world.read_context()
+robo.move_to([.35,.12,.21],rotation=new_mid.tolist(),arm='right')
+observe_review()

@@ -1,0 +1,6 @@
+ctx = world.read_context()
+result = world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note='Jaws contact tube at measured 17.9mm aperture; mouth visibly shifted slightly during closure. Most of tube occluded, attachment not confirmed until short lift.', unresolved=['loose_tube'], held={})
+ctx = world.read_context()
+print(robo.move_to([grasp_point[0],grasp_point[1],.095], rotation=pick_rotation.tolist(), arm='right'))
+observe_review()
+display(robo.image('top')[540:870,350:770])

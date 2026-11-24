@@ -1,0 +1,17 @@
+{
+  "synchronous_group": true,
+  "ids": [
+    "left_mounting_plate",
+    "right_mounting_plate",
+    "left_calibration_tag",
+    "right_calibration_tag",
+    "left_mounting_ear",
+    "right_mounting_ear",
+    "central_post_foot",
+    "central_support_post"
+  ],
+  "unique": true,
+  "nested_ids": false,
+  "parameters_match": true,
+  "fixed_roles": true
+}

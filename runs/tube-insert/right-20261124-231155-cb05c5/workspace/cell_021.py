@@ -1,0 +1,7 @@
+review('Gripper is just above tube, which is partly occluded; visible mouth remains near previous position. No attachment yet; rack unchanged.')
+ctx = world.read_context()
+world.expect_contacts(grasp={'right':'loose_tube'})
+ctx = world.read_context()
+print(robo.set_gripper(.012, arm='right'))
+observe_review()
+display(robo.image('top')[620:880,400:750])

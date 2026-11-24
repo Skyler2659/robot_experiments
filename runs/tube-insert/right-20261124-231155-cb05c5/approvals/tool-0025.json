@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "try:\n    review('Tube mouth visibly followed jaws upward 58mm and table location is empty; stable aperture confirms grasp over time. Pose estimated from visible rim and height change; rack unchanged.', poses={'loose_tube':{'T_W_object':tube_pose.tolist()}}, held={'right':'loose_tube'})\n    attachment_local = np.linalg.inv(np.array(robo.state()['right']['T_W_tcp'])) @ tube_pose\n    ctx = world.read_context()\n    print(robo.move_to([grasp_point[0],grasp_point[1],.23], rotation=pick_rotation.tolist(), arm='right'))\n    observe_review()\nexcept Exception as error:\n    print(type(error).__name__,str(error))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "try:\n    review('Tube mouth visibly followed jaws upward 58mm and table location is empty; stable aperture confirms grasp over time. Pose estimated from visible rim and height change; rack unchanged.', poses={'loose_tube':{'T_W_object':tube_pose.tolist()}}, held={'right':'loose_tube'})\n    attachment_local = np.linalg.inv(np.array(robo.state()['right']['T_W_tcp'])) @ tube_pose\n    ctx = world.read_context()\n    print(robo.move_to([grasp_point[0],grasp_point[1],.23], rotation=pick_rotation.tolist(), arm='right'))\n    observe_review()\nexcept Exception as error:\n    print(type(error).__name__,str(error))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

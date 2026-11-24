@@ -1,0 +1,6 @@
+review('Tube remains on tabletop with same rim position; gripper occludes closed end, no visible displacement. Rack unchanged.')
+ctx = world.read_context()
+print(robo.move_to([grasp_point[0],grasp_point[1],.036], rotation=pick_rotation.tolist(), arm='right'))
+observe_review()
+print(world.expect_contacts.__doc__)
+display(robo.image('top')[650:870,430:720])

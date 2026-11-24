@@ -1,0 +1,6 @@
+ctx = world.read_context()
+pregrasp = world.target('tube_pregrasp', lambda snapshot: (grasp_point + np.array([0,0,.125])).tolist())
+receipt = robo.move_to(pregrasp, rotation=pick_rotation.tolist(), arm='right')
+print('move receipt',receipt)
+ctx = world.read_context()
+comparison = world.compare_views(ctx['interaction']['pending_update']['capture'])

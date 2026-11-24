@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "tube_pose[:3,1] = -tube_axis\ntube_pose[:3,0] = np.cross(-tube_axis,[0,0,1])\nproposals = {'loose_tube': tube_pose.tolist(), 'tube_rack': rack_pose.tolist()}\nresult = world.integrate_rgb(obs['capture'], poses=proposals, expected_revision=world.snapshot().revision, note='Current calibrated RGB: tube rounded closed end at (col497,row706), open rim at (590,811); backprojected at table plus 7.1mm radius. Rack six visible hole centers fitted with imported 25mm spacing, yaw 0.401rad; left-to-right hole 2 is local y=-0.0375. Dimensions remain prior estimates; top height and support geometry uncertain.')\nctx = world.read_context()\ninitial_tcp = np.array(robo.state()['right']['T_W_tcp'])\ninitial_jaw = robo.state()['right']['gripper_width_m']\ngrasp_point = tube_pose[:3,3] + .022*tube_axis\npick_rotation = np.column_stack([tube_axis, np.cross([0,0,-1],tube_axis),[0,0,-1]])\nprint('poses integrated',ctx['revision'],'grasp',grasp_point,'rotation',pick_rotation.tolist())\ncomparison = world.compare_views(obs['capture'])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "tube_pose[:3,1] = -tube_axis\ntube_pose[:3,0] = np.cross(-tube_axis,[0,0,1])\nproposals = {'loose_tube': tube_pose.tolist(), 'tube_rack': rack_pose.tolist()}\nresult = world.integrate_rgb(obs['capture'], poses=proposals, expected_revision=world.snapshot().revision, note='Current calibrated RGB: tube rounded closed end at (col497,row706), open rim at (590,811); backprojected at table plus 7.1mm radius. Rack six visible hole centers fitted with imported 25mm spacing, yaw 0.401rad; left-to-right hole 2 is local y=-0.0375. Dimensions remain prior estimates; top height and support geometry uncertain.')\nctx = world.read_context()\ninitial_tcp = np.array(robo.state()['right']['T_W_tcp'])\ninitial_jaw = robo.state()['right']['gripper_width_m']\ngrasp_point = tube_pose[:3,3] + .022*tube_axis\npick_rotation = np.column_stack([tube_axis, np.cross([0,0,-1],tube_axis),[0,0,-1]])\nprint('poses integrated',ctx['revision'],'grasp',grasp_point,'rotation',pick_rotation.tolist())\ncomparison = world.compare_views(obs['capture'])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

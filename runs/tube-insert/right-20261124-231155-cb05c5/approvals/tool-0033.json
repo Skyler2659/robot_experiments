@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "tube_pose = np.array(robo.state()['right']['T_W_tcp']) @ attachment_local\nprint('projected ends',project((np.column_stack([vertical_endpoints,np.ones(2)]) @ tube_pose.T)[:,:3]))\nreview('Tube visibly aligned over second hole from image left, mouth up. Bottom near pixel (994,827), rim near (998,710); rack has not shifted. Grip and expected motion remain consistent; depth estimate remains approximate.',poses={'loose_tube':pose_record(tube_pose)},held={'right':'loose_tube'})\nctx = world.read_context()\nnext_tcp = np.array(robo.state()['right']['T_W_tcp'])[:3,3].copy()\nnext_tcp[2] -= .015\nprint(robo.move_to(next_tcp.tolist(),rotation=upright_rotation.tolist(),arm='right'))\nobserve_review()\ndisplay(robo.image('top')[620:1010,830:1240])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "tube_pose = np.array(robo.state()['right']['T_W_tcp']) @ attachment_local\nprint('projected ends',project((np.column_stack([vertical_endpoints,np.ones(2)]) @ tube_pose.T)[:,:3]))\nreview('Tube visibly aligned over second hole from image left, mouth up. Bottom near pixel (994,827), rim near (998,710); rack has not shifted. Grip and expected motion remain consistent; depth estimate remains approximate.',poses={'loose_tube':pose_record(tube_pose)},held={'right':'loose_tube'})\nctx = world.read_context()\nnext_tcp = np.array(robo.state()['right']['T_W_tcp'])[:3,3].copy()\nnext_tcp[2] -= .015\nprint(robo.move_to(next_tcp.tolist(),rotation=upright_rotation.tolist(),arm='right'))\nobserve_review()\ndisplay(robo.image('top')[620:1010,830:1240])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,6 @@
+ctx = world.read_context()
+world.expect_contacts(grasp={'right':'loose_tube'})
+ctx = world.read_context()
+print(robo.move_to([.35,.15,.26],rotation=upright_rotation.tolist(),arm='right'))
+observe_review()
+display(robo.image('top')[380:680,480:730])

@@ -1,0 +1,6 @@
+new_yaw=math.atan2(-closed_axis[1],-closed_axis[0])
+new_mid=Rotation.from_euler('z',new_yaw).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()
+new_upright=Rotation.from_euler('z',new_yaw).as_matrix() @ Rotation.from_euler('y',math.pi/2).as_matrix()
+ctx=world.read_context()
+robo.move_to([.31,.07,.23],rotation=new_mid.tolist(),arm='right')
+observe_review()

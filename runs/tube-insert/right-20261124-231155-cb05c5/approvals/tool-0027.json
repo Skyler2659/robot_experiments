@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "tube_yaw = math.atan2(tube_axis[1],tube_axis[0])\nturn_rotation = Rotation.from_euler('z',tube_yaw).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()\nctx = world.read_context()\nprint(robo.move_to([.35,.12,.21], rotation=turn_rotation.tolist(), arm='right'))\nobserve_review()\ndisplay(robo.image('top')[350:800,350:850])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "tube_yaw = math.atan2(tube_axis[1],tube_axis[0])\nturn_rotation = Rotation.from_euler('z',tube_yaw).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()\nctx = world.read_context()\nprint(robo.move_to([.35,.12,.21], rotation=turn_rotation.tolist(), arm='right'))\nobserve_review()\ndisplay(robo.image('top')[350:800,350:850])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

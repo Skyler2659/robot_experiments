@@ -1,0 +1,181 @@
+{
+  "left_mounting_plate": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.112,
+      0.272,
+      0.012
+    ],
+    "position_W_m": [
+      -0.025,
+      -0.004,
+      -0.014
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ]
+  },
+  "right_mounting_plate": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.112,
+      0.265,
+      0.012
+    ],
+    "position_W_m": [
+      -0.018,
+      0.685,
+      -0.014
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ]
+  },
+  "left_calibration_tag": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.055,
+      0.069,
+      0.0015
+    ],
+    "position_W_m": [
+      -0.005,
+      -0.081,
+      -0.00725
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+      "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+    ]
+  },
+  "right_calibration_tag": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.055,
+      0.069,
+      0.0015
+    ],
+    "position_W_m": [
+      0.006,
+      0.606,
+      -0.00725
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+      "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+    ]
+  },
+  "left_mounting_ear": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.026,
+      0.035,
+      0.053
+    ],
+    "position_W_m": [
+      -0.068,
+      0.094,
+      0.0215
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ]
+  },
+  "right_mounting_ear": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.026,
+      0.035,
+      0.053
+    ],
+    "position_W_m": [
+      -0.061,
+      0.562,
+      0.0215
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ]
+  },
+  "central_post_foot": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.043,
+      0.043,
+      0.009
+    ],
+    "position_W_m": [
+      -0.043,
+      0.335,
+      -0.0155
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ]
+  },
+  "central_support_post": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.025,
+      0.025,
+      0.47
+    ],
+    "position_W_m": [
+      -0.043,
+      0.335,
+      0.224
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+      "Top continues outside assigned crop; 0.47 m overall pole height is an estimate."
+    ]
+  }
+}

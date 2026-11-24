@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "for object_id in proposals:\n    proposals[object_id]['translation_observed_axes'] = [True,True,True]\n    proposals[object_id]['rotation_observed_axes'] = [True,True,True]\nresult = world.integrate_rgb(obs['capture'], poses=proposals, expected_revision=world.snapshot().revision, note='Tube endpoints and rack six holes observed in this episode RGB; estimates use calibrated rays, tabletop support prior, and imported hole spacing. Tube closed end toward image upper-left and mouth lower-right; rack left-to-right direction fitted from holes. Depth is model-assisted, not a measured depth image.')\nctx = world.read_context()\ninitial_tcp = np.array(robo.state()['right']['T_W_tcp'])\ninitial_jaw = robo.state()['right']['gripper_width_m']\ngrasp_point = tube_pose[:3,3] + .022*tube_axis\npick_rotation = np.column_stack([tube_axis, np.cross([0,0,-1],tube_axis),[0,0,-1]])\nprint('integrated revision',ctx['revision'],'grasp',grasp_point)\ncomparison = world.compare_views(obs['capture'])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "for object_id in proposals:\n    proposals[object_id]['translation_observed_axes'] = [True,True,True]\n    proposals[object_id]['rotation_observed_axes'] = [True,True,True]\nresult = world.integrate_rgb(obs['capture'], poses=proposals, expected_revision=world.snapshot().revision, note='Tube endpoints and rack six holes observed in this episode RGB; estimates use calibrated rays, tabletop support prior, and imported hole spacing. Tube closed end toward image upper-left and mouth lower-right; rack left-to-right direction fitted from holes. Depth is model-assisted, not a measured depth image.')\nctx = world.read_context()\ninitial_tcp = np.array(robo.state()['right']['T_W_tcp'])\ninitial_jaw = robo.state()['right']['gripper_width_m']\ngrasp_point = tube_pose[:3,3] + .022*tube_axis\npick_rotation = np.column_stack([tube_axis, np.cross([0,0,-1],tube_axis),[0,0,-1]])\nprint('integrated revision',ctx['revision'],'grasp',grasp_point)\ncomparison = world.compare_views(obs['capture'])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

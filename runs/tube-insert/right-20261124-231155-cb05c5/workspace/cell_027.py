@@ -1,0 +1,6 @@
+tube_yaw = math.atan2(tube_axis[1],tube_axis[0])
+turn_rotation = Rotation.from_euler('z',tube_yaw).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()
+ctx = world.read_context()
+print(robo.move_to([.35,.12,.21], rotation=turn_rotation.tolist(), arm='right'))
+observe_review()
+display(robo.image('top')[350:800,350:850])

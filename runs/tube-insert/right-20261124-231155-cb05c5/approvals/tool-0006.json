@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "from scipy.optimize import least_squares\ncamera = obs['views'][0]\nintrinsics = np.array(camera['K'])\ncamera_pose = np.array(camera['T_W_C'])\ndef project(points):\n    points = np.atleast_2d(points)\n    camera_points = (points-camera_pose[:3,3]) @ camera_pose[:3,:3]\n    pixels = camera_points @ intrinsics.T\n    return pixels[:,:2]/pixels[:,2:3]\ndef backproject(pixel, height):\n    ray = camera_pose[:3,:3] @ np.linalg.solve(intrinsics, [pixel[0],pixel[1],1.0])\n    return camera_pose[:3,3] + ray*((height-camera_pose[2,3])/ray[2])\nclosed_tip = backproject([497,706], -0.0049)\nopen_tip = backproject([590,811], -0.0049)\ntube_axis = (open_tip-closed_tip)/np.linalg.norm(open_tip-closed_tip)\ntube_pose = np.eye(4)\ntube_pose[:3,1] = tube_axis\ntube_pose[:3,0] = np.cross(tube_axis,[0,0,1])\ntube_pose[:3,3] = (closed_tip+open_tip)/2\nrack_holes_pixels = np.array([[939,858],[993,835],[1045,811],[1098,788],[1150,766],[1206,743]],float)\nrack_holes_local = np.array([[0, offset, .139] for offset in [-.0625,-.0375,-.0125,.0125,.0375,.0625]])\ndef rack_transform(parameters):\n    center_x,center_y,center_z,yaw = parameters\n    transform = np.eye(4)\n    transform[:3,:3] = [[math.cos(yaw),-math.sin(yaw),0],[math.sin(yaw),math.cos(yaw),0],[0,0,1]]\n    transform[:3,3] = [center_x,center_y,center_z]\n    return transform\n\ndef rack_residual(parameters):\n    transform = rack_transform(parameters)\n    return (project(rack_holes_local @ transform[:3,:3].T + transform[:3,3])-rack_holes_pixels).ravel()\nrack_fit = least_squares(rack_residual,[.40,.37,-.012,.4])\nrack_pose = rack_transform(rack_fit.x)\nprint('tube pose',tube_pose.round(5).tolist(),'length',np.linalg.norm(open_tip-closed_tip))\nprint('rack fit',rack_fit.x,'pixel residual',rack_residual(rack_fit.x).round(2))\nprint('tube ends vertices',[(node['path'],node['vertices']) for node in world.parts('loose_tube')['nodes']])\ndisplay(robo.image('top')[650:1040,450:1300])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "from scipy.optimize import least_squares\ncamera = obs['views'][0]\nintrinsics = np.array(camera['K'])\ncamera_pose = np.array(camera['T_W_C'])\ndef project(points):\n    points = np.atleast_2d(points)\n    camera_points = (points-camera_pose[:3,3]) @ camera_pose[:3,:3]\n    pixels = camera_points @ intrinsics.T\n    return pixels[:,:2]/pixels[:,2:3]\ndef backproject(pixel, height):\n    ray = camera_pose[:3,:3] @ np.linalg.solve(intrinsics, [pixel[0],pixel[1],1.0])\n    return camera_pose[:3,3] + ray*((height-camera_pose[2,3])/ray[2])\nclosed_tip = backproject([497,706], -0.0049)\nopen_tip = backproject([590,811], -0.0049)\ntube_axis = (open_tip-closed_tip)/np.linalg.norm(open_tip-closed_tip)\ntube_pose = np.eye(4)\ntube_pose[:3,1] = tube_axis\ntube_pose[:3,0] = np.cross(tube_axis,[0,0,1])\ntube_pose[:3,3] = (closed_tip+open_tip)/2\nrack_holes_pixels = np.array([[939,858],[993,835],[1045,811],[1098,788],[1150,766],[1206,743]],float)\nrack_holes_local = np.array([[0, offset, .139] for offset in [-.0625,-.0375,-.0125,.0125,.0375,.0625]])\ndef rack_transform(parameters):\n    center_x,center_y,center_z,yaw = parameters\n    transform = np.eye(4)\n    transform[:3,:3] = [[math.cos(yaw),-math.sin(yaw),0],[math.sin(yaw),math.cos(yaw),0],[0,0,1]]\n    transform[:3,3] = [center_x,center_y,center_z]\n    return transform\n\ndef rack_residual(parameters):\n    transform = rack_transform(parameters)\n    return (project(rack_holes_local @ transform[:3,:3].T + transform[:3,3])-rack_holes_pixels).ravel()\nrack_fit = least_squares(rack_residual,[.40,.37,-.012,.4])\nrack_pose = rack_transform(rack_fit.x)\nprint('tube pose',tube_pose.round(5).tolist(),'length',np.linalg.norm(open_tip-closed_tip))\nprint('rack fit',rack_fit.x,'pixel residual',rack_residual(rack_fit.x).round(2))\nprint('tube ends vertices',[(node['path'],node['vertices']) for node in world.parts('loose_tube')['nodes']])\ndisplay(robo.image('top')[650:1040,450:1300])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,5 @@
+ctx=world.read_context()
+world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='After withdrawal the second hole appears empty; released tube is not visible at prior location. Previous endpoint fit is not reliable because lower end may have been occluded. No confirmed insertion. Locate tube before further manipulation.',unresolved={'loose_tube':'Tube absent from rack location after gripper withdrawal; possibly followed gripper or fell, localization required.'},held={'right':None})
+ctx=world.read_context()
+display(np.clip(robo.image('top').astype(float)*2.4,0,255).astype(np.uint8))
+print(robo.task)

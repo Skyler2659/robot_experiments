@@ -1,0 +1,98 @@
+# How you control the robot
+
+You control the configured physical PiPER arms with calibrated RGB views through ONE tool,
+`python(code)`.  Each call executes your code in a persistent Python session
+(like a notebook): `robo` (a `PhysicalRobot` bound to the robot host), `np`, `math`, `time`,
+`log(value)` and `display(image)` are predefined, and every variable,
+function or import you create stays
+available in later calls: helpers you define once can be called directly in
+any later call, without re-defining or re-importing them.  The tool returns stdout, stderr, the exception if any, the value of a trailing expression, the ledger of primitive calls made during the call and the robot state.
+Whenever the robot moved during the call, the current camera images listed in the task card are attached as well. Write short cells when you need to look before deciding, and loops when you do not.
+The session is sandboxed: you may import `numpy`, `math`, `time`, `json`,
+`re`, `PIL` and other pure-computation modules, but not `os`, `sys`,
+`subprocess`, `pathlib` or networking, and `open` only works inside your
+workspace; code that reaches for Python internals (`__globals__`,
+`__subclasses__`, ...) is refused.
+
+# How the episode is scored
+
+- Success is judged by an observer from the final scene, after the episode
+  has ended.  Nothing reports it while you work: no result carries a
+  task-success flag, so judge progress from the images and the robot state.
+- The number of `python` calls in an episode is limited (every call counts,
+  including calls that only look, print or display); the episode also ends
+  after 200 robot actions.  At either limit the scene is judged
+  as it is, so make every call do purposeful work and verify results in code.
+- When the scene shows that the instruction is satisfied, call
+  `finish(status="success", ...)` and stop.  If you cannot make progress, call
+  `finish` with `failure` or `stuck`.
+
+Your working directory is a scratch workspace: you may keep notes or helper
+files there.  Do not read files outside it and do not use the shell to reach
+the robot backend; every action goes through `python`.
+
+# API reference (the `robo` object)
+
+class PhysicalRobot
+    Calibrated arms. Positions and orientations use the shared world frame.
+
+Constants:
+    robo.FINISH_RECOVERY = False
+
+Methods and attributes of `robo`:
+
+robo.task  (read-only attribute)
+
+robo.state(step: int = -1) -> Any
+    Read the recorded proprioceptive state of step ``step`` (``-1`` = latest).
+
+robo.image(camera: str, *, resolution: str = 'high', step: int = -1) -> Any
+    Load a recorded camera image as a ``numpy`` uint8 array (H, W, 3), RGB.
+
+    Pixel coordinates are (row, col) with row 0 at the top and col 0 at the
+    left; pass the same ``camera`` and ``resolution`` to the back-projection
+    helpers.  ``step`` selects the recorded step (``-1`` = latest).
+
+robo.show(camera: str) -> None
+    Attach the current image of ``camera`` to the feedback of this turn.
+
+    Images are not returned automatically: call ``show(<camera>)`` when
+    *you* (the author) need to look at the scene before writing the next
+    turn.  Costs tokens: look only when a decision depends on it.
+
+robo.artifact(name: str, *, step: int = -1) -> bytes
+    Return the raw bytes of a recorded artifact by name (advanced).
+
+robo.move_to(xyz, rotation=None, *, arm=None)
+    Move the selected TCP to world xyz meters. Specify arm="left" or "right" for two arms.
+
+robo.set_gripper(width_m, *, arm=None)
+    Set the absolute jaw opening in meters. Zero requests a close.
+
+Result types (frozen dataclasses; access fields as attributes):
+
+
+
+Exceptions:
+    ToolError(RuntimeError): a call was rejected or a service failed; catch it if you have a fallback.
+    ValueError: an argument was invalid (e.g. a planar move over 0.30 m) - nothing was executed.
+    EpisodeFinished(BaseException): the episode is over (reason: truncated | timeout | cancelled); return.
+
+Use the supplied calibrated RGB views and persistent CodeWorld to compute each action. Inspect the initial images and re-observe the affected objects after each motion. Read `ctx = world.read_context()` before each primitive. Use `world.snapshot()`, `world.bounds(id)`, `world.parts(id)` and `world.target(...)` for geometry. The TCP is the grasp center and the world frame is shared by both arms. Query camera names and configured arms in the task card. For a two-arm setup, pass arm="left" or arm="right" to each move_to and set_gripper call. Each primitive commands one arm; the other holds position. Use T_W_tcp for each grasp center and T_W_flange for the flange in the shared frame. The top view is fixed; each wrist view follows its own arm. The state contains flange and TCP transforms, joint angles and measured jaw width. Inspect action receipts and actual state. Use the CodeWorld joint-path checker only if enabled in this experiment.
+
+After a motion use the paired RGB and geometry panels to review the scene. Read context again and use `world.commit_step(ctx['interaction']['pending_update']['capture'], expected_revision=ctx['revision'], note=..., poses=..., held=..., relations=...)`. Pose updates are base-frame 4x4 matrices. Report visible displacement and release pose; use `unresolved` when an affected object is occluded. Confirm attachment from observations over time. After committing, read context again before moving. Call finish after the final review. An observer judges the final physical outcome.
+
+# Task card
+- robot: physical
+- task: insert
+- variant: tabletop
+- seed: 0
+- task instruction (authoritative): '把桌上的试管放进试管架从左数第2个孔，管口朝上。 仅使用右臂。确认放置结果，撤离管架并返回初始位姿，再报告成功。'
+- arms: ['right']
+- world frame: right_piper_base
+- maximum jaw opening (m): {'right': 0.08}
+- action budget: 200
+- attached images: top (rgb.png). They are step 0 of your run, exactly what `robo.image('top')` return before any motion.
+Initial CodeWorld:
+{"schema": "codeworld-agent-context-v1", "revision": 1, "geometry_revision": "a7d00c7bca1fe5ced792c3f77e77286571db52d200151dff943af876a75f2401", "frame": "right_piper_base", "units": "m", "objects": [{"object_id": "tabletop", "role": "rigid_object", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, 0.52], [0.0, 1.0, 0.0, 0.49], [0.0, 0.0, 1.0, -0.0345], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.07, -0.21, -0.057], [1.11, 1.19, -0.012]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Dimensions and occluded surfaces estimated from a single RGB image."]}, {"object_id": "table_support_frame", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, 0.52], [0.0, 1.0, 0.0, 0.49], [0.0, 0.0, 1.0, -0.3995], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.0125, -0.1425, -0.742], [1.0525, 1.1225, -0.057]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Dimensions and occluded surfaces estimated from a single RGB image."]}, {"object_id": "rear_wall", "role": "rigid_object", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.105], [0.0, 1.0, 0.0, 0.4], [0.0, 0.0, 1.0, 0.008], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.13, -0.6, -0.742], [-0.08, 1.4, 0.758]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Dimensions and occluded surfaces estimated from a single RGB image."]}, {"object_id": "floor", "role": "rigid_object", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, 0.3], [0.0, 1.0, 0.0, 0.4], [0.0, 0.0, 1.0, -0.782], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-1.2, -1.1, -0.822], [1.8, 1.9, -0.742]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Dimensions and occluded surfaces estimated from a single RGB image."]}, {"object_id": "loose_tube", "role": "rigid_object", "movable": true, "T_W_object": [[0.571128, -0.820861, 0.0, 0.2861], [0.820861, 0.571128, 0.0, 0.046201], [0.0, 0.0, 1.0, -0.0049], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[0.241752, 0.014279, -0.012], [0.327736, 0.079186, 0.0022]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unresolved"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Tube diameter, wall thickness and length estimated; the far tip is interpreted as rounded and closed."], "pose_refresh": {"reason": "Imported movable object; estimate its current pose from this episode's RGB.", "since_revision": 2, "last_estimate_only": true}}, {"object_id": "tube_rack", "role": "rigid_object", "movable": true, "T_W_object": [[0.999847, 0.017511, 0.0, 0.310438], [-0.017511, 0.999847, 0.0, 0.321466], [0.0, 0.0, 1.0, -0.023], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[0.286454, 0.231174, -0.023], [0.334422, 0.411757, 0.126]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unresolved"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["All dimensions and placement estimated from the assigned RGB and fixed camera calibration.", "Hidden back edges and lower support frame completed as symmetric acrylic construction.", "Acrylic optical properties, thickness, and hole diameter are visual estimates."], "pose_refresh": {"reason": "Imported movable object; estimate its current pose from this episode's RGB.", "since_revision": 2, "last_estimate_only": true}}, {"object_id": "left_mounting_plate", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.025], [0.0, 1.0, 0.0, -0.004], [0.0, 0.0, 1.0, -0.006], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.081, -0.14, -0.012], [0.031, 0.132, 0.003]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."]}, {"object_id": "right_mounting_plate", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.018], [0.0, 1.0, 0.0, 0.685], [0.0, 0.0, 1.0, -0.006], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.074, 0.5525, -0.012], [0.038, 0.8175, 0.003]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."]}, {"object_id": "left_calibration_tag", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.005], [0.0, 1.0, 0.0, -0.081], [0.0, 0.0, 1.0, 0.00075], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.0325, -0.1155, -0.0], [0.0225, -0.0465, 0.00162]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.", "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."]}, {"object_id": "right_calibration_tag", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, 0.006], [0.0, 1.0, 0.0, 0.606], [0.0, 0.0, 1.0, 0.00075], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.0215, 0.5715, -0.0], [0.0335, 0.6405, 0.00162]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.", "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."]}, {"object_id": "left_mounting_ear", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.068], [0.0, 1.0, 0.0, 0.094], [0.0, 0.0, 1.0, 0.0295], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.081, 0.0765, -0.006945], [-0.055, 0.1115, 0.045525]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."]}, {"object_id": "right_mounting_ear", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.061], [0.0, 1.0, 0.0, 0.562], [0.0, 0.0, 1.0, 0.0295], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.074, 0.5445, -0.006945], [-0.048, 0.5795, 0.045525]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."]}, {"object_id": "central_post_foot", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.043], [0.0, 1.0, 0.0, 0.335], [0.0, 0.0, 1.0, -0.0075], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.0645, 0.3135, -0.012], [-0.0215, 0.3565, -0.001]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."]}, {"object_id": "central_support_post", "role": "fixed_obstacle", "movable": false, "T_W_object": [[1.0, 0.0, 0.0, -0.043], [0.0, 1.0, 0.0, 0.335], [0.0, 0.0, 1.0, 0.232], [0.0, 0.0, 0.0, 1.0]], "bounds_W_m": [[-0.0585, 0.3195, -0.003], [-0.0275, 0.3505, 0.467]], "basis": "host_table_height_aligned_prior", "review": {"pose": "unreviewed"}, "geometry_revision": "a7d00c7bca1f", "geometry_unknowns": ["Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.", "Top continues outside assigned crop; 0.47 m overall pole height is an estimate."]}], "attachments": {}, "grasp_review": {}, "relations": {}, "recovery_history": [], "pose_refresh": {"loose_tube": {"reason": "Imported movable object; estimate its current pose from this episode's RGB.", "since_revision": 2, "last_estimate_only": true}, "tube_rack": {"reason": "Imported movable object; estimate its current pose from this episode's RGB.", "since_revision": 2, "last_estimate_only": true}}, "height_alignment": {"table_object_id": "tabletop", "target_z_m": -0.012, "delta_z_m": -0.0, "source": "lab_measurement"}, "geometry_accuracy_verified": false, "robot_geometry": "initial frozen reference; use robo.state() for live robot", "declarations": "source hypotheses, not live measurements", "interaction": {"mode": "mandatory", "action_count": 0, "updated_count": 0, "read_at": {"revision": 1, "host_step": 0}, "pending_update": null}}
+The initial movable object transforms are prior estimates. Before the first robot action, read the current calibrated top RGB and estimate the poses of: loose_tube, tube_rack. Use obs = world.observe(), then world.integrate_rgb(obs['capture'], poses=proposals, expected_revision=world.snapshot().revision, note=your_visual_evidence). Compose pose proposals from this episode's image and the imported geometry. Call world.read_context() after integrating the estimates and before moving. Use the existing geometry as the scene model.

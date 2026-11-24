@@ -1,0 +1,5 @@
+ctx=world.read_context()
+world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Gripper positioned above the previously observed tube; tube is now occluded by wrist, with no observed displacement before occlusion.',unresolved={'loose_tube':'Occluded beneath approach gripper; retain last tabletop estimate.'},held={'right':None})
+ctx=world.read_context()
+robo.move_to([float(new_grasp[0]),float(new_grasp[1]),.036],rotation=new_pick.tolist(),arm='right')
+observe_review()

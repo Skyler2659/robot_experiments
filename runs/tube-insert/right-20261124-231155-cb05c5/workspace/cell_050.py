@@ -1,0 +1,5 @@
+ctx=world.read_context()
+world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Jaw closure stopped at 17.9 mm, consistent with tube contact, but visual attachment remains unconfirmed under wrist. Use small verification lift.',unresolved={'loose_tube':'Occluded at grasp; attachment provisional pending lift observation.'},held={'right':'loose_tube'})
+ctx=world.read_context()
+robo.move_to([float(new_grasp[0]),float(new_grasp[1]),.09],rotation=new_pick.tolist(),arm='right')
+observe_review()

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "ctx=world.read_context()\nworld.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Reached grasp height without visible tabletop disturbance; tube remains occluded beneath gripper.',unresolved={'loose_tube':'At recent known tabletop pose beneath wrist; occluded.'},held={'right':None})\nctx=world.read_context()\nworld.expect_contacts(grasp={'right':'loose_tube'})\nctx=world.read_context()\nrobo.set_gripper(.012,arm='right')\nobserve_review()\nnew_attachment=np.linalg.inv(np.array(robo.state()['right']['T_W_tcp'])) @ recovered_pose"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "ctx=world.read_context()\nworld.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note='Reached grasp height without visible tabletop disturbance; tube remains occluded beneath gripper.',unresolved={'loose_tube':'At recent known tabletop pose beneath wrist; occluded.'},held={'right':None})\nctx=world.read_context()\nworld.expect_contacts(grasp={'right':'loose_tube'})\nctx=world.read_context()\nrobo.set_gripper(.012,arm='right')\nobserve_review()\nnew_attachment=np.linalg.inv(np.array(robo.state()['right']['T_W_tcp'])) @ recovered_pose",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

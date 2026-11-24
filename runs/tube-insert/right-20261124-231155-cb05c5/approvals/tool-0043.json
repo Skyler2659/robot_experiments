@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "open_world=backproject([485,946],-.0049)\nclosed_world=backproject([562,788],-.0049)\nclosed_axis=(closed_world-open_world)/np.linalg.norm(closed_world-open_world)\nrecovered_pose=np.eye(4)\nrecovered_pose[:3,0]=[closed_axis[1],-closed_axis[0],0]\nrecovered_pose[:3,1]=closed_axis\nrecovered_pose[:3,3]=(open_world+closed_world)/2-closed_axis*.0035\nprint('ends',open_world,closed_world,'length',np.linalg.norm(closed_world-open_world),'closed axis',closed_axis)\nreview('Tube newly visible lying on tabletop clear of arm and rack. Rounded closed end at pixel (562,788), open rim at (485,946); calibrated table-plane backprojection estimates current pose. Rack unchanged.',poses={'loose_tube':pose_record(recovered_pose)},held={'right':None})\nnew_pick=np.column_stack([closed_axis,[closed_axis[1],-closed_axis[0],0],[0,0,-1]])\nnew_grasp=open_world+.025*closed_axis\nnew_pregrasp=new_grasp.copy(); new_pregrasp[2]=.13\nprint('grasp',new_grasp,'pick',new_pick)\nctx=world.read_context()\nrobo.move_to(new_pregrasp.tolist(),rotation=new_pick.tolist(),arm='right')\nobserve_review()"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "open_world=backproject([485,946],-.0049)\nclosed_world=backproject([562,788],-.0049)\nclosed_axis=(closed_world-open_world)/np.linalg.norm(closed_world-open_world)\nrecovered_pose=np.eye(4)\nrecovered_pose[:3,0]=[closed_axis[1],-closed_axis[0],0]\nrecovered_pose[:3,1]=closed_axis\nrecovered_pose[:3,3]=(open_world+closed_world)/2-closed_axis*.0035\nprint('ends',open_world,closed_world,'length',np.linalg.norm(closed_world-open_world),'closed axis',closed_axis)\nreview('Tube newly visible lying on tabletop clear of arm and rack. Rounded closed end at pixel (562,788), open rim at (485,946); calibrated table-plane backprojection estimates current pose. Rack unchanged.',poses={'loose_tube':pose_record(recovered_pose)},held={'right':None})\nnew_pick=np.column_stack([closed_axis,[closed_axis[1],-closed_axis[0],0],[0,0,-1]])\nnew_grasp=open_world+.025*closed_axis\nnew_pregrasp=new_grasp.copy(); new_pregrasp[2]=.13\nprint('grasp',new_grasp,'pick',new_pick)\nctx=world.read_context()\nrobo.move_to(new_pregrasp.tolist(),rotation=new_pick.tolist(),arm='right')\nobserve_review()",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

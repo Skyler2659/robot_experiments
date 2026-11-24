@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "release_rotation=tube_pose[:3,:3].copy()\nrelease_endpoints=np.array([[0,-.0455,0],[0,.0525,0]])\nrelease_pixels=np.array([[975,786],[977,883]])\nrelease_fit=least_squares(lambda position:(project(release_endpoints @ release_rotation.T + position)-release_pixels).ravel(),tube_pose[:3,3])\nreleased_pose=tube_pose.copy()\nreleased_pose[:3,3]=release_fit.x\nprint('Release pose estimate',release_fit.x,'pixel residual',release_fit.fun)\nreview('After opening to 44.5 mm, tube visibly slipped down and slightly image-left while remaining upright at the second hole. Mouth and rounded lower silhouette provide approximate release pose; lower contact partly obscured by acrylic. Jaws no longer clamp tube.',poses={'loose_tube':pose_record(released_pose)},held={'right':None})\nctx=world.read_context()\nretreat_tcp=np.array(robo.state()['right']['T_W_tcp'])[:3,3].copy()-np.array([.7266693176672074,.6869874109189158,0])*.07\nrobo.move_to(retreat_tcp.tolist(),rotation=upright_rotation,arm='right')\nobserve_review()\ndisplay(robo.image('top')[650:1030,830:1260])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "release_rotation=tube_pose[:3,:3].copy()\nrelease_endpoints=np.array([[0,-.0455,0],[0,.0525,0]])\nrelease_pixels=np.array([[975,786],[977,883]])\nrelease_fit=least_squares(lambda position:(project(release_endpoints @ release_rotation.T + position)-release_pixels).ravel(),tube_pose[:3,3])\nreleased_pose=tube_pose.copy()\nreleased_pose[:3,3]=release_fit.x\nprint('Release pose estimate',release_fit.x,'pixel residual',release_fit.fun)\nreview('After opening to 44.5 mm, tube visibly slipped down and slightly image-left while remaining upright at the second hole. Mouth and rounded lower silhouette provide approximate release pose; lower contact partly obscured by acrylic. Jaws no longer clamp tube.',poses={'loose_tube':pose_record(released_pose)},held={'right':None})\nctx=world.read_context()\nretreat_tcp=np.array(robo.state()['right']['T_W_tcp'])[:3,3].copy()-np.array([.7266693176672074,.6869874109189158,0])*.07\nrobo.move_to(retreat_tcp.tolist(),rotation=upright_rotation,arm='right')\nobserve_review()\ndisplay(robo.image('top')[650:1030,830:1260])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

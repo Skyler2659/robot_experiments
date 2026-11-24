@@ -1,0 +1,649 @@
+[
+  {
+    "index": 0,
+    "tool": "python",
+    "elapsed_s": 0.458,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "probe:dir"
+    ]
+  },
+  {
+    "index": 1,
+    "tool": "python",
+    "elapsed_s": 0.003,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__doc__"
+    ]
+  },
+  {
+    "index": 2,
+    "tool": "python",
+    "elapsed_s": 0.001,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "import:inspect",
+      "probe:getattr"
+    ]
+  },
+  {
+    "index": 3,
+    "tool": "python",
+    "elapsed_s": 0.002,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 4,
+    "tool": "python",
+    "elapsed_s": 1.324,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__doc__"
+    ]
+  },
+  {
+    "index": 5,
+    "tool": "python",
+    "elapsed_s": 0.092,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 6,
+    "tool": "python",
+    "elapsed_s": 0.003,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 7,
+    "tool": "python",
+    "elapsed_s": 0.003,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 8,
+    "tool": "python",
+    "elapsed_s": 0.003,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 9,
+    "tool": "python",
+    "elapsed_s": 0.971,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 10,
+    "tool": "python",
+    "elapsed_s": 0.005,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 11,
+    "tool": "python",
+    "elapsed_s": 0.514,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 12,
+    "tool": "python",
+    "elapsed_s": 0.449,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 13,
+    "tool": "python",
+    "elapsed_s": 10.931,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 14,
+    "tool": "python",
+    "elapsed_s": 14.508,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 15,
+    "tool": "python",
+    "elapsed_s": 10.356,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 16,
+    "tool": "python",
+    "elapsed_s": 3.258,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 17,
+    "tool": "python",
+    "elapsed_s": 0.856,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 18,
+    "tool": "python",
+    "elapsed_s": 4.961,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 19,
+    "tool": "python",
+    "elapsed_s": 3.615,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__doc__"
+    ]
+  },
+  {
+    "index": 20,
+    "tool": "python",
+    "elapsed_s": 3.097,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 21,
+    "tool": "python",
+    "elapsed_s": 0.014,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 22,
+    "tool": "python",
+    "elapsed_s": 4.553,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 23,
+    "tool": "python",
+    "elapsed_s": 0.008,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 24,
+    "tool": "python",
+    "elapsed_s": 0.008,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__name__"
+    ]
+  },
+  {
+    "index": 25,
+    "tool": "python",
+    "elapsed_s": 0.36,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__name__"
+    ]
+  },
+  {
+    "index": 26,
+    "tool": "python",
+    "elapsed_s": 9.779,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 27,
+    "tool": "python",
+    "elapsed_s": 18.029,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 28,
+    "tool": "python",
+    "elapsed_s": 0.925,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 29,
+    "tool": "python",
+    "elapsed_s": 3.561,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 30,
+    "tool": "python",
+    "elapsed_s": 8.805,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 31,
+    "tool": "python",
+    "elapsed_s": 4.099,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 32,
+    "tool": "python",
+    "elapsed_s": 3.219,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 33,
+    "tool": "python",
+    "elapsed_s": 3.345,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 34,
+    "tool": "python",
+    "elapsed_s": 3.032,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 35,
+    "tool": "python",
+    "elapsed_s": 3.013,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 36,
+    "tool": "python",
+    "elapsed_s": 5.509,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 37,
+    "tool": "python",
+    "elapsed_s": 0.451,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 38,
+    "tool": "python",
+    "elapsed_s": 0.091,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "private-attr:__name__"
+    ]
+  },
+  {
+    "index": 39,
+    "tool": "python",
+    "elapsed_s": 8.23,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 40,
+    "tool": "python",
+    "elapsed_s": 16.36,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 41,
+    "tool": "python",
+    "elapsed_s": 0.056,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 42,
+    "tool": "python",
+    "elapsed_s": 0.324,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 43,
+    "tool": "python",
+    "elapsed_s": 18.688,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 44,
+    "tool": "python",
+    "elapsed_s": 0.44,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 45,
+    "tool": "python",
+    "elapsed_s": 9.804,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 46,
+    "tool": "python",
+    "elapsed_s": 5.162,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 47,
+    "tool": "python",
+    "elapsed_s": 3.568,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 48,
+    "tool": "python",
+    "elapsed_s": 3.117,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 49,
+    "tool": "python",
+    "elapsed_s": 0.334,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 50,
+    "tool": "python",
+    "elapsed_s": 4.319,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 51,
+    "tool": "python",
+    "elapsed_s": 10.467,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 52,
+    "tool": "python",
+    "elapsed_s": 0.937,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 53,
+    "tool": "python",
+    "elapsed_s": 15.996,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 54,
+    "tool": "python",
+    "elapsed_s": 0.869,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 55,
+    "tool": "python",
+    "elapsed_s": 15.954,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 56,
+    "tool": "python",
+    "elapsed_s": 3.416,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 57,
+    "tool": "python",
+    "elapsed_s": 8.047,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 58,
+    "tool": "python",
+    "elapsed_s": 3.972,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 59,
+    "tool": "python",
+    "elapsed_s": 3.718,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 60,
+    "tool": "python",
+    "elapsed_s": 3.257,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 61,
+    "tool": "python",
+    "elapsed_s": 0.99,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 62,
+    "tool": "python",
+    "elapsed_s": 3.089,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  }
+]

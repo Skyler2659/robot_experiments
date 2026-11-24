@@ -1,0 +1,6 @@
+print('rack parts', [(node['path'], node['matrix_local_column_major'][12:15]) for node in world.parts('tube_rack')['nodes']])
+print('move doc', robo.move_to.__doc__)
+print('bounds', world.bounds('loose_tube'), world.bounds('tube_rack'))
+comparison = world.compare_views(obs['capture'])
+print('comparison', str(comparison)[:1500])
+display(robo.image('top'))

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "review('Jaws opened above tube; no object displacement visible.')\nctx = world.read_context()\nprint(robo.move_to([grasp_point[0],grasp_point[1],.018], rotation=pick_rotation.tolist(), arm='right'))\nobserve_review()\ndisplay(robo.image('top')[550:900,350:750])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "review('Jaws opened above tube; no object displacement visible.')\nctx = world.read_context()\nprint(robo.move_to([grasp_point[0],grasp_point[1],.018], rotation=pick_rotation.tolist(), arm='right'))\nobserve_review()\ndisplay(robo.image('top')[550:900,350:750])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

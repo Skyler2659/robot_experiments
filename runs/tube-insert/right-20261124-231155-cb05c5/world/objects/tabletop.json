@@ -1,0 +1,190 @@
+{
+  "object_id": "tabletop",
+  "movable": false,
+  "role": "rigid_object",
+  "geometry": {
+    "local_mesh": "geometry/tabletop/local.glb",
+    "local_bounds_m": [
+      [
+        -0.5899999737739563,
+        -0.699999988079071,
+        -0.02250000089406967
+      ],
+      [
+        0.5899999737739563,
+        0.699999988079071,
+        0.02250000089406967
+      ]
+    ],
+    "vertices": 24,
+    "faces": 12
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.52
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.49
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      -0.0425
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/0",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.52,
+      0.49,
+      -0.0425,
+      1
+    ],
+    "user_data": {
+      "object_id": "tabletop",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/0",
+      "name": "tabletop",
+      "type": "Group",
+      "object_id": "tabletop",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.52,
+        0.49,
+        -0.0425,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.52,
+        0.49,
+        -0.0425,
+        1
+      ],
+      "user_data": {
+        "object_id": "tabletop",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/0/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "tabletop",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.52,
+        0.49,
+        -0.0425,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "dimensions_m": [
+      1.1799999475479126,
+      1.399999976158142,
+      0.04500000178813934
+    ],
+    "position_W_m": [
+      0.52,
+      0.49,
+      -0.0425
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Dimensions and occluded surfaces estimated from a single RGB image."
+    ],
+    "geometry_origin": "single_rgb_rcwm"
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

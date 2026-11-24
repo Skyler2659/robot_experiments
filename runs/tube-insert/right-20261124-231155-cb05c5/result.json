@@ -1,0 +1,136 @@
+{
+  "schema": "pyrualean-episode-v2",
+  "system": "pyrualean",
+  "arm": "cells",
+  "backend": "physical",
+  "robot": "physical",
+  "suite": "tabletop",
+  "task": "insert",
+  "seed": 0,
+  "task_language": "\u628a\u684c\u4e0a\u7684\u8bd5\u7ba1\u653e\u8fdb\u8bd5\u7ba1\u67b6\u4ece\u5de6\u6570\u7b2c2\u4e2a\u5b54\uff0c\u7ba1\u53e3\u671d\u4e0a\u3002 \u4ec5\u4f7f\u7528\u53f3\u81c2\u3002\u786e\u8ba4\u653e\u7f6e\u7ed3\u679c\uff0c\u64a4\u79bb\u7ba1\u67b6\u5e76\u8fd4\u56de\u521d\u59cb\u4f4d\u59ff\uff0c\u518d\u62a5\u544a\u6210\u529f\u3002",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "max_programs": null,
+  "images": "on-motion",
+  "feedback": "rich",
+  "guides": false,
+  "max_turns": 300,
+  "budget_mode": "calls",
+  "environment_success": null,
+  "status": "boot_error",
+  "reason": null,
+  "error": {
+    "type": "KeyboardInterrupt",
+    "message": ""
+  },
+  "finish": null,
+  "calls": 626,
+  "stateful_calls": 46,
+  "env_steps": 46,
+  "tool_turns": 63,
+  "policy_wall_s": null,
+  "startup_s": 8.018587059981655,
+  "total_wall_s": 1595.6921122709755,
+  "timeout_s": 5400,
+  "max_episode_steps": 200,
+  "prompt": {
+    "chars": 15048,
+    "sha256": "ca6a806b512d78def024a6c0c9ce52c38ffbc1020a845eebbaaa5a362ddc560a",
+    "images": [
+      "/data/jlb/robot_experiments/runs/tube-insert/right-20261124-231155-cb05c5/initial/observations/a6268bb33cbc4b2488ec94dd98c146e7/rgb.png"
+    ]
+  },
+  "generation": null,
+  "host": {
+    "python": "/home/embodied/miniconda3/envs/lerobot/bin/python",
+    "cuda_device": null,
+    "primitive_set": "full",
+    "boot_options": {
+      "config_path": "/data/jlb/robot_experiments/real_robot/data/configs/.insert-2jmx2gwj.json",
+      "record_video": true
+    },
+    "codex_context": {
+      "model_context_window": null,
+      "model_auto_compact_token_limit": null,
+      "source": null
+    },
+    "sandbox": "imports limited to pure-computation modules and workspace files, open() confined to the workspace, exec/eval/compile removed, code naming __globals__/__func__/__subclasses__-style introspection refused before it runs; every cell is audited (sandbox_flags)"
+  },
+  "created_at": "2026-11-24T23:11:57+0800",
+  "notes": [
+    "host failed before the agent started"
+  ],
+  "codeworld": {
+    "mode": "imported_prior",
+    "frame": "right_piper_base",
+    "world": "/data/jlb/robot_experiments/runs/tube-insert/right-20261124-231155-cb05c5/world",
+    "initial_capture": "observations/102d93f80aae4150b39c65c43f1b5d35/capture.json",
+    "backend": "lab",
+    "scene_collision_checker": true,
+    "collision_excluded_objects": [
+      "rear_wall"
+    ],
+    "initial_pose_refresh_objects": [
+      "loose_tube",
+      "tube_rack"
+    ],
+    "final_interaction": {
+      "mode": "mandatory",
+      "action_count": 35,
+      "updated_count": 34,
+      "read_at": {
+        "revision": 72,
+        "host_step": 46
+      },
+      "pending_update": {
+        "action": 35,
+        "phase": "awaiting_update",
+        "record": {
+          "index": 618,
+          "tool": "grip",
+          "kwargs": {
+            "arm": "right",
+            "gripper": -1,
+            "opening": 0.9375
+          },
+          "started_at": 1795534682.1492786,
+          "elapsed_s": 0.532004056032747,
+          "ok": true,
+          "stateful": true,
+          "env_steps": 1,
+          "error": null,
+          "summary": {
+            "status": "completed",
+            "message": "Measured motor feedback reached the target",
+            "reached": true,
+            "blocked": false
+          }
+        },
+        "codeworld_read": {
+          "revision": 71,
+          "host_step": 45
+        },
+        "after_action_ns": 1795534682681317262,
+        "capture": "observations/f1da5d88e7d3463495fa6a3860df2ef7/capture.json",
+        "capture_error": null,
+        "focus_objects": [
+          "loose_tube"
+        ]
+      }
+    }
+  },
+  "recording": {
+    "status": "completed",
+    "fps": 15.0,
+    "frames_per_camera": 23824,
+    "files": {
+      "top": "videos/top.mp4",
+      "r_wrist": "videos/r_wrist.mp4"
+    },
+    "pairing": {
+      "clock": "host_monotonic_ns",
+      "reference": "top",
+      "max_skew_ns": 75000000
+    }
+  }
+}

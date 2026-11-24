@@ -1,0 +1,41 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop.",
+    "tool_params": {
+      "status": "stuck",
+      "summary": "机器人连接连续失败，无法继续观察或安全控制。最后可见试管随夹爪偏移，未确认插入从左数第2孔；右臂尚未完成撤离和返回初始位姿，不能报告成功。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "stuck",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "机器人连接连续失败，无法继续观察或安全控制。最后可见试管随夹爪偏移，未确认插入从左数第2孔；右臂尚未完成撤离和返回初始位姿，不能报告成功。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

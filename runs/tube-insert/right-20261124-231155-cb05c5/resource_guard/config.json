@@ -1,0 +1,9 @@
+{
+  "pid": 1091121,
+  "start": 46509129,
+  "control": "/data/jlb/robot_experiments/runs/tube-insert/right-20261124-231155-cb05c5/resource_guard/control.json",
+  "receipt": "/data/jlb/robot_experiments/runs/tube-insert/right-20261124-231155-cb05c5/resource_guard/interruption.json",
+  "host_memory_bytes": 8589934592,
+  "tree_memory_bytes": 21474836480,
+  "tool_timeout_s": 240.0
+}

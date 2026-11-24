@@ -1,0 +1,12 @@
+{
+  "step": 10,
+  "command": {
+    "kind": "grip",
+    "gripper_width_m": 0.012,
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "completed",
+    "message": "Site controller confirmed gripper contact"
+  }
+}

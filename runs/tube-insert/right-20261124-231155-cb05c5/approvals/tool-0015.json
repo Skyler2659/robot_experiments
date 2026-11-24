@@ -1,0 +1,35 @@
+{
+  "threadId": "01a20e1d-3c4e-7c80-8674-116e16479e51",
+  "turnId": "01a20e1d-3c6b-7f22-85ea-a6432db3ea04",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "def review(note, poses=None, held=None, relations=None):\n    context = world.read_context()\n    pending = context['interaction']['pending_update']\n    if pending:\n        return world.commit_step(pending['capture'], expected_revision=context['revision'], note=note, poses=poses or {}, held=held or {}, relations=relations or {})\ndef observe_review():\n    context = world.read_context()\n    if context['interaction']['pending_update']:\n        world.compare_views(context['interaction']['pending_update']['capture'])\n    print('tcp',np.array(robo.state()['right']['T_W_tcp'])[:3,3].round(4),'jaw',robo.state()['right']['gripper_width_m'])\nreview('Arm moved freely above table; tube and rack visibly unchanged and no attachment.')\nfrom scipy.spatial.transform import Rotation\nmid_rotation = Rotation.from_euler('z',.35).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()\nctx = world.read_context()\nprint(robo.move_to([.28,.08,.22], rotation=mid_rotation.tolist(), arm='right'))\nobserve_review()"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "def review(note, poses=None, held=None, relations=None):\n    context = world.read_context()\n    pending = context['interaction']['pending_update']\n    if pending:\n        return world.commit_step(pending['capture'], expected_revision=context['revision'], note=note, poses=poses or {}, held=held or {}, relations=relations or {})\ndef observe_review():\n    context = world.read_context()\n    if context['interaction']['pending_update']:\n        world.compare_views(context['interaction']['pending_update']['capture'])\n    print('tcp',np.array(robo.state()['right']['T_W_tcp'])[:3,3].round(4),'jaw',robo.state()['right']['gripper_width_m'])\nreview('Arm moved freely above table; tube and rack visibly unchanged and no attachment.')\nfrom scipy.spatial.transform import Rotation\nmid_rotation = Rotation.from_euler('z',.35).as_matrix() @ Rotation.from_euler('y',2.35).as_matrix()\nctx = world.read_context()\nprint(robo.move_to([.28,.08,.22], rotation=mid_rotation.tolist(), arm='right'))\nobserve_review()",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}
