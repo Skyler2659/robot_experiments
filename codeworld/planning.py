@@ -1,5 +1,4 @@
 """Read-only multi-stage access forecasts over reconstructed geometry."""
-import copy
 import numpy as np
 from .world import rigid
 
@@ -8,24 +7,29 @@ def preview_plan(world, stages, *, access_margin_m=.04):
     margin = float(access_margin_m)
     if not np.isfinite(margin) or margin < 0:
         raise ValueError('access_margin_m must be finite and nonnegative')
-    state = copy.deepcopy(world.state())
+    state = world.state()
     names = set(state['objects'])
+    bounds = {oid: None for oid in names if world.object_role(oid) != 'robot_snapshot'}
+    needed_by_stage = []
+    future = set()
+    for stage in reversed(stages):
+        future.update(stage.get('access', ()))
+        needed_by_stage.append(future.copy())
+        # A pose set at this stage requires access from earlier stages.
+        future.update(stage.get('poses', {}))
     reports = []
-    for index, stage in enumerate(stages):
+    for index, (stage, needed) in enumerate(zip(stages, reversed(needed_by_stage))):
         for oid, pose in stage.get('poses', {}).items():
             meta = world.object(oid)
             if meta.get('role') in {'robot_snapshot', 'fixed_obstacle'} or meta.get('movable') is False:
                 raise ValueError('Cannot plan relocation of fixed object: ' + oid)
             state['objects'][oid]['T_W_object'] = rigid(pose).tolist()
-        # Reserve access not just for this stage, but for later requested objects.
-        needed = set(stage.get('access', []))
-        for later in stages[index+1:]:
-            needed.update(later.get('access', []))
-            needed.update(later.get('poses', {}))
+            bounds[oid] = None
         if not needed <= names:
             raise ValueError('Unknown future access objects')
-        bounds = {oid: world._mesh(oid, state).bounds for oid in names
-                  if world.object(oid).get('role') != 'robot_snapshot'}
+        for oid, box in bounds.items():
+            if box is None:
+                bounds[oid] = world._mesh(oid, state).bounds
         risks = []
         for target in sorted(needed):
             box = bounds[target]

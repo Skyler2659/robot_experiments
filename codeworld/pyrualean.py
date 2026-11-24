@@ -30,13 +30,18 @@ def plain(value):
 
 def capture(robo, root, frame):
     """Archive all host cameras with image-time calibration, without motion."""
-    state = plain(robo.state())
+    read_observation = getattr(robo, "_state_and_cameras", None)
+    if read_observation is None:
+        state, cameras = plain(robo.state()), None
+    else:
+        state, cameras = read_observation()
+        state = plain(state)
     step = state["step"]
     views = []
     image_robot_state = None
     for camera in getattr(robo, "CAMERAS", ("cam_head",)):
         image = robo.image(camera, step=step)
-        meta = robo.camera_meta(camera, step=step)
+        meta = robo.camera_meta(camera, step=step) if cameras is None else cameras[camera]
         if meta.get("image_robot_state"):
             image_robot_state = meta["image_robot_state"]
         if meta.get("shape") and tuple(meta["shape"][:2]) != tuple(np.asarray(image).shape[:2]):
@@ -122,11 +127,18 @@ class AgentWorld:
         install = getattr(self._robo._backend, 'set_motion_checker', None)
         if install is None:
             raise ValueError('This backend cannot check native motion paths')
+        agent_selection = config.get('agent_selectable', False)
+        select = getattr(self._robo._backend, 'set_agent_collision_selection', None)
+        if type(agent_selection) is not bool or (agent_selection and select is None):
+            raise ValueError('Agent collision selection must be a boolean and requires RoboDojo')
         spec = config.get('robot_spec') or x5_spec(config['urdf'])
         self._collision = SceneCollision(self._world, spec,
             max_joint_increment=config.get('max_joint_increment_rad', .025),
             max_finger_increment_m=config.get('max_finger_increment_m', .002))
         install(self._collision.check)
+        if select is not None:
+            select(agent_selection)
+        self._agent_collision_selection = agent_selection
 
     def expect_contacts(self, *, grasp=None, place=None, contacts=None):
         """Name intended contacts for the NEXT primitive, e.g. grasp={'right':'block'}.
@@ -202,12 +214,12 @@ class AgentWorld:
         expected_revision, note, relations=None
     ):
         """Review this step; update affected objects, retain others, confirm grasps via held."""
-        from .updates import commit_step
+        from .updates import _commit_observation
 
-        self._loop.check_capture(capture)
-        result = commit_step(
+        observation = self._loop._load_checked_capture(capture)
+        result = _commit_observation(
             self._world,
-            capture,
+            observation,
             poses=poses or {},
             unchanged=unchanged or {},
             unresolved=unresolved or {},
@@ -233,6 +245,10 @@ class AgentWorld:
         result = self._loop.before_action(tool, kwargs)
         if self._collision is not None:
             self._collision.begin_action()
+            if getattr(self, '_agent_collision_selection', False):
+                self._collision.last_report = (
+                    {'status': 'SKIPPED'} if kwargs.get('check_collision') is False else None
+                )
         return result
 
     def _after_action(self, record):
@@ -443,11 +459,14 @@ class AgentWorld:
         proposals = poses if proposals is None else proposals
         if proposals is None:
             raise ValueError('Supply object pose proposals, e.g. poses={object_id: proposal}')
-        _, packet, _ = load(self._world.root, capture)
+        from .updates import _integrate_observation
+
+        observation = load(self._world.root, capture)
+        _, packet, _ = observation
         if packet.get("metadata", {}).get("host_step") != plain(self._robo.state())["step"]:
             raise ValueError("Capture predates host motion; observe again before updating")
-        return self._world.integrate_rgb(
-            capture, proposals, expected_revision=expected_revision, note=note
+        return _integrate_observation(
+            self._world, observation, proposals, expected_revision=expected_revision, note=note
         )
 
     def update(self, updates, *, basis="agent_estimate", note=None, expected_revision=None):
@@ -687,9 +706,21 @@ def prepare(config_path, *, robo, robot, out_dir, scratch, cancelled=None):
     return (
         {"world": api},
         prompt + (CODEWORLD_ONLY_PROMPT if api._perception_mode == 'codeworld' and mode != 'gt_live_state' else '')
-        + (COLLISION_PROMPT if api._collision else '') + "\nInitial CodeWorld:\n" + initial_context,
+        + (COLLISION_PROMPT if api._collision else '')
+        + (AGENT_COLLISION_PROMPT if (collision_config or {}).get('agent_selectable') else '')
+        + "\nInitial CodeWorld:\n" + initial_context,
         record,
     )
+
+
+AGENT_COLLISION_PROMPT = """
+In this RoboDojo simulation, decide per action whether to use the CodeWorld collision check.
+move_to, set_gripper and home check by default. To skip it for just one action,
+pass check_collision=False. Use the check for close clearances and uncertain approaches,
+including aligning, lowering, releasing and withdrawing near a fixture. You may skip it
+when the planned motion has ample clearance. Choose using the scene and robot state.
+CodeWorld observation, commit and read requirements still apply after motion.
+"""
 
 
 COLLISION_PROMPT = """
@@ -752,7 +783,8 @@ released object, contact partners, and other genuinely changed objects. Stable t
 walls and passively occluded objects may retain their established state, without repeated
 per-object justification or re-estimation.
 
-Before the next action or finish, commit the step review:
+If RoboDojo reports moved=false and pending_update is empty, the previous observation
+is still current. Otherwise commit the pending step before the next action or finish:
 ctx = world.read_context()
 world.commit_step(ctx['interaction']['pending_update']['capture'],
     poses={...}, unchanged={...}, unresolved={...}, held={...}, disturbed={...},

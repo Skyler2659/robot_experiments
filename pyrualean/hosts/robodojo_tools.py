@@ -185,11 +185,6 @@ class MotionCollision(Exception):
         super().__init__("Scene collision: " + str(report.get("hits", [])))
 
 
-def _collision_check(primitives, state, actions, phase):
-    checker = getattr(primitives, "motion_checker", None)
-    return checker(state, actions, phase=phase) if checker is not None else None
-
-
 def _act(
     primitives: Any,
     state: dict[str, Any],
@@ -208,13 +203,18 @@ def _act(
         if g is None:
             g = _keep(primitives, state, arm)
         action[f"{arm}_ee_joint_state"] = [float(g)]
-    report = _collision_check(primitives, state, [action], "native_segment")
-    if report and report["status"] == "COLLISION":
-        raise MotionCollision(report)
+    checker = getattr(primitives, "motion_checker", None)
+    if checker is not None:
+        report = checker(state, [action], phase="native_segment")
+        if report and report["status"] == "COLLISION":
+            raise MotionCollision(report)
     for arm in ARMS:
         _remember(primitives, arm, action[f"{arm}_ee_joint_state"][0])
-    _obs_step, _reward, _done, info = primitives.env.step(action)
-    obs = _obs(primitives)
+    obs, _reward, _done, info = primitives.env.step(action)
+    if isinstance(obs, dict) and isinstance(obs.get("state"), dict):
+        primitives._last_obs = obs
+    else:
+        obs = _obs(primitives)
     return obs["state"], (info.get("status") or {}) if isinstance(info, dict) else {}
 
 
@@ -257,15 +257,10 @@ def _spent(status: dict[str, Any]) -> bool:
         return False
 
 
-def _tcp(arm: str, q: Sequence[float]) -> list[float]:
-    return [round(float(v), 4) for v in kin.tcp(kin.fk(arm, q))]
-
-
-def _pose_summary(arm: str, q: Sequence[float]) -> dict[str, Any]:
-    pose = kin.fk(arm, q)
+def _pose_summary(pose: np.ndarray) -> dict[str, Any]:
     pitch, yaw, roll = kin.angles(pose[:3, :3])
     return {
-        "xyz": [round(float(v), 4) for v in kin.tcp(pose)],
+        "xyz": [round(float(v), 4) for v in pose[:3, 3]],
         "pitch": round(pitch, 1),
         "yaw": round(yaw, 1),
         "roll": round(roll, 1),
@@ -275,17 +270,6 @@ def _pose_summary(arm: str, q: Sequence[float]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # motion
 # ---------------------------------------------------------------------------
-
-
-def _target(arm: str, q: Sequence[float], xyz, pitch, yaw, roll) -> tuple[np.ndarray, tuple]:
-    cur = kin.angles(kin.fk(arm, q)[:3, :3])
-    want = tuple(
-        float(v) if v is not None else c for v, c in zip((pitch, yaw, roll), cur, strict=True)
-    )
-    t = np.eye(4)
-    t[:3, :3] = kin.orientation(*want)
-    t[:3, 3] = [float(v) for v in xyz]
-    return t, want
 
 
 def _joint_path_clear(arm: str, q0: Sequence[float], q1: Sequence[float]) -> bool:
@@ -426,26 +410,27 @@ def move_pose(
     grip = _command(gripper)
     state = _obs(primitives)["state"]
     q = _joints(state, arm)
-    start = _tcp(arm, q)
-    target, want = _target(arm, q, xyz, pitch, yaw, roll)
-    flipped, _ = _target(arm, q, xyz, want[0], want[1], want[2] + 180.0)
+    start_pose = _pose_of(arm, q)
+    current_angles = kin.angles(start_pose[:3, :3])
+    want = tuple(float(v) if v is not None else c
+                 for v, c in zip((pitch, yaw, roll), current_angles, strict=True))
+    target = np.eye(4)
+    target[:3, 3] = xyz
+    target[:3, :3] = kin.orientation(*want)
+    targets = [target]
     # The fingers are interchangeable only while they hold nothing: with an object in the hand
     # the half-turned pose turns the object (172 of 3373 moves made holding something arrived
     # turned 180 degrees: pours tipped the wrong way, a laptop stood up upside down).
     empty = _opening(state, arm) >= OPEN_FOR_HALF_TURN and grip != 0.0
+    if empty:
+        flipped = target.copy()
+        flipped[:3, :3] = kin.orientation(want[0], want[1], want[2] + 180.0)
+        targets.append(flipped)
     options = []
     first_why: str | None = None
-    first_collision = None
-    for t in (target, flipped) if empty else (target,):
+    for t in targets:
         ways, taken, why, note = _plan(arm, q, t, path, start_joints)
         if why is None:
-            opening = grip if grip is not None else _keep(primitives, state, arm)
-            report = _collision_check(primitives, state, [
-                {f"{arm}_arm_joint_state": way, f"{arm}_ee_joint_state": [opening]}
-                for way in ways], "planned_path")
-            if report and report["status"] == "COLLISION":
-                first_collision = first_collision or report
-                continue
             travel = float(np.sum(np.abs(np.asarray(ways[-1]) - np.asarray(q))))
             # an exact solution beats a near miss
             options.append((note is not None, travel, ways, taken, t, note))
@@ -459,13 +444,11 @@ def move_pose(
             "yaw": round(want[1], 1),
             "roll": round(want[2], 1),
         },
-        "start_xyz": start,
+        "start_xyz": [round(float(v), 4) for v in start_pose[:3, 3]],
         "steps_used": 0,
         "path": None,
     }
     if not options:
-        if first_collision is not None:
-            raise MotionCollision(first_collision)
         if first_why and first_why.startswith("out of reach"):
             alts = _alternatives(arm, q, xyz, want, start_joints)
             first_why += (
@@ -473,21 +456,35 @@ def move_pose(
                 if alts
                 else "; nothing close is reachable either: use the other arm or move the object"
             )
-        now = _pose_summary(arm, q)
+        now = _pose_summary(start_pose)
         result.update(
             final_xyz=now["xyz"],
             final_angles={k: now[k] for k in ("pitch", "yaw", "roll")},
             dist_to_target_m=round(float(np.linalg.norm(np.asarray(now["xyz"]) - xyz)), 4),
             orientation_error_deg=round(
-                kin.rotation_error(kin.fk(arm, q)[:3, :3], target[:3, :3]), 1
+                kin.rotation_error(start_pose[:3, :3], target[:3, :3]), 1
             ),
             reached=False,
             ik_error=first_why,
         )
         return result
-    _near, _travel, ways, taken, goal, note = min(options, key=lambda o: (o[0], o[1]))
+    checker = getattr(primitives, "motion_checker", None)
+    first_collision = None
+    for _, _, ways, taken, goal, note in sorted(options, key=lambda option: option[:2]):
+        if checker is None:
+            break
+        opening = grip if grip is not None else _keep(primitives, state, arm)
+        actions = [{f"{arm}_arm_joint_state": way, f"{arm}_ee_joint_state": [opening]}
+                   for way in ways]
+        report = checker(state, actions, phase="planned_path")
+        if not report or report["status"] != "COLLISION":
+            break
+        if first_collision is None or goal is target:
+            first_collision = report
+    else:
+        raise MotionCollision(first_collision)
     result["path"] = taken
-    if goal is flipped:
+    if goal is not target:
         half = (
             "took the pose turned half a turn about the pointing direction (the empty "
             "fingers are interchangeable): yaw / roll read 180 off"
@@ -514,9 +511,10 @@ def move_pose(
         state, status = _act(primitives, state, {arm: final_q}, {arm: grip})
         steps += 1
     q_now = _joints(state, arm)
-    now = _pose_summary(arm, q_now)
-    dist = float(np.linalg.norm(np.asarray(kin.tcp(kin.fk(arm, q_now))) - np.asarray(xyz)))
-    turn = kin.rotation_error(kin.fk(arm, q_now)[:3, :3], goal[:3, :3])
+    final_pose = _pose_of(arm, q_now)
+    now = _pose_summary(final_pose)
+    dist = float(np.linalg.norm(final_pose[:3, 3] - xyz))
+    turn = kin.rotation_error(final_pose[:3, :3], goal[:3, :3])
     result.update(
         final_xyz=now["xyz"],
         final_angles={k: now[k] for k in ("pitch", "yaw", "roll")},
@@ -529,7 +527,7 @@ def move_pose(
     # behind the planned pose by more than a few mm: a joint lag of 0.03 rad is already ~1 cm
     # at the grasp point (a press stalled 1.5 cm short read as no lag at all)
     planned = kin.tcp(kin.fk(arm, final_q))
-    lag_m = float(np.linalg.norm(np.asarray(kin.tcp(kin.fk(arm, q_now))) - planned))
+    lag_m = float(np.linalg.norm(final_pose[:3, 3] - planned))
     if lag_m > 0.005 and not _spent(status):
         result["blocked"] = "the arm stopped short of the planned pose: something is in the way"
     return result
@@ -725,6 +723,13 @@ def _camera(obs: dict[str, Any], camera: str) -> dict[str, Any] | None:
     return (obs.get("vision") or {}).get(camera)
 
 
+_DEPTH_CHANNELS = (("distance_to_image_plane", 1.0), ("depth", 1.0), ("approximate_depth", 1e-3))
+
+
+def has_depth(cam: dict[str, Any]) -> bool:
+    return any(cam.get(key) is not None for key, _ in _DEPTH_CHANNELS)
+
+
 def depth_image(cam: dict[str, Any]) -> np.ndarray | None:
     """A camera's depth along its optical axis, metres (H x W), or None when it has none.
 
@@ -733,11 +738,7 @@ def depth_image(cam: dict[str, Any]) -> np.ndarray | None:
     form its released data has), whichever its configuration switches on.
     """
 
-    for key, scale in (
-        ("distance_to_image_plane", 1.0),
-        ("depth", 1.0),
-        ("approximate_depth", 1e-3),
-    ):
+    for key, scale in _DEPTH_CHANNELS:
         raw = cam.get(key)
         if raw is None:
             continue
@@ -917,7 +918,7 @@ def colour_only(primitives: Any, cam: dict[str, Any] | None = None) -> bool:
         return True
     if cam is None:
         return False
-    return depth_image(cam) is None
+    return not has_depth(cam)
 
 
 def _shown(obs: dict[str, Any]) -> dict[str, Any]:

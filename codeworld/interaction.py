@@ -57,8 +57,7 @@ class WorldInteraction:
                 "post-action RGB before another action"
             )
         live = self.robot_state()
-        now = {"revision": self.world.state()["revision"], "host_step": live["step"]}
-        if self.read_at != now:
+        if self.read_at is None or self.read_at["host_step"] != live["step"]:
             raise RuntimeError(
                 "Read the current CodeWorld with world.read_context() before this action"
             )
@@ -89,8 +88,6 @@ class WorldInteraction:
         self._save()
 
     def _record_recovery(self, record):
-        if not self.world.state().get('control_policy', {}).get('observation_consistency'):
-            return
         summary = record.get('summary') or {}
         kw = self._action_kwargs
         reason = ('empty_close' if kw.get('gripper') == 1 and summary.get('holding') is False else
@@ -101,6 +98,8 @@ class WorldInteraction:
         with (self.world.root / 'state/update.lock').open('a') as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             state = self.world.state()
+            if not state.get('control_policy', {}).get('observation_consistency'):
+                return
             history = state.setdefault('recovery_history', [])
             history.append({'host_step': self.robot_state()['step'], 'reason': reason,
                             'action': copy.deepcopy(kw), 'feedback': copy.deepcopy(summary),
@@ -125,11 +124,12 @@ class WorldInteraction:
         self._save()
 
     def after_action(self, record):
-        self._record_recovery(record.to_dict())
+        feedback = record.to_dict()
+        self._record_recovery(feedback)
         self.pending = {
             "action": self.action_count,
             "phase": "awaiting_update",
-            "record": record.to_dict(),
+            "record": feedback,
             "codeworld_read": self._action_read,
             "after_action_ns": time.time_ns(),
             "capture": None,
@@ -142,11 +142,10 @@ class WorldInteraction:
             kw = self._action_kwargs
             live = self.robot_state()
             opening = live.get(kw.get("arm"), {}).get("gripper")
-            opened = opening >= .9 if opening is not None else record.to_dict().get("ok", False)
+            opened = opening >= .9 if opening is not None else feedback.get("ok", False)
             released = ([kw["arm"]] if opened and
                         kw.get("arm") in {"left", "right"} and kw.get("gripper") == -1 and
                         (kw.get("opening") is None or kw["opening"] >= .9) else [])
-            feedback = self.pending["record"]
             executed = (feedback["env_steps"] > 0 if feedback.get("env_steps") is not None
                         else feedback.get("ok", False))
             reset_candidates = ([kw["arm"]] if executed and
@@ -163,7 +162,7 @@ class WorldInteraction:
                 ids = predict(state, live, released=released, reset_candidates=reset_candidates)
                 state["revision"] += 1
                 state["history"].append({"revision": state["revision"], "kind": "agent_feedback",
-                    "affected_objects": ids, "result": {"primitive": record.to_dict(),
+                    "affected_objects": ids, "result": {"primitive": feedback,
                     "codeworld_read": self._action_read}, "recorded_at_ns": time.time_ns()})
                 atomic(self.world.state_path, state)
             self.pending["focus_objects"] = sorted(set(ids) | {
@@ -186,16 +185,21 @@ class WorldInteraction:
             self._save()
 
     def check_capture(self, capture):
+        _, packet, _ = self._load_checked_capture(capture)
+        return packet
+
+    def _load_checked_capture(self, capture):
         if self.pending is None:
             raise ValueError("No action awaits a CodeWorld step update")
         if self.pending["phase"] != "awaiting_update":
             raise ValueError("Action is still executing; wait for its post-action observation")
-        _, packet, _ = load(self.world.root, capture)
+        observation = load(self.world.root, capture)
+        _, packet, _ = observation
         if packet["recorded_at_ns"] < self.pending["after_action_ns"]:
             raise ValueError("Use an observation captured after this action")
         if packet.get("metadata", {}).get("host_step") != self.robot_state()["step"]:
             raise ValueError("Capture predates host motion; observe again")
-        return packet
+        return observation
 
     def committed(self):
         self.updated_count += 1
@@ -211,21 +215,23 @@ class WorldInteraction:
         context = self.context()
         png = None
         if self.pending and self.pending.get("capture"):
-            _, packet, image = load(self.world.root, self.pending["capture"])
+            observation = load(self.world.root, self.pending["capture"])
+            _, packet, _ = observation
             context["post_action_observation"] = {
                 "observation_id": packet["observation_id"],
                 "capture": self.pending["capture"],
                 "views": [{k: v[k] for k in ("view_id", "K", "T_W_C", "image_size", "timing") if k in v}
                           for v in packet["views"]],
             }
-            from .comparison import compare
+            from .comparison import _compare_loaded
 
             key = (self.pending["capture"], context["revision"])
             try:
                 if getattr(self, '_comparison_timed_out', None) == key:
                     raise TimeoutError('Comparison rendering already timed out for this observation; use current RGB')
                 if self._comparison_cache is None or self._comparison_cache[0] != key:
-                    self._comparison_cache = (key, compare(self.world, key[0], wall_budget_s=30))
+                    result = _compare_loaded(self.world, observation, deadline=time.monotonic() + 30)
+                    self._comparison_cache = (key, result)
                 report, panels = self._comparison_cache[1]
                 context["comparison"] = {"revision": report["revision"], "files": report["files"],
                                          "format": "real RGB left, same-camera world geometry right"}

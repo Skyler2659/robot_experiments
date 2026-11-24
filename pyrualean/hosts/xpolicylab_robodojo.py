@@ -298,7 +298,7 @@ def lacking(obs: dict[str, Any]) -> list[str]:
     return [
         name
         for name, got in (
-            ("a depth image", tools.depth_image(head) is not None),
+            ("a depth image", tools.has_depth(head)),
             ("intrinsic_matrix", head.get("intrinsic_matrix") is not None),
             ("extrinsic_matrix", tools.extrinsic_of(head) is not None),
         )

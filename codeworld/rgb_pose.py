@@ -90,7 +90,7 @@ def fit_pose(packet, specification, previous):
 def resolve_proposals(world, packet, proposals):
     """Resolve image_points inside the ordinary update, without a second API cycle."""
     result, failed = {}, {}
-    snapshot = world.snapshot()
+    snapshot = None
     for oid, proposal in proposals.items():
         if 'image_points' not in proposal:
             result[oid] = proposal
@@ -98,6 +98,8 @@ def resolve_proposals(world, packet, proposals):
         if 'T_W_object' in proposal:
             raise ValueError('Provide image_points or T_W_object, not both')
         # Unknown IDs and malformed proposals are still caller errors.
+        if snapshot is None:
+            snapshot = world.snapshot()
         previous = snapshot.transform(oid)
         try:
             result[oid] = fit_pose(packet, proposal['image_points'], previous)

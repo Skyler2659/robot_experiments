@@ -4,6 +4,8 @@ import numpy as np
 
 
 def validate_contacts(rules, world, robot):
+    if not rules:
+        return []
     state = world.state()
     result = []
     for rule in rules or []:
@@ -67,7 +69,7 @@ def matches(selector, body):
     return selector['arm'] == body['arm'] and selector['link'] == body['link']
 
 
-def permits(rules, a, b, fcl, cache):
+def permits(rules, a, b, fcl, cache, *, surface_contact=False):
     """Subtract the union of declared contact volumes from intersecting surfaces.
 
     A rule's two local regions are intersected in space. Rules for this exact
@@ -81,7 +83,7 @@ def permits(rules, a, b, fcl, cache):
         return False
     def intersects(first, second):
         return bool(fcl.collide(first, second, fcl.CollisionRequest(), fcl.CollisionResult()))
-    if not intersects(a['body'], b['body']):
+    if not surface_contact and not intersects(a['body'], b['body']):
         return False  # Solid containment without surface contact is not exempt.
     volumes = []
     for sa, sb in relevant:

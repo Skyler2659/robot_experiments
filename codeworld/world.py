@@ -8,14 +8,14 @@ import os
 import re
 import tempfile
 import time
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
 import trimesh
 
-from .computation_mesh import computation_mesh
-
 from .assembly import AssemblyMixin
+from .computation_mesh import computation_mesh
 from .review import ReviewMixin, record_pose_observation
 
 # Immutable geometry is checked once per file version in each long-lived process.
@@ -23,15 +23,15 @@ _BOUND_FILE_DIGESTS = {}
 
 
 def bound_file_digest(path):
-    path = Path(path)
+    path = Path(path).resolve()
     stat = path.stat()
-    key = (str(path.resolve()), stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
-    if key not in _BOUND_FILE_DIGESTS:
-        # Retain one version per path; geometry revisions are relatively infrequent.
-        for old in [k for k in _BOUND_FILE_DIGESTS if k[0] == key[0]]:
-            del _BOUND_FILE_DIGESTS[old]
-        _BOUND_FILE_DIGESTS[key] = hashlib.sha256(path.read_bytes()).hexdigest()
-    return _BOUND_FILE_DIGESTS[key]
+    version = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    cached = _BOUND_FILE_DIGESTS.get(path)
+    if cached is not None and cached[0] == version:
+        return cached[1]
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    _BOUND_FILE_DIGESTS[path] = (version, digest)
+    return digest
 
 
 def read(path):
@@ -43,7 +43,11 @@ def atomic(path, value):
     fd, name = tempfile.mkstemp(dir=path.parent, prefix=".state-")
     try:
         with os.fdopen(fd, "w") as f:
-            json.dump(value, f, indent=2, allow_nan=False)
+            if path.name == "current.json" and path.parent.name == "state":
+                # Rewritten each step, including the complete episode history.
+                f.write(json.dumps(value, separators=(",", ":"), allow_nan=False))
+            else:
+                json.dump(value, f, indent=2, allow_nan=False)
             f.write("\n")
             f.flush()
             os.fsync(f.fileno())
@@ -66,6 +70,14 @@ def rigid(value):
     return t
 
 
+def _load_query_mesh(path, is_part, file_version):
+    """Load the local surface. file_version keys the cache on asset replacement."""
+    mesh = trimesh.load(
+        path, force="scene" if is_part else "mesh", process=False, skip_materials=True
+    )
+    return computation_mesh(mesh.to_geometry() if is_part else mesh)
+
+
 class World(AssemblyMixin, ReviewMixin):
     def __init__(self, root, branch=None):
         self.root = Path(root).resolve()
@@ -76,6 +88,8 @@ class World(AssemblyMixin, ReviewMixin):
         self.state_path = self.root / (
             "state/current.json" if not branch else f"scenarios/{branch}.json"
         )
+        self._cached_query_mesh = lru_cache(maxsize=32)(_load_query_mesh)
+        self._object_roles = {}
 
     def snapshot(self):
         """Freeze current poses and part configuration for agent-authored calculations."""
@@ -154,6 +168,13 @@ class World(AssemblyMixin, ReviewMixin):
     def objects(self):
         return list(self.manifest["objects"])
 
+    def object_role(self, object_id):
+        """Static classification from the bound object metadata."""
+        if object_id not in self._object_roles:
+            row = read(self.root / self.manifest["objects"][object_id])
+            self._object_roles[object_id] = row.get("role")
+        return self._object_roles[object_id]
+
     def object(self, object_id):
         s = self.state()
         row = read(self.root / self.manifest["objects"][object_id])
@@ -192,33 +213,33 @@ class World(AssemblyMixin, ReviewMixin):
             nodes.append(current)
         return {"state_revision": s["revision"], "nodes": nodes}
 
+    def _placed_mesh(self, relative_path, transform, *, is_part=False):
+        path = self.root / relative_path
+        stat = path.stat()
+        version = (stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+        mesh = self._cached_query_mesh(path, is_part, version).copy()
+        mesh.apply_transform(transform)
+        return mesh
+
     def _part_mesh(self, object_id, part_id, state):
         live = state["objects"][object_id]
         part = live["assembly"]["parts"][part_id]
-        mesh = trimesh.load(
-            self.root / part["local_mesh"], force="scene", process=False, skip_materials=True
-        ).to_geometry()
-        mesh = computation_mesh(mesh)
-        mesh.apply_transform(rigid(live["T_W_object"]) @ rigid(part["T_object_part"]))
-        return mesh
+        pose = rigid(live["T_W_object"]) @ rigid(part["T_object_part"])
+        return self._placed_mesh(part["local_mesh"], pose, is_part=True)
 
     def _mesh(self, object_id, state):
         live = state["objects"][object_id]
+        pose = rigid(live["T_W_object"])
         if "assembly" in live:
-            meshes = []
-            for part in live["assembly"]["parts"].values():
-                m = trimesh.load(
-                    self.root / part["local_mesh"], force="scene", process=False, skip_materials=True
-                ).to_geometry()
-                m = computation_mesh(m)
-                m.apply_transform(rigid(live["T_W_object"]) @ rigid(part["T_object_part"]))
-                meshes.append(m)
+            meshes = [
+                self._placed_mesh(
+                    part["local_mesh"], pose @ rigid(part["T_object_part"]), is_part=True
+                )
+                for part in live["assembly"]["parts"].values()
+            ]
             return trimesh.util.concatenate(meshes)
         row = read(self.root / self.manifest["objects"][object_id])
-        mesh = trimesh.load(self.root / row["geometry"]["local_mesh"], force="mesh", process=False, skip_materials=True)
-        mesh = computation_mesh(mesh)
-        mesh.apply_transform(rigid(state["objects"][object_id]["T_W_object"]))
-        return mesh
+        return self._placed_mesh(row["geometry"]["local_mesh"], pose)
 
     def mesh(self, object_id):
         """Complete generated triangle surface in current W. Not real-world truth."""

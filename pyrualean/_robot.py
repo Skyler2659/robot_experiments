@@ -351,10 +351,10 @@ class RobotBase:
             steps_after = self._backend.env_steps()
             if steps_before is not None and steps_after is not None:
                 record.env_steps = max(0, steps_after - steps_before)
+            if payload.get("moved") is False:
+                record.summary["moved"] = False
             if self._action_observer is not None:
-                if (payload.get("code") in {"scene_collision", "home_clearance_required", "home_clearance_unreachable"}
-                        and payload.get("moved") is False
-                        and hasattr(self._action_observer, "_action_rejected")):
+                if payload.get("moved") is False and hasattr(self._action_observer, "_action_rejected"):
                     self._action_observer._action_rejected(record)
                 else:
                     self._action_observer._after_action(record)

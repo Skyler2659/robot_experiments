@@ -106,8 +106,7 @@ class ArmState:
 class State:
     """Snapshot of both arms at one recorded step.
 
-    step: index of the recorded step (0 = initial scene).  A new step is
-        recorded after every motion call.
+    step: index of the recorded observation (0 = initial scene).
     task: the task instruction given by the benchmark (authoritative).
     left / right: the two arms (``state.arm("left")`` picks one by name).
     truncated: the native-action budget of the episode is exhausted; no
@@ -661,12 +660,19 @@ class RobodojoRobot(RobotBase):
 
         Args:
             step: recorded step to read; ``-1`` is the latest, ``0`` the
-                initial scene.  A new step is recorded after every motion call.
+                initial scene. Executed motion records a new step.
         Returns:
             State with ``left`` / ``right`` end-effector poses, measured
             gripper openings and joint angles, and the ``truncated`` flag.
         """
         return super().state(step)
+
+    def _state_and_cameras(self) -> tuple[State, dict[str, Any]]:
+        """Read both arms and all camera calibrations from one recorded step."""
+        envelope = self._readonly(self.STATE_TOOL, {"step": -1})
+        state = self._state_from_envelope(envelope)
+        self._last_state = state
+        return state, (envelope.get("state") or {}).get("cameras") or {}
 
     def image(self, camera: str = "cam_head", *, resolution: str = "high", step: int = -1) -> Any:
         """Load a recorded camera image as a ``numpy`` uint8 array (480, 640, 3), RGB.
@@ -924,6 +930,8 @@ class RobodojoRobot(RobotBase):
         yaw: float | None = None,
         roll: float | None = None,
         path: str = "auto",
+        *,
+        check_collision: bool = True,
     ) -> Move:
         """Move one arm's grasp point to a world position, with an orientation.
 
@@ -954,6 +962,8 @@ class RobodojoRobot(RobotBase):
             path: ``"auto"`` (default), ``"line"`` (straight line or nothing)
                 or ``"joint"`` (swing the joints: fewer actions, but the grasp
                 point does not follow a line: not near objects).
+            check_collision: False skips the CodeWorld scene check for this
+                action when the RoboDojo experiment enables agent selection.
         Returns:
             Move; test ``reached`` (within 0.01 m and 5 degrees).  ``blocked``
             means the arm was stopped by something on the way.
@@ -966,13 +976,17 @@ class RobodojoRobot(RobotBase):
         if path not in ("auto", "line", "joint"):
             raise ValueError(f"path must be 'auto', 'line' or 'joint', got {path!r}")
         kwargs: dict[str, Any] = {"xyz": list(target), "arm": arm, "gripper": command, "path": path}
+        kwargs.update(self._collision_option(check_collision))
         for name, value in (("pitch", pitch), ("yaw", yaw), ("roll", roll)):
             angle = _angle(value, name)
             if angle is not None:
                 kwargs[name] = angle
         return self._stateful("move_pose", kwargs, lambda p: self._move(arm, target, p))
 
-    def set_gripper(self, arm: str, gripper: int, opening: float | None = None) -> Gripper:
+    def set_gripper(
+        self, arm: str, gripper: int, opening: float | None = None, *,
+        check_collision: bool = True,
+    ) -> Gripper:
         """Close or open one gripper, without moving the arms.
 
         The command is repeated until the fingers stop (2 to 10 native
@@ -995,7 +1009,8 @@ class RobodojoRobot(RobotBase):
         """
         arm = _arm(arm)
         command = _command(gripper, allow_keep=False)
-        kwargs: dict[str, Any] = {"arm": arm, "gripper": command}
+        kwargs: dict[str, Any] = {"arm": arm, "gripper": command,
+                                  **self._collision_option(check_collision)}
         if opening is not None:
             try:
                 fraction = float(opening)
@@ -1025,7 +1040,7 @@ class RobodojoRobot(RobotBase):
 
         return self._stateful("grip", kwargs, build)
 
-    def home(self, arm: str = "both") -> Home:
+    def home(self, arm: str = "both", *, check_collision: bool = True) -> Home:
         """Return an arm to the joint angles it had when the episode started.
 
         A grasp point lower than 1.0 m first goes straight up by up to 6 cm;
@@ -1054,9 +1069,15 @@ class RobodojoRobot(RobotBase):
                 truncated=self._latest_state().truncated,
             )
 
-        return self._stateful("home", {"arm": which}, build)
+        return self._stateful("home", {"arm": which, **self._collision_option(check_collision)}, build)
 
     # -- internals ----------------------------------------------------------
+
+    @staticmethod
+    def _collision_option(check_collision: bool) -> dict[str, bool]:
+        if type(check_collision) is not bool:
+            raise ValueError("check_collision must be a boolean")
+        return {} if check_collision else {"check_collision": False}
 
     def _latest_state(self) -> State:
         if self._last_state is None:

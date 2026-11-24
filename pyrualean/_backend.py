@@ -126,6 +126,10 @@ class CallRecord:
     error: str | None = None
     summary: dict[str, Any] = field(default_factory=dict)
 
+    @property
+    def moved(self) -> bool:
+        return self.stateful and self.summary.get("moved") is not False
+
     def to_dict(self) -> dict[str, Any]:
         record = asdict(self)
         record["kwargs"] = {k: _jsonable(v) for k, v in self.kwargs.items()}
@@ -148,6 +152,9 @@ class Ledger:
     @property
     def records(self) -> list[CallRecord]:
         return list(self._records)
+
+    def records_since(self, index: int) -> list[CallRecord]:
+        return self._records[index:]
 
     def open(self, tool: str, kwargs: dict[str, Any], *, stateful: bool) -> CallRecord:
         record = CallRecord(

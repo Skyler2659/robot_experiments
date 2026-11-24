@@ -4,13 +4,24 @@ import itertools
 import math
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from typing import NamedTuple
 
 import numpy as np
 import trimesh
 from scipy.spatial.transform import Rotation
 
 from .robot_assets import _origin
-from .world import read, rigid
+from .world import rigid
+
+
+class _Joint(NamedTuple):
+    name: str
+    kind: str
+    parent: str
+    child: str
+    origin: np.ndarray
+    axis: np.ndarray | None
+    mimic: tuple[str, float, float] | None
 
 
 class RobotGeometry:
@@ -25,6 +36,7 @@ class RobotGeometry:
         if len(roots) != 1:
             raise ValueError('Collision URDF needs one root')
         self.root = roots.pop()
+        self._kinematic_chain = self._compile_joints()
         self.neighbors = {frozenset((j.find('parent').get('link'), j.find('child').get('link')))
                           for j in self.joints}
         self.fingers = tuple(spec['finger_links'])
@@ -71,37 +83,60 @@ class RobotGeometry:
         if not self.meshes:
             raise ValueError('Robot has no collision geometry')
 
+    def _compile_joints(self):
+        # Resolve topology and parse immutable URDF geometry once for all path samples.
+        links = {self.root}
+        values = set(self.spec['joint_names']) | set(self.spec['finger_joints'])
+        pending = list(self.joints)
+        chain = []
+        while pending:
+            ready = [j for j in pending if j.find('parent').get('link') in links and
+                     (j.find('mimic') is None or j.find('mimic').get('joint') in values)]
+            if not ready:
+                raise ValueError('Disconnected/unbound URDF')
+            for joint in ready:
+                name, kind = joint.get('name'), joint.get('type')
+                child = joint.find('child').get('link')
+                element = joint.find('mimic')
+                mimic = None
+                if element is not None:
+                    mimic = (element.get('joint'), float(element.get('multiplier', 1)),
+                             float(element.get('offset', 0)))
+                    values.add(name)
+                axis = None
+                if kind != 'fixed':
+                    if kind not in ('revolute', 'continuous', 'prismatic'):
+                        raise ValueError('Unsupported joint ' + kind)
+                    element = joint.find('axis')
+                    xyz = '1 0 0' if element is None else element.get('xyz', '1 0 0')
+                    axis = np.fromstring(xyz, sep=' ')
+                    axis /= np.linalg.norm(axis)
+                chain.append(_Joint(name, kind, joint.find('parent').get('link'), child,
+                                    _origin(joint.find('origin')), axis, mimic))
+                links.add(child)
+                pending.remove(joint)
+        return chain
+
     def frames(self, arm, q, opening):
         values = dict(zip(self.spec['joint_names'], q, strict=True))
         scales = self.spec.get('finger_scales_m', {})
         values.update({name: opening * scales.get(name, self.spec['finger_scale_m']) + self.spec.get('finger_offset_m', 0.)
                        for name in self.spec['finger_joints']})
         transforms = {self.root: rigid(self.spec['bases'][arm])}
-        pending = list(self.joints)
-        while pending:
-            ready = [j for j in pending if j.find('parent').get('link') in transforms and
-                     (j.find('mimic') is None or j.find('mimic').get('joint') in values)]
-            if not ready:
-                raise ValueError('Disconnected/unbound URDF')
-            for j in ready:
-                name, kind = j.get('name'), j.get('type')
-                mimic = j.find('mimic')
-                if mimic is not None:
-                    values[name] = values[mimic.get('joint')] * float(mimic.get('multiplier', 1)) + float(mimic.get('offset', 0))
+        for joint in self._kinematic_chain:
+            if joint.mimic is not None:
+                source, multiplier, offset = joint.mimic
+                values[joint.name] = values[source] * multiplier + offset
+            frame = transforms[joint.parent] @ joint.origin
+            if joint.kind != 'fixed':
                 delta = np.eye(4)
-                if kind != 'fixed':
-                    a = j.find('axis')
-                    axis = np.fromstring(a.get('xyz', '1 0 0') if a is not None else '1 0 0', sep=' ')
-                    axis /= np.linalg.norm(axis)
-                    if kind in ('revolute', 'continuous'):
-                        delta[:3, :3] = Rotation.from_rotvec(axis * values[name]).as_matrix()
-                    elif kind == 'prismatic':
-                        delta[:3, 3] = axis * values[name]
-                    else:
-                        raise ValueError('Unsupported joint ' + kind)
-                transforms[j.find('child').get('link')] = (
-                    transforms[j.find('parent').get('link')] @ _origin(j.find('origin')) @ delta)
-                pending.remove(j)
+                displacement = joint.axis * values[joint.name]
+                if joint.kind == 'prismatic':
+                    delta[:3, 3] = displacement
+                else:
+                    delta[:3, :3] = Rotation.from_rotvec(displacement).as_matrix()
+                frame = frame @ delta
+            transforms[joint.child] = frame
         return transforms
 
 
@@ -172,35 +207,41 @@ class SceneCollision:
         Table/support contact and inter-piece stability are outside this query.
         """
         state = self.world.state()
-        fixed = [oid for oid, path in self.world.manifest['objects'].items()
-                 if read(self.world.root / path).get('role') == 'fixed_obstacle']
+        fixed = [oid for oid in self.world.manifest['objects']
+                 if self.world.object_role(oid) == 'fixed_obstacle']
         proposed = {}
         for oid, transform in poses.items():
             if oid in fixed:
                 raise ValueError('Cannot relocate fixed hardware in an assembly query')
-            local = copy.deepcopy(state['objects'][oid])
-            local['T_W_object'] = rigid(transform).tolist()
+            local = {**state['objects'][oid], 'T_W_object': rigid(transform).tolist()}
             proposed[oid] = self.world._mesh(oid, {'objects': {oid: local}})
         fixtures = {oid: self.world._mesh(oid, state) for oid in fixed}
         hits = []
         clearances = []
+        models, components = {}, {}
+
+        def collision_object(oid, mesh):
+            if oid not in models:
+                mesh.merge_vertices()
+                model = self.fcl.BVHModel()
+                model.beginModel(len(mesh.vertices), len(mesh.faces))
+                model.addSubModel(np.asarray(mesh.vertices, float), np.asarray(mesh.faces, np.int32))
+                model.endModel()
+                models[oid] = self.fcl.CollisionObject(model)
+            return models[oid]
+
         for oid, mesh in proposed.items():
             for fixture, other in fixtures.items():
-                geometries = []
-                for m in (mesh, other):
-                    m = m.copy(); m.merge_vertices()
-                    model = self.fcl.BVHModel()
-                    model.beginModel(len(m.vertices), len(m.faces))
-                    model.addSubModel(np.asarray(m.vertices, float), np.asarray(m.faces, np.int32))
-                    model.endModel()
-                    geometries.append(self.fcl.CollisionObject(model))
-                intersects = bool(self.fcl.collide(*geometries, self.fcl.CollisionRequest(), self.fcl.CollisionResult()))
-                # A closed fixture may fully enclose an object without surface crossing.
-                if not intersects:
-                    parts = []
-                    for m in (mesh, other):
-                        m = m.copy(); m.merge_vertices()
-                        parts.append(list(m.split(only_watertight=False, repair=False)))
+                geometries = collision_object(oid, mesh), collision_object(fixture, other)
+                overlaps = np.all(mesh.bounds[0] <= other.bounds[1]) and np.all(other.bounds[0] <= mesh.bounds[1])
+                intersects = bool(self.fcl.collide(
+                    *geometries, self.fcl.CollisionRequest(), self.fcl.CollisionResult()))
+                # Overlapping bounds also allow solid containment without crossing surfaces.
+                if overlaps and not intersects:
+                    for name, geometry in ((oid, mesh), (fixture, other)):
+                        if name not in components:
+                            components[name] = geometry.split(only_watertight=False, repair=False)
+                    parts = (components[oid], components[fixture])
                     intersects = any(p.is_watertight and p.contains([q.vertices[0]]).any()
                                      for outer, inner in (parts, parts[::-1]) for p in outer for q in inner)
                 if intersects:
@@ -259,25 +300,26 @@ class SceneCollision:
             current_geometry = [geometry_signature(rule[side], state) for side in ('first', 'second')]
             (rules if current_geometry == rule['_geometry'] else invalidated).append(rule)
         object_geometry = {}
+        object_poses = {}
         for oid, row in state['objects'].items():
-            meta = read(self.world.root / self.world.manifest['objects'][oid])
-            if meta.get('role') == 'robot_snapshot':
+            if self.world.object_role(oid) == 'robot_snapshot':
                 continue
-            import json
+            object_poses[oid] = rigid(row['T_W_object'])
             parts = row.get('assembly', {}).get('parts', {})
-            for pid in (parts or {None: None}):
-                local = copy.deepcopy(row); local['T_W_object'] = np.eye(4).tolist()
-                if pid is None:
-                    key = ('object', oid, 'null')
-                    mesh = lambda: self.world._mesh(oid, {'objects': {oid: local}})
-                else:
-                    local['assembly']['parts'][pid]['T_object_part'] = np.eye(4).tolist()
-                    key = ('part', oid, pid, json.dumps({k: parts[pid].get(k)
-                           for k in ('sha256', 'local_mesh')}, sort_keys=True))
-                    mesh = lambda: self.world._part_mesh(oid, pid, {'objects': {oid: local}})
+            for pid, part in (parts.items() if parts else [(None, None)]):
+                key = (('object', oid, 'null') if part is None else
+                       ('part', oid, pid, part.get('sha256'), part.get('local_mesh')))
                 if key not in self._cache:
-                    self._geometry(key, mesh())
-                object_geometry[(oid, pid)] = key
+                    # Build the local BVH once. Poses do not affect its geometry.
+                    local = {**row, 'T_W_object': np.eye(4)}
+                    if part is None:
+                        mesh = self.world._mesh(oid, {'objects': {oid: local}})
+                    else:
+                        local['assembly'] = {'parts': {pid: {**part, 'T_object_part': np.eye(4)}}}
+                        mesh = self.world._part_mesh(oid, pid, {'objects': {oid: local}})
+                    self._geometry(key, mesh)
+                part_pose = rigid(part['T_object_part']) if part is not None else None
+                object_geometry[(oid, pid)] = (key, part_pose)
         for key, mesh in self.robot.meshes.items():
             self._geometry(('robot', *key), mesh)
         contacts_seen = []
@@ -294,41 +336,58 @@ class SceneCollision:
                     'arm': arm, 'link': link, 'payload': payload, 'part': part,
                     'object_T': t if object_t is None else object_t,
                     'representatives': representatives, 'solids': solids}
-        def intersect(a, b):
+        # Scene poses stay fixed during this path query. Only attached objects
+        # need a new body per sample; a release can change their pose mid-path.
+        held_by = {h['object_id']: a for a, h in attached.items()}
+        offsets = {a: rigid(h['T_E_object']) for a, h in attached.items()}
+        scene_bodies = []
+        carried_parts = []
+        for (oid, pid), (key, part_pose) in object_geometry.items():
+            if oid in held_by and oid not in release_poses:
+                carried_parts.append((len(scene_bodies), oid, pid, key, part_pose, held_by[oid]))
+                scene_bodies.append(None)
+            else:
+                t = release_poses.get(oid, object_poses[oid])
+                part_t = t if part_pose is None else t @ part_pose
+                scene_bodies.append(body(oid, key, part_t, part=pid, object_t=t))
+
+        # Keep the original scene-pair order for reports and local contact clipping.
+        payload_pairs = sorted({(min(i, j), max(i, j))
+                                for i, oid, *_ in carried_parts
+                                for j, (other, _) in enumerate(object_geometry) if oid != other})
+
+        def intersection(a, b):
             if np.any(a['bounds'][1] < b['bounds'][0]) or np.any(b['bounds'][1] < a['bounds'][0]):
-                return False
+                return None
             if self.fcl.collide(a['body'], b['body'], self.fcl.CollisionRequest(), self.fcl.CollisionResult()):
-                return True
+                return 'surface'
             # Surface intersection alone misses a solid wholly inside another.
             for outer, inner in ((a, b), (b, a)):
                 if outer['solids']:
                     t = np.linalg.inv(outer['T']) @ inner['T']
                     p = inner['representatives'] @ t[:3, :3].T + t[:3, 3]
                     if any(part.contains(p).any() for part in outer['solids']):
-                        return True
-            return False
-        def inspect(qs, gs, terminal, initial=False):
+                        return 'containment'
+            return None
+        def inspect(frames, terminal, initial=False):
             nonlocal samples
             samples += 1
-            robot_bodies, objects = [], []
-            frames = {a: self.robot.frames(a, qs[a], gs[a]) for a in arms}
-            for a in arms:
-                for link, idx in self.robot.meshes:
-                    robot_bodies.append(body(f'{a}/{link}', ('robot', link, idx), frames[a][link], a, link))
-            held_by = {h['object_id']: a for a, h in attached.items() if h['object_id'] not in release_poses}
-            for (oid, pid), key in object_geometry.items():
-                arm = held_by.get(oid)
-                t = rigid(state['objects'][oid]['T_W_object'])
-                if arm:
-                    t = frames[arm][self.robot.spec['ee_link']] @ rigid(attached[arm]['T_E_object'])
-                elif oid in release_poses:
-                    t = release_poses[oid]
-                part_t = t if pid is None else t @ rigid(state['objects'][oid]['assembly']['parts'][pid]['T_object_part'])
-                objects.append(body(oid, key, part_t, arm, payload=arm is not None, part=pid, object_t=t))
+            robot_bodies = [body(f'{a}/{link}', ('robot', link, idx), frames[a][link], a, link)
+                            for a in arms for link, idx in self.robot.meshes]
+            objects = scene_bodies.copy()
+            for index, oid, pid, key, part_pose, owner in carried_parts:
+                if oid in release_poses:
+                    arm, t = None, release_poses[oid]
+                else:
+                    arm = owner
+                    t = frames[arm][self.robot.spec['ee_link']] @ offsets[arm]
+                part_t = t if part_pose is None else t @ part_pose
+                objects[index] = body(oid, key, part_t, arm, payload=arm is not None, part=pid, object_t=t)
             hits = []
             pairs = itertools.chain(itertools.combinations(robot_bodies, 2),
                                     itertools.product(robot_bodies, objects),
-                                    ((a, b) for a, b in itertools.combinations(objects, 2) if a['name'] != b['name'] and (a['payload'] or b['payload'])))
+                                    ((objects[i], objects[j]) for i, j in payload_pairs
+                                     if objects[i]['payload'] or objects[j]['payload']))
             for a, b in pairs:
                 if a['link'] and b['link'] and a['arm'] == b['arm']:
                     if a['link'] == b['link'] or frozenset((a['link'], b['link'])) in self.robot.neighbors:
@@ -340,7 +399,8 @@ class SceneCollision:
                 if a['link'] in self.robot.fingers:
                     expected = ((owners.get(a['arm'], {}).get('object_id') == b['name']) or
                                 self.contacts['grasp'].get(a['arm']) == b['name'])
-                if not intersect(a, b):
+                kind = intersection(a, b)
+                if kind is None:
                     pair_key = (a['name'], a['part'], a['link'], b['name'], b['part'], b['link'])
                     escaping.pop(pair_key, None)
                     unmoved_initial.pop(pair_key, None)
@@ -355,7 +415,8 @@ class SceneCollision:
                     if (terminal and payload['payload'] and self.contacts['place'].get(payload['arm']) == support['name']
                             and payload['bounds'][0, 2] >= support['bounds'][1, 2] - .002):
                         expected = True
-                expected = expected or permits(rules, a, b, self.fcl, contact_region_cache)
+                if not expected and kind == 'surface' and rules:
+                    expected = permits(rules, a, b, self.fcl, contact_region_cache, surface_contact=True)
                 pair = {'first': a['name'], 'second': b['name']}
                 if a['part'] is not None: pair['first_part'] = a['part']
                 if b['part'] is not None: pair['second_part'] = b['part']
@@ -392,7 +453,7 @@ class SceneCollision:
                     hits.append(pair)
             return hits
         initial_frames = {a: self.robot.frames(a, current[a], openings[a]) for a in arms}
-        hits = inspect(current, openings, not actions, initial=True)
+        hits = inspect(initial_frames, not actions, initial=True)
         for segment, action in enumerate(actions):
             if hits:
                 break
@@ -408,17 +469,26 @@ class SceneCollision:
                     # Anchor release at this segment, not the whole path's start.
                     release_frame = self.robot.frames(a, current[a], openings[a])[self.robot.spec['ee_link']]
                     release_poses.setdefault(attached[a]['object_id'],
-                        release_frame @ rigid(attached[a]['T_E_object']))
+                        release_frame @ offsets[a])
                 elif attached[a]['object_id'] not in release_poses:
                     # Closing against the held object does not make fingers pass through it.
                     goal_opening[a] = max(goal_opening[a], openings[a])
-            count = max(1, math.ceil(max(float(np.max(abs(target[a]-current[a]))) for a in arms)/self.max_joint_increment),
-                        math.ceil(max(abs(goal_opening[a]-openings[a]) for a in arms)*finger_travel/self.max_finger_increment_m))
+            joint_delta = {a: target[a] - current[a] for a in arms}
+            opening_delta = {a: goal_opening[a] - openings[a] for a in arms}
+            count = max(1, math.ceil(max(float(np.max(abs(dq))) for dq in joint_delta.values()) / self.max_joint_increment),
+                        math.ceil(max(abs(dg) for dg in opening_delta.values()) * finger_travel / self.max_finger_increment_m))
+            frames = {}
+            moving = []
+            for a in arms:
+                if np.any(joint_delta[a]) or opening_delta[a]:
+                    moving.append(a)
+                else:
+                    frames[a] = initial_frames[a] if segment == 0 else self.robot.frames(a, current[a], openings[a])
             for i in range(1, count+1):
                 u = i/count
-                qs = {a: current[a]+u*(target[a]-current[a]) for a in arms}
-                gs = {a: openings[a]+u*(goal_opening[a]-openings[a]) for a in arms}
-                hits = inspect(qs, gs, segment == len(actions)-1 and i == count)
+                for a in moving:
+                    frames[a] = self.robot.frames(a, current[a] + u * joint_delta[a], openings[a] + u * opening_delta[a])
+                hits = inspect(frames, segment == len(actions)-1 and i == count)
                 if hits:
                     break
             current, openings = target, goal_opening
@@ -436,6 +506,6 @@ class SceneCollision:
         self.last_report = result
         if self._in_action and phase == 'native_segment' and not hits:
             self._released_poses = release_poses
-            self._last_carried.update({h['object_id']: initial_frames[a][self.robot.spec['ee_link']] @ rigid(h['T_E_object'])
+            self._last_carried.update({h['object_id']: initial_frames[a][self.robot.spec['ee_link']] @ offsets[a]
                                        for a, h in attached.items() if h['object_id'] not in release_poses})
         return result

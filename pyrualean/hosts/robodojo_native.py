@@ -53,6 +53,7 @@ class _Primitives:
     def __init__(self, env: Any, sam3_client: Any, colour_only: bool = True) -> None:
         self.env = env
         self.sam3_client = sam3_client
+        self.codeworld_control = False
         #: no depth image is read, even where the observation has one
         self.colour_only = colour_only
         self._last_obs: dict[str, Any] | None = None
@@ -67,7 +68,7 @@ def _png(image: Any) -> bytes:
     from PIL import Image
 
     buffer = io.BytesIO()
-    Image.fromarray(np.asarray(image)[..., :3].astype(np.uint8)).save(buffer, format="PNG")
+    Image.fromarray(np.asarray(image, dtype=np.uint8)[..., :3]).save(buffer, format="PNG")
     return buffer.getvalue()
 
 
@@ -86,21 +87,19 @@ def _plain(value: Any) -> Any:
 
 
 class Steps:
-    """The recorded steps of an episode: the state in memory, the images on disk."""
+    """Recorded episode states and artifacts, with the latest camera PNGs held in memory."""
 
     def __init__(self, out_dir: Path) -> None:
         self.root = Path(out_dir) / "steps"
         self.root.mkdir(parents=True, exist_ok=True)
         self.records: list[dict[str, Any]] = []
+        self._latest_images: tuple[int, dict[str, bytes]] = (-1, {})
 
     def record(self, obs: dict[str, Any], status: dict[str, Any]) -> int:
         step = len(self.records)
         folder = self.root / f"{step:04d}"
         folder.mkdir(exist_ok=True)
-        for name, cam in (obs.get("vision") or {}).items():
-            color = (cam or {}).get("color")
-            if color is not None:
-                (folder / f"{name}.png").write_bytes(_png(color))
+        images = {}
         try:
             spent = int(status.get("step", 0)) >= int(status.get("step_limit", 1 << 30))
         except (TypeError, ValueError):
@@ -110,6 +109,11 @@ class Steps:
         recorded_at_ns = time.time_ns()
         for name, cam in (obs.get("vision") or {}).items():
             cam = cam or {}
+            color = cam.get("color")
+            if color is not None:
+                filename = f"{name}.png"
+                images[filename] = _png(color)
+                (folder / filename).write_bytes(images[filename])
             pose = tools.extrinsic_of(cam)
             intrinsic = cam.get("intrinsic_matrix")
             source = "observation_camera_matrices"
@@ -120,11 +124,10 @@ class Steps:
                 intrinsic = [[view.fx, 0, view.cx], [0, view.fy, view.cy], [0, 0, 1]]
                 pose = view.pose
                 source = "public_camera_mount_and_image_state"
-            color = cam.get("color")
             cameras[name] = {
                 "shape": _plain(cam.get("shape")) if cam.get("shape") is not None
                 else list(np.asarray(color).shape) if color is not None else None,
-                "has_depth": tools.depth_image(cam) is not None,
+                "has_depth": tools.has_depth(cam),
                 "intrinsic_matrix": _plain(intrinsic),
                 "extrinsic_matrix": _plain(pose),
                 "calibration_source": source,
@@ -147,6 +150,7 @@ class Steps:
         (folder / "observation.json").write_text(
             json.dumps(self.records[-1], ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        self._latest_images = (step, images)
         return step
 
     def index(self, step: int) -> int:
@@ -161,7 +165,11 @@ class Steps:
         return self.root / f"{self.index(step):04d}" / name
 
     def load_bytes(self, name: str, step: int = -1) -> bytes:
-        return self.artifact_path(name, step).read_bytes()
+        index = self.index(step)
+        latest_step, images = self._latest_images
+        if index == latest_step and name in images:
+            return images[name]
+        return (self.root / f"{index:04d}" / name).read_bytes()
 
 
 def segment(
@@ -211,11 +219,12 @@ class NativeToolkit:
         if colour_only is None:
             # what the observation offers decides: depth where the client sends it
             head = (obs.get("vision") or {}).get("cam_head") or {}
-            colour_only = tools.depth_image(head) is None
+            colour_only = not tools.has_depth(head)
         self._primitives = _Primitives(env, sam3_client, colour_only)
         self.state = Steps(out_dir)
         self._verdict = verdict
         self._lock = threading.Lock()
+        self.agent_collision_selection = False
         self._primitives._last_obs = obs
         start = {arm: tools._joints(obs.get("state") or {}, arm) for arm in tools.ARMS}
         self._tools: dict[str, Callable[..., dict[str, Any]]] = {
@@ -264,9 +273,17 @@ class NativeToolkit:
         if handler is None:
             return {"error": f"this RoboDojo host has no tool {name!r}"}
         with self._lock:
+            check_collision = kwargs.pop("check_collision", True)
+            if type(check_collision) is not bool or (
+                not check_collision and (name not in STATEFUL or not self.agent_collision_selection)
+            ):
+                return {"error": "Per-action collision selection is disabled for this tool or episode"}
+            checker = getattr(self._primitives, "motion_checker", None)
             before_steps = (self._status().get("step") if name in STATEFUL and
-                            getattr(self._primitives, "motion_checker", None) is not None else None)
+                            check_collision and checker is not None else None)
             try:
+                if not check_collision:
+                    self._primitives.motion_checker = None
                 payload = handler(**kwargs)
             except tools.MotionCollision as exc:
                 after_steps = self._status().get("step")
@@ -275,15 +292,19 @@ class NativeToolkit:
                 payload = {"error": str(exc), "code": "scene_collision", "collision": exc.report,
                            "moved": moved, "steps_used": max(0, after_steps - before_steps)
                            if isinstance(after_steps, int) and isinstance(before_steps, int) else None}
-                if not moved:
-                    return self._envelope(-1, name, payload)
             except Cancelled:
                 payload = {"interrupted": True, "code": "tool_cancelled"}
             except TypeError as exc:
                 return {"error": f"{name}: {exc}"}
+            finally:
+                if not check_collision:
+                    self._primitives.motion_checker = checker
             if name not in STATEFUL:
                 return payload
-            if payload.get("code") in {"home_clearance_required", "home_clearance_unreachable"} and payload.get("moved") is False:
+            # An IK refusal or already-home arm can finish without sending any action.
+            if self._primitives.codeworld_control and payload.get("steps_used") == 0:
+                payload.setdefault("moved", False)
+            if payload.get("moved") is False:
                 return self._envelope(-1, name, payload)
             obs = tools._obs(self._primitives)
             step = self.state.record(obs, self._status())
@@ -333,6 +354,9 @@ class NativeBackend:
         """Optional host scene check; native IK and action generation remain in use."""
         self._toolkit._primitives.motion_checker = checker
         self._toolkit._primitives.codeworld_control = bool(getattr(self, '_codeworld_control', False) or checker is not None)
+
+    def set_agent_collision_selection(self, enabled: bool) -> None:
+        self._toolkit.agent_collision_selection = enabled
 
     def ground_truth_packet(self):
         """GT strategy only: native state paired with the latest bridge observation."""

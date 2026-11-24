@@ -10,11 +10,16 @@ from .world import atomic, rigid
 
 
 def integrate_rgb(world, capture, proposals, *, expected_revision, note):
+    return _integrate_observation(world, load(world.root, capture), proposals,
+                                  expected_revision=expected_revision, note=note)
+
+
+def _integrate_observation(world, observation, proposals, *, expected_revision, note):
     if world.branch:
         raise ValueError("Publish observed estimates to the current world, not a hypothesis branch")
     if type(expected_revision) is not int or not isinstance(note, str) or not note.strip():
         raise ValueError("Provide expected_revision and explain the RGB evidence")
-    path, packet, _ = load(world.root, capture)
+    path, packet, _ = observation
     if packet["frame"] != world.manifest["frame"]:
         raise ValueError("Observation and world frames differ")
     if not isinstance(proposals, dict) or not proposals:
@@ -23,8 +28,7 @@ def integrate_rgb(world, capture, proposals, *, expected_revision, note):
     proposals, fit_failed = resolve_proposals(world, packet, proposals)
     normalized = {}
     for oid, proposal in proposals.items():
-        meta = world.object(oid)
-        if meta.get("role") == "robot_snapshot":
+        if world.object_role(oid) == "robot_snapshot":
             raise ValueError("The initial robot asset is not a live robot estimate")
         row = {"T_W_object": rigid(proposal["T_W_object"]).tolist()}
         if 'rgb_fit' in proposal:
@@ -108,6 +112,13 @@ def integrate_rgb(world, capture, proposals, *, expected_revision, note):
 
 def commit_step(world, capture, *, poses, unchanged, unresolved, expected_revision, note, held=None,
                 disturbed=None, relations=None):
+    return _commit_observation(world, load(world.root, capture), poses=poses, unchanged=unchanged,
+                               unresolved=unresolved, expected_revision=expected_revision,
+                               note=note, held=held, disturbed=disturbed, relations=relations)
+
+
+def _commit_observation(world, observation, *, poses, unchanged, unresolved, expected_revision,
+                        note, held=None, disturbed=None, relations=None):
     """Commit the step review, editing affected objects and retaining the others.
 
     Unchanged and unresolved are object->reason mappings. Unresolved can accompany
@@ -118,13 +129,13 @@ def commit_step(world, capture, *, poses, unchanged, unresolved, expected_revisi
         raise ValueError("Commit action feedback to the current world")
     if type(expected_revision) is not int or not isinstance(note, str) or not note.strip():
         raise ValueError("Provide expected_revision and explain the observation")
-    path, packet, _ = load(world.root, capture)
+    path, packet, _ = observation
     if packet["frame"] != world.manifest["frame"]:
         raise ValueError("Observation and world frames differ")
     if not all(isinstance(x, dict) for x in (poses, unchanged, unresolved)):
         raise ValueError("poses, unchanged, unresolved must be object mappings")
     disturbed = disturbed or {}
-    ids = {oid for oid in world.objects() if world.object(oid).get("role") != "robot_snapshot"}
+    ids = {oid for oid in world.objects() if world.object_role(oid) != "robot_snapshot"}
     if (not isinstance(disturbed, dict) or not set(disturbed) <= ids or
             any(not isinstance(v, str) or not v.strip() for v in disturbed.values())):
         raise ValueError('disturbed maps affected object IDs to visual reasons')

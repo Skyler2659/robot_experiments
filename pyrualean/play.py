@@ -623,6 +623,12 @@ def play_episode(
     ledger = Ledger()
     arm_toolkit: ArmToolkit | None = None
     try:
+        if codeworld_config is not None and robot in {"robodojo_xpl", "robodojo_xpl_rgb"}:
+            result["status"] = "codeworld_error"
+            scene_config = json.loads(Path(codeworld_config).read_text(encoding="utf-8"))
+            if scene_config.get("perception", "codeworld") == "codeworld":
+                boot_options["env_only"] = True
+            result["status"] = "boot_error"
         toolkit, daemons = host.boot(cell, out_dir, rpent_root=rpent_root, **boot_options)
         result["host"]["boot_options"] = _recordable(boot_options)
         if runtime == "codex":

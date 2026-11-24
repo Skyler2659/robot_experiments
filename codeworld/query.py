@@ -8,7 +8,7 @@ import numpy as np
 class Snapshot:
     def __init__(self, world, *, state=None):
         self._world = world
-        self._state = copy.deepcopy(world.state() if state is None else state)
+        self._state = world.state() if state is None else copy.deepcopy(state)
         self._reads = set()
         self.revision = self._state["revision"]
         self.frame = world.manifest["frame"]
@@ -83,8 +83,7 @@ class DerivedValue(np.lib.mixins.NDArrayOperatorsMixin):
         if not callable(compute):
             raise TypeError('compute requires a function of a fresh snapshot')
         self._world, self._compute = world, compute
-        self._inputs = None
-        self._value = None
+        self._cache = None
         self.evaluations = 0
         self.revision = None
 
@@ -95,15 +94,25 @@ class DerivedValue(np.lib.mixins.NDArrayOperatorsMixin):
         return value
 
     def value(self):
-        state = self._world.state()
-        if self._inputs is None or any(dependency_value(state, *key) != old
-                                       for key, old in self._inputs.items()):
-            snapshot = Snapshot(self._world, state=state)
-            self._value = self._validate(self._compute(snapshot)).copy()
-            self._inputs = {key: copy.deepcopy(dependency_value(state, *key)) for key in snapshot._reads}
+        # All writers replace the state file atomically, including writes at the
+        # same revision (e.g. grasp tracking). A revision alone is insufficient.
+        stat = self._world.state_path.stat()
+        version = (stat.st_dev, stat.st_ino, stat.st_mtime_ns, stat.st_ctime_ns, stat.st_size)
+        cached = self._cache
+        if cached is not None and cached[0] == version:
+            return cached[2].copy()
+        snapshot = self._world.snapshot()
+        state = snapshot._state
+        if cached is None or any(dependency_value(state, *key) != old
+                                 for key, old in cached[1].items()):
+            value = self._validate(self._compute(snapshot)).copy()
+            inputs = {key: copy.deepcopy(dependency_value(state, *key)) for key in snapshot._reads}
             self.evaluations += 1
             self.revision = snapshot.revision
-        return self._value.copy()
+        else:
+            _, inputs, value = cached
+        self._cache = (version, inputs, value)
+        return value.copy()
 
     def __array_ufunc__(self, ufunc, method, *inputs, **kwargs):
         if method not in ('__call__', 'reduce') or kwargs.get('out') is not None:

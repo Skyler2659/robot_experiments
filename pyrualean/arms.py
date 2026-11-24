@@ -317,13 +317,24 @@ class ArmToolkit:
                     self._interaction._before_finish()
                 result = self._finish(input_dict)
             elif name == "python" and self.arm == "cells":
-                result = self._python(str(input_dict.get("code", "")))
+                result = self._python(str(input_dict.get("code", "")), calls_before)
             elif name == "run_program" and self.arm == "program":
-                result = self._run_program(input_dict)
+                result = self._run_program(input_dict, calls_before)
             else:
                 result = ArmResult({"error": f"unknown tool: {name}"})
         except Exception as exc:  # noqa: BLE001 - never crash the server
             result = ArmResult({"error": f"{type(exc).__name__}: {exc}"})
+        steps_after = self.robo._backend.env_steps()
+        steps_delta = (
+            steps_after - steps_before
+            if steps_before is not None and steps_after is not None
+            else None
+        )
+        if "moved" in result.result:
+            moved = result.result["moved"]
+            result.result["env_steps"] = steps_delta
+        else:
+            moved = any(r.moved for r in self.robo._ledger.records_since(calls_before))
         if self._interaction is not None:
             try:
                 context, png = self._interaction._tool_feedback()
@@ -332,24 +343,17 @@ class ArmToolkit:
                     # Each panel preserves the original RGB alongside its matched
                     # CodeWorld view. Replace only the original camera image, not
                     # arbitrary agent displays/crops.
-                    originals = set(png.get("originals", []))
-                    result.images = [im for im in result.images if im not in originals]
-                    result.images.extend(png["images"])
+                    originals = dict(zip(png["camera_names"], png["originals"], strict=True))
                     names = result.result.get("images", [])
-                    result.result["images"] = [n for n in names if n not in png["camera_names"]]
-                    result.result["images"].extend(png["labels"])
+                    kept = [(name, image) for name, image in zip(names, result.images, strict=True)
+                            if image != originals.get(name)]
+                    result.images = [image for _, image in kept] + png["images"]
+                    result.result["images"] = [name for name, _ in kept] + png["labels"]
                 elif png is not None and png not in result.images:
                     result.images.append(png)
                     result.result.setdefault("images", []).append("codeworld_post_action_rgb")
             except Exception as exc:
                 result.result["codeworld_error"] = f"{type(exc).__name__}: {exc}"
-        moved_flag = any(r.stateful for r in self.robo._ledger.records[calls_before:])
-        steps_after = self.robo._backend.env_steps()
-        steps_delta = (
-            steps_after - steps_before
-            if steps_before is not None and steps_after is not None
-            else None
-        )
         flags, self._last_flags = self._last_flags, []
         if self.finish_recovery is not None:
             result.result["tool_turn_index"] = len(self.turns)
@@ -359,8 +363,8 @@ class ArmToolkit:
                 "tool": name,
                 "elapsed_s": round(time.perf_counter() - started, 3),
                 "ok": "error" not in result.result,
-                "moved": bool(result.result.get("moved", moved_flag)),
-                "env_steps": result.result.get("env_steps", steps_delta),
+                "moved": moved,
+                "env_steps": steps_delta,
                 "terminated": self.robo._reported_success(),
                 "sandbox_flags": flags,
             }
@@ -410,17 +414,12 @@ class ArmToolkit:
         """
         return "done" not in getattr(self.robo, "ABSENT_MEMBERS", ())
 
-    def _snapshot(self) -> tuple[int, int | None]:
-        return len(self.robo._ledger), self.robo._backend.env_steps()
-
-    def _feedback(self, before: tuple[int, int | None], extra: dict[str, Any]) -> ArmResult:
-        calls_before, steps_before = before
-        records = self.robo._ledger.records[calls_before:]
-        moved = any(r.stateful for r in records)
-        steps_after = self.robo._backend.env_steps()
+    def _feedback(self, calls_before: int, extra: dict[str, Any]) -> ArmResult:
+        records = self.robo._ledger.records_since(calls_before)
+        moved = any(r.moved for r in records)
         result: dict[str, Any] = dict(extra)
         if self.feedback == "pure":
-            return self._attach_images(result, moved, {})
+            return self._attach_images(result, moved)
         result["primitive_calls"] = [
             {
                 "tool": r.tool,
@@ -433,19 +432,12 @@ class ArmToolkit:
             if r.tool not in ("artifact",)
         ][-40:]
         result["moved"] = moved
-        result["env_steps"] = (
-            steps_after - steps_before
-            if steps_before is not None and steps_after is not None
-            else None
-        )
         result["state"] = _state_dict(self.robo)
         if self._live_success():
             result["episode_done"] = self.robo._reported_success()
-        return self._attach_images(result, moved, result)
+        return self._attach_images(result, moved)
 
-    def _attach_images(
-        self, result: dict[str, Any], moved: bool, _unused: dict[str, Any]
-    ) -> ArmResult:
+    def _attach_images(self, result: dict[str, Any], moved: bool) -> ArmResult:
         images: list[bytes] = []
         requested = self.robo._take_show_requests()
         if self.images == "on-motion" and moved:
@@ -481,7 +473,7 @@ class ArmToolkit:
             self.robo._stop_episode("call_budget")
         return False
 
-    def _python(self, code: str) -> ArmResult:
+    def _python(self, code: str, calls_before: int) -> ArmResult:
         if not self._budget_left(self._cell_index):
             return ArmResult(
                 {
@@ -493,19 +485,18 @@ class ArmToolkit:
         index = self._cell_index
         (self.workspace / f"cell_{index:03d}.py").write_text(code, encoding="utf-8")
         self._last_flags = audit_source(code, workspace=self.workspace)
-        before = self._snapshot()
         stdout, stderr = io.StringIO(), io.StringIO()
         extra: dict[str, Any] = {"cell": index}
         blocked = blocked_names(code)
         if blocked:
             extra["exception"] = _blocked_message(blocked, "cell")
-            return self._feedback(before, extra)
+            return self._feedback(calls_before, extra)
         started = time.perf_counter()
         try:
             tree = ast.parse(code, filename=f"<cell {index}>")
         except SyntaxError as exc:
             extra["exception"] = f"SyntaxError: {exc}"
-            return self._feedback(before, extra)
+            return self._feedback(calls_before, extra)
         tail: ast.Expr | None = None
         if tree.body and isinstance(tree.body[-1], ast.Expr):
             tail = tree.body.pop()  # type: ignore[assignment]
@@ -530,9 +521,9 @@ class ArmToolkit:
         extra["stdout"] = _trim(stdout.getvalue())
         extra["stderr"] = _trim(stderr.getvalue())
         extra["elapsed_s"] = round(time.perf_counter() - started, 2)
-        return self._feedback(before, extra)
+        return self._feedback(calls_before, extra)
 
-    def _run_program(self, args: dict[str, Any]) -> ArmResult:
+    def _run_program(self, args: dict[str, Any], calls_before: int) -> ArmResult:
         if not self._budget_left(self._program_index):
             return ArmResult({"error": "call budget exhausted: the episode is over, call finish"})
         if self.max_programs is not None and self._program_index >= self.max_programs:
@@ -565,18 +556,17 @@ class ArmToolkit:
         except OSError:
             source = ""
         self._last_flags = audit_source(source, workspace=self.workspace)
-        before = self._snapshot()
         extra: dict[str, Any] = {"program": index, "file": target.name}
         blocked = blocked_names(source)
         if blocked:  # before load_policy: importing the file runs its module code
             extra["exception"] = _blocked_message(blocked, "program")
-            return self._feedback(before, extra)
+            return self._feedback(calls_before, extra)
         stdout, stderr = io.StringIO(), io.StringIO()
         try:
             policy = load_policy(target, builtins=self._builtins, namespace=self._bindings)
         except PolicyLoadError as exc:
             extra["exception"] = str(exc)
-            return self._feedback(before, extra)
+            return self._feedback(calls_before, extra)
         with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
             outcome = run_policy(policy, self.robo, timeout_s=self.program_timeout_s)
         extra["status"] = outcome.status
@@ -592,7 +582,7 @@ class ArmToolkit:
         extra["programs_left"] = (
             None if self.max_programs is None else self.max_programs - self._program_index
         )
-        return self._feedback(before, extra)
+        return self._feedback(calls_before, extra)
 
 
 CELLS_CONTRACT = """\
