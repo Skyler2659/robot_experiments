@@ -55,3 +55,13 @@ cp real_robot/data/configs/lab.example.json real_robot/data/configs/lab.local.js
 ```bash
 python -m codeworld.cli setup-runtime "$PWD/runtime"
 ```
+
+### 腕部标定、运动能力与动作反馈
+
+可以在工作站配置里设置 `camera_calibration_file`，指向相对该配置文件的 JSON。顶层键是发布给策略的相机名，每个条目的字段与 `cameras` 相同，按字段覆盖。右腕用实测的 `K`、`image_size`、`T_flange_camera`，并设置 `mount="wrist"`、`arm="right"`。在 `driver.camera_map` 中将实际设备名映射到 `r_wrist`。确认 capture.json 的 views 同时列出 top、r_wrist，run 的任务卡会列出同一组标定视图。若传入原始畸变图像，额外提供 OpenCV 针孔模型的 `raw_K` 和 `raw_distortion`，校正后的内参填 `K`。现场已有 `rectify_image` 时由现场完成校正。
+
+可实现 `site.read_state_at(robot, exposure_ns)` 从时间缓冲区返回以臂名为键的 ArmState，时间戳、单位与现有 read_state 一致。未配置时使用同一观测包的电机采样，并核对和曝光的时间差。腕相机外参由该次采样的世界法兰位姿乘以手眼外参得到。双视角几何拟合需要同一物理标志点在两个已标定视图中可见。
+
+普通 `move_to` 延用原有规划器。启用现场 FK、规划器和 CodeWorld 路径检查后，`move_to(..., path="line")` 和 `retreat(delta_xyz, arm=...)` 检查候选关节路径各采样点的 TCP 是否沿所请求线段前进；`home(arm=...)` 要求回到该臂回合开始时的实测关节角，维持夹爪目标。两种路径均先检查整段规划。可选现场钩子 `plan_line(robot, arm, T_base_flange, measured, T_flange_tcp)` 和 `plan_home(robot, arm, initial_joints_rad, measured)` 返回与 plan_move 相同的 N×6 绝对关节路点。若仅有 plan_move，则以其路点作为候选并验证上述约束。检查未通过时返回 blocked，零下发。路径采样的关节插值应与现场控制器执行语义一致。
+
+查看每轮工具反馈中的 `physical_action`，核对实际 TCP、开度、碰撞对、测量步号和 pending_update。普通提前结束进入恢复审查；设备停止或反馈丢失时结束运动，并保留最后一次确认的回执。使用 `python -m real_robot demo` 可离线验证标定观测、控制接口和世界更新。

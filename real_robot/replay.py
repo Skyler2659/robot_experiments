@@ -38,6 +38,10 @@ class ReplayAdapter:
             return sample(state)
         return {arm: sample(row) for arm, row in state.items()}
 
+    @property
+    def exhausted(self):
+        return self.index + 1 >= len(self.files)
+
     def execute_action(self, command, check_path=None):
         self.commands.append(command)
         if command["kind"] == "stop":

@@ -76,6 +76,22 @@ class LeRobotObservation:
                 raise TimeoutError("No new LeRobot exposure from every configured camera")
             time.sleep(0.005)
 
+        if not callable(getattr(self.site, "read_state_at", None)):
+            self._states = self._bundle_states(obs, meta)
+
+        rectify = getattr(self.site, "rectify_image", None)
+        images = {}
+        for src, dst in self.camera_map.items():
+            rgb = np.asarray(obs[src])
+            if rectify is not None:
+                rgb = np.asarray(rectify(src, rgb))
+            if rgb.dtype != np.uint8 or rgb.ndim != 3 or rgb.shape[2] != 3:
+                raise ValueError(f"{src} must supply a rectified HWC uint8 RGB image")
+            images[dst] = ImageFrame(rgb.copy(), exposures[src])
+        self._exposures = set(exposures.values())
+        return images
+
+    def _bundle_states(self, obs, meta):
         measured = self.layout.measure(obs)
         arms = meta.get("arms")
         if not isinstance(arms, Mapping) or set(arms) != set(measured):
@@ -94,21 +110,13 @@ class LeRobotObservation:
                 flange = self.flange_fk(joints)
             states[side] = ArmState(joints, rigid(flange).tolist(), float(values[6]), timestamp)
 
-        rectify = getattr(self.site, "rectify_image", None)
-        images = {}
-        for src, dst in self.camera_map.items():
-            rgb = np.asarray(obs[src])
-            if rectify is not None:
-                rgb = np.asarray(rectify(src, rgb))
-            if rgb.dtype != np.uint8 or rgb.ndim != 3 or rgb.shape[2] != 3:
-                raise ValueError(f"{src} must supply a rectified HWC uint8 RGB image")
-            images[dst] = ImageFrame(rgb.copy(), exposures[src])
-        self._states = states
-        self._exposures = set(exposures.values())
-        return images
+        return states
 
     def read_state(self, at_ns):
         if at_ns not in self._exposures:
             raise ValueError("Requested exposure does not belong to the current LeRobot observation")
         # Backend checks each measured timestamp against the requested exposure.
+        read_at = getattr(self.site, "read_state_at", None)
+        if read_at is not None:
+            return read_at(self.robot, at_ns)
         return self._states

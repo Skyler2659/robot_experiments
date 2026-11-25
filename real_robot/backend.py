@@ -39,8 +39,21 @@ class Backend:
                 raise ValueError(f"Invalid gripper travel for {arm}")
             self.max_widths[arm] = width
         self.cameras = config["cameras"]
+        self.rectification = {}
+        for name, camera in self.cameras.items():
+            if "raw_distortion" in camera:
+                if getattr(adapter, "rectifies_images", False):
+                    raise ValueError("Choose site.rectify_image or raw_distortion for " + name)
+                import cv2
+                size = tuple(camera["image_size"])
+                self.rectification[name] = cv2.initUndistortRectifyMap(
+                    np.asarray(camera["raw_K"], float), np.asarray(camera["raw_distortion"], float),
+                    None, np.asarray(camera["K"], float), size, cv2.CV_32FC1)
+
         if not self.cameras or not all(re.fullmatch(r"[A-Za-z0-9_-]+", k) for k in self.cameras):
             raise ValueError("Configure named cameras")
+        self.last_action = None
+        self.initial_joints = {}
         self.step = 0
         self.after_ns = -1
         self.stopped = False
@@ -126,6 +139,16 @@ class Backend:
         return state
 
     def acquire(self):
+        if self.stopped:
+            raise RuntimeError("Physical device stopped; no new observation is available")
+        try:
+            return self._acquire()
+        except Exception:
+            if self.config["backend"] == "lab" and not self.stopped:
+                self.cancel()
+            raise
+
+    def _acquire(self):
         if self.video is not None:
             self.video.check()
         images = self.adapter.read_images(self.after_ns)
@@ -142,6 +165,9 @@ class Backend:
             w, h = calibration["image_size"]
             if rgb.dtype != np.uint8 or rgb.shape != (h, w, 3):
                 raise ValueError(f"Rectified RGB differs from calibrated dimensions: {name}")
+            if name in self.rectification:
+                import cv2
+                rgb = cv2.remap(rgb, *self.rectification[name], interpolation=cv2.INTER_LINEAR)
             if stamp not in states:
                 states[stamp] = self._state_at(stamp)
             mount = calibration["mount"]
@@ -168,6 +194,8 @@ class Backend:
         if max(states) - min(states) > self.config["view_tolerance_ns"]:
             raise ValueError("Camera exposure skew exceeds the configured tolerance")
         self.last = (views, states[views[0]["timing"]["exposure_ns"]])
+        if not self.initial_joints:
+            self.initial_joints = {side: self.last[1][side]["joints"][:] for side in self.arms}
         return self.last
 
     def snapshot(self):
@@ -192,7 +220,10 @@ class Backend:
         return p
 
     def artifact(self, name, step=-1):
-        folder, packet = self.packets[self.step if step == -1 else step]
+        index = self.step if step == -1 else step
+        if index == self.step and index not in self.packets:
+            self.capture_into(self.output / "feedback")
+        folder, packet = self.packets[index]
         for view in packet["views"]:
             if name == view["view_id"] + ".png":
                 return (folder / view["rgb_uri"]).read_bytes()
@@ -241,7 +272,10 @@ class Backend:
             if self.video is not None:
                 self.video.check()
             arm = self.select_arm(args.get("arm"))
-            if tool == "move_pose":
+            mode = args.get("path", "auto")
+            if tool == "move_pose" and mode == "home":
+                command = {"kind": "home", "joints_rad": self.initial_joints[arm]}
+            elif tool == "move_pose":
                 if "T_W_tcp" in args:
                     tcp = np.linalg.inv(self.bases[arm]) @ rigid(args["T_W_tcp"])
                 else:
@@ -251,6 +285,10 @@ class Backend:
                     "T_base_tcp": tcp.tolist(),
                     "T_base_flange": (tcp @ np.linalg.inv(self.tools[arm])).tolist(),
                 }
+                if mode == "line":
+                    command.update(path="line", T_flange_tcp=self.tools[arm].tolist())
+                elif mode != "auto":
+                    raise ValueError("Unknown motion mode")
             elif tool == "grip":
                 command = {"kind": "grip", "gripper_width_m": args["opening"] * self.max_widths[arm]}
             else:
@@ -260,13 +298,19 @@ class Backend:
             receipt_path = self.output / f"action-{step:04}.json"
             atomic(receipt_path, {"step": step, "command": command, "status": "dispatched"})
             try:
-                receipt = self.adapter.execute_action(
-                    command, partial(self.check_planned_path, arm=arm) if self.checker else None
-                )
+                if mode in ("line", "home") and mode not in self.motion_modes():
+                    receipt = {"status": "blocked", "moved": False,
+                               "message": f"Checked {mode} planner unavailable"}
+                else:
+                    receipt = self.adapter.execute_action(
+                        command, partial(self.check_planned_path, arm=arm) if self.checker else None
+                    )
                 if receipt["status"] not in {"completed", "blocked", "failed"}:
                     raise ValueError("Unrecognized controller receipt")
                 atomic(receipt_path, {"step": step, "command": command, "receipt": receipt})
             except BaseException as exc:
+                self.last_action = {"step": step, "arm": arm, "status": "unknown",
+                                    "moved": None, "reached": False, "message": str(exc)}
                 atomic(
                     receipt_path,
                     {"step": step, "command": command, "status": "unknown", "error": str(exc)},
@@ -277,11 +321,33 @@ class Backend:
                 self.step = step
                 self.after_ns = time.monotonic_ns()
                 self.last = None
-            return {
-                **receipt,
+            self.last_action = {
+                "step": step, "arm": arm, "moved": receipt.get("moved"), **receipt,
                 "reached": receipt["status"] == "completed",
                 "blocked": receipt["status"] == "blocked",
             }
+
+            if receipt.get("terminal"):
+                self.cancel()
+            return deepcopy(self.last_action)
+
+    def motion_modes(self):
+        modes = ["auto"]
+        actions = getattr(self.adapter, "actions", None)
+        if self.checker and actions and actions.flange_fk is not None:
+            if actions.plan_line or actions.plan_move:
+                modes.append("line")
+            if actions.plan_home or actions.plan_move:
+                modes.append("home")
+        return modes
+
+    def episode_over(self):
+        if not self.stopped and self.video is not None:
+            try:
+                self.video.check()
+            except RuntimeError:
+                self.cancel()
+        return self.stopped
 
     def cancel(self):
         self.stopped = True

@@ -112,7 +112,7 @@ def test_agent_entry_with_scripted_transport(tmp_path, monkeypatch):
     server_class = mcp_server.ArmMcpServer
 
     def check_server(toolkit, **kwargs):
-        assert toolkit.finish_recovery is None
+        assert toolkit.finish_recovery is not None
         assert kwargs["annotations"] == {
             "readOnlyHint": False, "destructiveHint": True, "openWorldHint": True
         }
@@ -186,6 +186,12 @@ def test_bimanual_capture_and_control(tmp_path, monkeypatch):
             cam["T_flange_camera"] = wrist.tolist()
         else:
             cam["T_W_camera"] = np.eye(4).tolist()
+    # The workstation can keep measured wrist calibration outside the shared config.
+    wrist_calibration = cfg["cameras"]["r_wrist"].copy()
+    wrist_calibration.update(raw_K=wrist_calibration["K"], raw_distortion=[0.] * 5)
+    (tmp_path / "calibration.json").write_text(json.dumps({"r_wrist": wrist_calibration}))
+    cfg["cameras"]["r_wrist"] = {"mount": "wrist", "arm": "right"}
+    cfg["camera_calibration_file"] = "calibration.json"
     path = tmp_path / "lab.json"
     path.write_text(json.dumps(cfg))
 
@@ -258,3 +264,32 @@ def test_bimanual_capture_and_control(tmp_path, monkeypatch):
     finally:
         backend.close()
     assert backend.adapter.commands[-1] == {"kind": "stop"}
+
+
+def test_refusal_feedback_and_finish_recovery(tmp_path):
+    from pyrualean.arms import ArmToolkit
+    from real_robot.robot import PhysicalRobot
+    from real_robot.scene import prepare
+
+    host, _ = boot(Cell("pack", "audit"), tmp_path, config_path=REPLAY)
+    try:
+        robot = PhysicalRobot(host)
+        bindings, prompt, _ = prepare(REPLAY, robo=robot, robot="physical",
+                                      out_dir=tmp_path, scratch=tmp_path / "workspace")
+        world = bindings["world"]
+        kit = ArmToolkit(robot, arm="cells", workspace=tmp_path / "workspace",
+                         bindings=bindings, interaction=world)
+        assert "world.preview_plan" in prompt and "image_points" in prompt
+        assert "Calibrated RGB views: fixed, wrist" in prompt
+        assert kit.execute_tool("finish", {"status": "stuck", "summary": "blocked"}).result[
+            "error"] == "early_finish_requires_recovery"
+        result = kit.execute_tool("python", {"code":
+            "world.read_context(); print(robo.retreat([0, 0, .02])); robo.show('wrist')"}).result
+        feedback = result["codeworld"]["physical_action"]
+        assert feedback["moved"] is False and feedback["reached"] is False
+        assert feedback["measured_T_W_tcp"] and feedback["measurement_step"] == 1
+        assert not feedback["pending_update"] and not host.adapter.commands
+        host.cancel()
+        assert kit.execute_tool("finish", {"status": "stuck", "summary": "stopped"}).result["ok"]
+    finally:
+        host.close()

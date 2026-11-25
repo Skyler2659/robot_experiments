@@ -5,11 +5,40 @@ from pathlib import Path
 
 from codeworld.alignment import align_table_height, table_object
 from codeworld.fixtures import add_fixed_obstacles
-from codeworld.pyrualean import AgentWorld
+from codeworld.pyrualean import AgentWorld, COLLISION_PROMPT
 from codeworld.reconstruction import reconstruct
 from codeworld.robot_assets import export_robot
 from codeworld.storage import import_world
 from codeworld.world import atomic, read
+
+
+class PhysicalWorld(AgentWorld):
+    def _filter_action_feedback(self, tool, payload):
+        if tool == "grip" and payload.get("holding") is None:
+            # No binary payload sensor on PiPER. Contact alone cannot identify the object.
+            return {**payload, "holding": None,
+                    "holding_evidence": "Review actual jaw width and observed payload motion"}
+        return super()._filter_action_feedback(tool, payload)
+
+    def _tool_feedback(self):
+        context, images = super()._tool_feedback()
+        backend = self._robo._backend
+        if backend.last_action is not None:
+            state = {} if backend.stopped else backend.snapshot()[1]
+            arm_state = state.get(backend.last_action["arm"], {})
+            action = {
+                **backend.last_action,
+                "measured_T_W_tcp": arm_state.get("T_W_tcp"),
+                "measured_gripper_width_m": arm_state.get("gripper_width_m"),
+                "measurement_step": state.get("step"),
+                "pending_update": self._loop.pending is not None,
+            }
+            context = {"physical_action": action, **context}
+        return context, images
+
+    def _before_finish(self):
+        if not self._robo._backend.stopped:
+            super()._before_finish()
 
 
 def resolve_asset(spec, base, bases=None):
@@ -61,7 +90,7 @@ def prepare(config_path, *, robo, robot, out_dir, scratch, cancelled=None):
             source="lab_measurement",
         )
     add_fixed_obstacles(world, cfg.get("fixed_obstacles", []))
-    api = AgentWorld(world, robo, scratch,
+    api = PhysicalWorld(world, robo, scratch,
                      capture_observation=lambda root: backend.capture_into(root, refresh=True))
     api._perception_mode = "codeworld"
     if cfg.get("collision"):
@@ -83,5 +112,10 @@ def prepare(config_path, *, robo, robot, out_dir, scratch, cancelled=None):
         "scene_collision_checker": bool(api._collision),
     }
     atomic(out_dir / "integration.json", record)
-    prompt = "\nInitial CodeWorld:\n" + json.dumps(api.read_context(), ensure_ascii=False)
+    prompt = (Path(__file__).parent / "knowledge/world.md").read_text()
+    if api._collision:
+        prompt += COLLISION_PROMPT.replace("native move_to, set_gripper and home paths", "configured physical controller paths")
+    prompt += "\nAvailable checked motion modes: " + ", ".join(backend.motion_modes())
+    prompt += "\nCalibrated RGB views: " + ", ".join(backend.cameras)
+    prompt += "\nInitial CodeWorld:\n" + json.dumps(api.read_context(), ensure_ascii=False)
     return {"world": api}, prompt, record

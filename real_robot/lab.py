@@ -98,10 +98,12 @@ class LabAdapter:
         layout = MotorLayout(self.robot, settings)
         fk = _flange_fk(settings.get("flange_fk"))
         self.observation = LeRobotObservation(self.robot, settings, site, layout=layout, flange_fk=fk)
+        self.rectifies_images = callable(getattr(site, "rectify_image", None))
         self._site_video = getattr(site, "read_video_frames", None)
         self._video_ready = False
         self.actions = LeRobotActions(
             self.robot, settings, layout=layout, plan_move=getattr(site, "plan_move", None),
+            plan_line=getattr(site, "plan_line", None), plan_home=getattr(site, "plan_home", None),
             stop=getattr(site, "stop", None), grip_contact=getattr(site, "grip_contact", None),
             flange_fk=fk, observation_metadata=getattr(site, "observation_metadata", None),
         )

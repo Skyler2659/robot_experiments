@@ -406,3 +406,65 @@ def test_lab_host_captures_and_dispatches_checked_bimanual_path(tmp_path, settin
     finally:
         backend.close()
     assert not robot.connected and site.stops == 1
+
+
+def test_checked_line_and_home_validate_candidate_before_dispatch(settings):
+    robot = RecordingRobot()
+    site = Site()
+    adapter = LabAdapter(settings, robot=robot, site=site)
+    def fk(q):
+        pose = np.eye(4)
+        pose[:2, 3] = q[:2]
+        return pose
+
+    adapter.actions.flange_fk = fk
+    try:
+        initial = np.array([robot.si[k] for k in settings["motor_keys"]["right"][:6]])
+        target = fk(initial)
+        target[0, 3] += .04
+        command = {"kind": "move", "path": "line", "arm": "right",
+                   "T_base_flange": target.tolist(), "T_flange_tcp": np.eye(4).tolist()}
+        def detour(device, arm, pose, measured, tool):
+            via = measured[arm][:6].copy()
+            via[1] += .04
+            end = measured[arm][:6].copy()
+            end[0] = pose[0, 3]
+            return [via, end]
+
+        adapter.actions.plan_line = detour
+        clear = lambda path: {"status": "CLEAR"}
+        assert adapter.execute_action(command, clear)["moved"] is False
+        assert not robot.commands
+        adapter.actions.plan_line = None
+        collision = {"status": "COLLISION", "hits": [{"first": "right/link7", "second": "tube_rack"}]}
+        refusal = adapter.execute_action(command, lambda path: collision)
+        assert refusal["collision_check"] == collision and refusal["moved"] is False
+        assert not robot.commands
+        assert adapter.execute_action(command, clear)["status"] == "completed"
+        home = {"kind": "home", "arm": "right", "joints_rad": initial.tolist()}
+        assert adapter.execute_action(home, clear)["status"] == "completed"
+        actual = [robot.si[k] for k in settings["motor_keys"]["right"][:6]]
+        np.testing.assert_allclose(actual, initial)
+    finally:
+        adapter.close()
+
+
+def test_site_state_history_is_queried_at_wrist_exposure(settings):
+    from real_robot.lab import ArmState
+
+    robot = RecordingRobot()
+    site = Site()
+    stamps = []
+    def measured_at(device, exposure):
+        stamps.append(exposure)
+        return {side: ArmState([0.] * 6, np.eye(4).tolist(), .02, exposure) for side in SIDES}
+    site.read_state_at = measured_at
+    adapter = LabAdapter(settings, robot=robot, site=site)
+    try:
+        images = adapter.read_images(-1)
+        for frame in images.values():
+            state = adapter.read_state(frame.exposure_ns)
+            assert state["right"].timestamp_ns == frame.exposure_ns
+        assert stamps == [frame.exposure_ns for frame in images.values()]
+    finally:
+        adapter.close()

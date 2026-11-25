@@ -190,7 +190,7 @@ def test_run_records_all_cameras_during_decision_and_motion(station, monkeypatch
                     "note='reviewed', unresolved={'item':'uncertain'})"
                 },
             ),
-            (None, "finish", {"status": "stuck", "summary": "end scripted task"}),
+            (None, "finish", {"status": "success", "summary": "scripted capture completed"}),
         ]
     )
 

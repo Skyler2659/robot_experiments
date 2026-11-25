@@ -32,6 +32,10 @@ class Cell:
 def boot(cell, out_dir, *, config_path, record_video=False, **kwargs):
     path = Path(config_path).resolve()
     cfg = read(path)
+    if cfg.get("camera_calibration_file"):
+        # Exported per-camera entries use the same schema as inline calibration.
+        for name, calibration in read(path.parent / cfg["camera_calibration_file"]).items():
+            cfg["cameras"][name] = {**cfg["cameras"].get(name, {}), **calibration}
     if cfg["backend"] == "replay":
         settings = dict(cfg["driver"])
         settings["records"] = [path.parent / p for p in settings["records"]]
@@ -75,6 +79,7 @@ def dump_card(toolkit, cell, out_dir):
         object_names=[],
         max_env_steps=cell.max_episode_steps,
         facts={
+            "calibrated views": list(toolkit.cameras),
             "arms": list(toolkit.arms),
             "world frame": toolkit.frame,
             "maximum jaw opening (m)": toolkit.max_widths,
