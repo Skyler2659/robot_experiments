@@ -1,0 +1,1 @@
+review('Final top after homing confirms tube remains in second opening from left, mouth up; right arm measured at the episode-start joint pose.'); print(robo.state()['right']['joints'])

@@ -1,0 +1,337 @@
+[
+  {
+    "index": 0,
+    "tool": "python",
+    "elapsed_s": 0.466,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "probe:dir"
+    ]
+  },
+  {
+    "index": 1,
+    "tool": "python",
+    "elapsed_s": 0.001,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": [
+      "import:inspect",
+      "private-attr:__doc__"
+    ]
+  },
+  {
+    "index": 2,
+    "tool": "python",
+    "elapsed_s": 0.004,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 3,
+    "tool": "python",
+    "elapsed_s": 0.005,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 4,
+    "tool": "python",
+    "elapsed_s": 0.006,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 5,
+    "tool": "python",
+    "elapsed_s": 3.556,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 6,
+    "tool": "python",
+    "elapsed_s": 0.453,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 7,
+    "tool": "python",
+    "elapsed_s": 18.786,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 8,
+    "tool": "python",
+    "elapsed_s": 0.009,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 9,
+    "tool": "python",
+    "elapsed_s": 0.368,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 10,
+    "tool": "python",
+    "elapsed_s": 0.319,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 11,
+    "tool": "python",
+    "elapsed_s": 0.772,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 12,
+    "tool": "python",
+    "elapsed_s": 3.778,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 13,
+    "tool": "python",
+    "elapsed_s": 2.451,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 14,
+    "tool": "python",
+    "elapsed_s": 4.041,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 15,
+    "tool": "python",
+    "elapsed_s": 19.884,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 16,
+    "tool": "python",
+    "elapsed_s": 0.067,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 17,
+    "tool": "python",
+    "elapsed_s": 0.004,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 18,
+    "tool": "python",
+    "elapsed_s": 4.885,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 19,
+    "tool": "python",
+    "elapsed_s": 0.059,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 20,
+    "tool": "python",
+    "elapsed_s": 3.404,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 21,
+    "tool": "python",
+    "elapsed_s": 3.187,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 22,
+    "tool": "python",
+    "elapsed_s": 2.257,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 23,
+    "tool": "python",
+    "elapsed_s": 0.052,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 24,
+    "tool": "python",
+    "elapsed_s": 2.157,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 25,
+    "tool": "python",
+    "elapsed_s": 0.824,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 26,
+    "tool": "python",
+    "elapsed_s": 0.726,
+    "ok": true,
+    "moved": false,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 27,
+    "tool": "python",
+    "elapsed_s": 1.953,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 28,
+    "tool": "python",
+    "elapsed_s": 4.526,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 29,
+    "tool": "python",
+    "elapsed_s": 0.014,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 30,
+    "tool": "python",
+    "elapsed_s": 17.552,
+    "ok": true,
+    "moved": true,
+    "env_steps": 1,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 31,
+    "tool": "python",
+    "elapsed_s": 0.03,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  },
+  {
+    "index": 32,
+    "tool": "finish",
+    "elapsed_s": 0.001,
+    "ok": true,
+    "moved": false,
+    "env_steps": 0,
+    "terminated": false,
+    "sandbox_flags": []
+  }
+]

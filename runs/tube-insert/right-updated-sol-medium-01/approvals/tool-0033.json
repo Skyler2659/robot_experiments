@@ -1,0 +1,41 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "finish",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "End the episode. Call it once the task predicate has fired (a tool result showed terminated=true) or when you cannot make progress, then stop. Early failure/stuck requires a recovery review; a rejected finish must be followed by continued work.",
+    "tool_params": {
+      "status": "success",
+      "summary": "腕部实拍和标定顶视均确认试管管口朝上，松爪撤离后仍稳放在试管架左起第 2 个孔。仅使用右臂，且右臂已回到初始位姿。"
+    },
+    "tool_params_display": [
+      {
+        "name": "status",
+        "value": "success",
+        "display_name": "status"
+      },
+      {
+        "name": "summary",
+        "value": "腕部实拍和标定顶视均确认试管管口朝上，松爪撤离后仍稳放在试管架左起第 2 个孔。仅使用右臂，且右臂已回到初始位姿。",
+        "display_name": "summary"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"finish\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

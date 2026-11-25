@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21328-1ef1-72f1-8fef-7f05b534e01b",
+  "turnId": "01a21328-3299-7780-806d-3f9aa480e74f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "f2=tube_from_top((899,525),(907,647),nt[2,3]+.014,pred2); t2=f2[:3,3]+.0525*f2[:3,1]; print('tip',t2,'hole',hole,'axis',f2[:3,1]); p2=prop(f2,'xz','xy'); p2['time_basis']='image'; review('Wrist confirms tube remains clamped mouth-up with opening below. Calibrated top shows the tube tip just above the second aperture; endpoint pixels refine the lateral correction.',poses={tube:p2},held={'right':tube}); rel=np.linalg.inv(nt)@f2; tipL=rel[:3,3]+.0525*rel[:3,1]; IR3=nt[:3,:3]; target=hole-up*.025-IR3@tipL; print('target',target); mv(target,IR3,'line')"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "f2=tube_from_top((899,525),(907,647),nt[2,3]+.014,pred2); t2=f2[:3,3]+.0525*f2[:3,1]; print('tip',t2,'hole',hole,'axis',f2[:3,1]); p2=prop(f2,'xz','xy'); p2['time_basis']='image'; review('Wrist confirms tube remains clamped mouth-up with opening below. Calibrated top shows the tube tip just above the second aperture; endpoint pixels refine the lateral correction.',poses={tube:p2},held={'right':tube}); rel=np.linalg.inv(nt)@f2; tipL=rel[:3,3]+.0525*rel[:3,1]; IR3=nt[:3,:3]; target=hole-up*.025-IR3@tipL; print('target',target); mv(target,IR3,'line')",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,1 @@
+display(robo.artifact('r_wrist.png')); display(robo.image('top')[580:810,780:1205])

@@ -1,0 +1,323 @@
+{
+  "object_id": "table_support_frame",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/table_support_frame/local.glb",
+    "local_bounds_m": [
+      [
+        -0.5325000008940697,
+        -0.6325000008940697,
+        -0.3425000011920929
+      ],
+      [
+        0.5325000008940697,
+        0.6325000008940697,
+        0.3425000011920929
+      ]
+    ],
+    "vertices": 96,
+    "faces": 48
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.52
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.49
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      -0.4075
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/1",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.52,
+      0.49,
+      -0.4075,
+      1
+    ],
+    "user_data": {
+      "object_id": "table_support_frame",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/1",
+      "name": "table_support_frame",
+      "type": "Group",
+      "object_id": "table_support_frame",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.52,
+        0.49,
+        -0.4075,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.52,
+        0.49,
+        -0.4075,
+        1
+      ],
+      "user_data": {
+        "object_id": "table_support_frame",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/1/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "table_support_frame",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.51,
+        -0.61,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.010000000000000009,
+        -0.12,
+        -0.4075,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    },
+    {
+      "path": "scene/0/1/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "table_support_frame",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.51,
+        0.61,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.010000000000000009,
+        1.1,
+        -0.4075,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    },
+    {
+      "path": "scene/0/1/2",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "table_support_frame",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.51,
+        -0.61,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.03,
+        -0.12,
+        -0.4075,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    },
+    {
+      "path": "scene/0/1/3",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "table_support_frame",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.51,
+        0.61,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.03,
+        1.1,
+        -0.4075,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "dimensions_m": [
+      1.0650000017881394,
+      1.2650000017881395,
+      0.6850000023841858
+    ],
+    "position_W_m": [
+      0.52,
+      0.49,
+      -0.4075
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Dimensions and occluded surfaces estimated from a single RGB image."
+    ],
+    "role": "fixed_obstacle",
+    "geometry_origin": "single_rgb_rcwm"
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

@@ -1,0 +1,1 @@
+jaw(.067); display(robo.artifact('r_wrist.png'))

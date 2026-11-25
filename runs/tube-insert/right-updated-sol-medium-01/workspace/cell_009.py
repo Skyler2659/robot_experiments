@@ -1,0 +1,1 @@
+review('At pregrasp; rack unchanged, tube partly occluded by wrist but no approach contact.',unresolved=[tube]); mv(np.asarray(gp),RG,'line',True)

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "from scipy.optimize import least_squares\nuvholes=np.array([(801,807),(852,776),(902,747),(950,718),(998,689),(1044,662)]); ys=np.arange(6)*.025-.0625\ndef rackfit(p):\n x,y,theta,z=p; return np.array([proj(np.array([x-np.sin(theta)*d,y+np.cos(theta)*d,z])) for d in ys])\nfit=least_squares(lambda p:(rackfit(p)-uvholes).ravel(),[.42,.32,.55,.135]).x; print('fit',fit,rackfit(fit)); print('near mesh height', [back(*uv,.127) for uv in [(852,776),(902,747)]]); print('feet',back(813,974,-.012),back(1104,784,-.012))\ndef pose(x,y,z):\n t=np.eye(4); t[:3,:3]=np.column_stack([np.cross(y,up),y,up]); t[:3,3]=[x[0],x[1],z]; return t\nopened=back(554,716,-.0049); closed=back(650,592,-.0049); axis=norm(closed-opened); TT=pose(opened+.04607*axis,axis,-.0049); rr=np.array([-np.sin(fit[2]),np.cos(fit[2]),0]); RT=pose(fit,rr,fit[3]-.139); print('poses',TT[:3,3],RT[:3,3], axis)\ndef pp(t,axes=['x','y'],ori=['z']): return {'T_W_object':t.tolist(),'translation_observed_axes':axes,'orientation_observed_axes':ori}\nres=world.integrate_rgb(obs['capture'],poses={tube:pp(TT),rack:pp(RT)},expected_revision=s.revision,note='Calibrated top RGB: tube open and rounded endpoints projected at tabletop+radius; fit rack row yaw and center to six visible rim centers at mesh pitch, height inferred from perspective and reused pitch.'); print(str(res)[:850])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "from scipy.optimize import least_squares\nuvholes=np.array([(801,807),(852,776),(902,747),(950,718),(998,689),(1044,662)]); ys=np.arange(6)*.025-.0625\ndef rackfit(p):\n x,y,theta,z=p; return np.array([proj(np.array([x-np.sin(theta)*d,y+np.cos(theta)*d,z])) for d in ys])\nfit=least_squares(lambda p:(rackfit(p)-uvholes).ravel(),[.42,.32,.55,.135]).x; print('fit',fit,rackfit(fit)); print('near mesh height', [back(*uv,.127) for uv in [(852,776),(902,747)]]); print('feet',back(813,974,-.012),back(1104,784,-.012))\ndef pose(x,y,z):\n t=np.eye(4); t[:3,:3]=np.column_stack([np.cross(y,up),y,up]); t[:3,3]=[x[0],x[1],z]; return t\nopened=back(554,716,-.0049); closed=back(650,592,-.0049); axis=norm(closed-opened); TT=pose(opened+.04607*axis,axis,-.0049); rr=np.array([-np.sin(fit[2]),np.cos(fit[2]),0]); RT=pose(fit,rr,fit[3]-.139); print('poses',TT[:3,3],RT[:3,3], axis)\ndef pp(t,axes=['x','y'],ori=['z']): return {'T_W_object':t.tolist(),'translation_observed_axes':axes,'orientation_observed_axes':ori}\nres=world.integrate_rgb(obs['capture'],poses={tube:pp(TT),rack:pp(RT)},expected_revision=s.revision,note='Calibrated top RGB: tube open and rounded endpoints projected at tabletop+radius; fit rack row yaw and center to six visible rim centers at mesh pitch, height inferred from perspective and reused pitch.'); print(str(res)[:850])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

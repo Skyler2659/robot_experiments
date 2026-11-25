@@ -1,0 +1,54 @@
+{
+  "synchronous_group": true,
+  "object_ids": [
+    "tube_rack"
+  ],
+  "open_hole_center_mesh_hits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "deck_solid_hits": 2,
+  "objectParameters": {
+    "tube_rack": {
+      "movable": true,
+      "dimensions_m": [
+        0.044,
+        0.179,
+        0.149
+      ],
+      "position_W_m": [
+        0.297,
+        0.318,
+        0.05449999999999999
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        -0.018
+      ],
+      "unknowns": [
+        "All dimensions and placement estimated from the assigned RGB and fixed camera calibration.",
+        "Hidden back edges and lower support frame completed as symmetric acrylic construction.",
+        "Acrylic optical properties, thickness, and hole diameter are visual estimates."
+      ]
+    }
+  },
+  "bounds": {
+    "isBox3": true,
+    "min": {
+      "x": 0.2729651593461537,
+      "y": 0.22769102844197472,
+      "z": -0.020000001966953285
+    },
+    "max": {
+      "x": 0.3210348406538463,
+      "y": 0.4083089715580253,
+      "z": 0.12900000196695327
+    }
+  },
+  "browser_errors": []
+}

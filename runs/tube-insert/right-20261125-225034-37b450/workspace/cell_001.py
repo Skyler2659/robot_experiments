@@ -1,0 +1,2 @@
+obs=world.observe()
+print(obs.keys()); print({k:str(v)[:1100] for k,v in obs.items() if k!='image'}); print([x for x in dir(robo) if not x.startswith('_')]); print([x for x in dir(world) if not x.startswith('_')]); print(robo.state()['right'])

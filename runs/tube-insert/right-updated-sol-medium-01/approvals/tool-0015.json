@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "Tclose=tcp(); rel=np.linalg.inv(Tclose)@TT; review('Wrist shows both jaws on the tube, measured 17.5 mm; retained calibrated table pose, grasp to be confirmed by vertical lift.',poses={tube:pp(TT)},held={'right':tube}); mv(Tclose[:3,3]+.065*up,RG,'line'); display(robo.artifact('r_wrist.png'))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "Tclose=tcp(); rel=np.linalg.inv(Tclose)@TT; review('Wrist shows both jaws on the tube, measured 17.5 mm; retained calibrated table pose, grasp to be confirmed by vertical lift.',poses={tube:pp(TT)},held={'right':tube}); mv(Tclose[:3,3]+.065*up,RG,'line'); display(robo.artifact('r_wrist.png'))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

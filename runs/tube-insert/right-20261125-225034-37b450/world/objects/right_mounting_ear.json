@@ -1,0 +1,235 @@
+{
+  "object_id": "right_mounting_ear",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/right_mounting_ear/local.glb",
+    "local_bounds_m": [
+      [
+        -0.013000000268220901,
+        -0.017500000074505806,
+        -0.03644473181525245
+      ],
+      [
+        0.013000000268220901,
+        0.017500000074505806,
+        0.016025000482797626
+      ]
+    ],
+    "vertices": 372,
+    "faces": 128
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -0.061
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.562
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0215
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/5",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -0.061,
+      0.562,
+      0.0215,
+      1
+    ],
+    "user_data": {
+      "object_id": "right_mounting_ear",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/5",
+      "name": "right_mounting_ear",
+      "type": "Group",
+      "object_id": "right_mounting_ear",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.562,
+        0.0215,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.562,
+        0.0215,
+        1
+      ],
+      "user_data": {
+        "object_id": "right_mounting_ear",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/5/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "right_mounting_ear",
+      "matrix_local_column_major": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        -0.004,
+        0,
+        -0.0355,
+        1
+      ],
+      "matrix_world_column_major": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        -0.065,
+        0.562,
+        -0.013999999999999999,
+        1
+      ],
+      "user_data": {},
+      "vertices": 348
+    },
+    {
+      "path": "scene/0/6/5/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "right_mounting_ear",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        -0.033,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.061,
+        0.562,
+        -0.011500000000000003,
+        1
+      ],
+      "user_data": {},
+      "vertices": 24
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.026000000536441803,
+      0.03500000014901161,
+      0.052469732298050076
+    ],
+    "position_W_m": [
+      -0.061,
+      0.562,
+      0.0215
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ],
+    "geometry_origin": "single_rgb_rcwm"
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

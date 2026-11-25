@@ -1,0 +1,325 @@
+{
+  "objects": {
+    "tabletop": {
+      "movable": false,
+      "dimensions_m": [
+        1.18,
+        1.4,
+        0.045
+      ],
+      "position_W_m": [
+        0.52,
+        0.49,
+        -0.0425
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ]
+    },
+    "table_support_frame": {
+      "movable": false,
+      "dimensions_m": [
+        1.065,
+        1.265,
+        0.685
+      ],
+      "position_W_m": [
+        0.52,
+        0.49,
+        -0.4075
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ],
+      "role": "fixed_obstacle"
+    },
+    "rear_wall": {
+      "movable": false,
+      "dimensions_m": [
+        0.05,
+        2,
+        1.5
+      ],
+      "position_W_m": [
+        -0.105,
+        0.4,
+        0
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ]
+    },
+    "floor": {
+      "movable": false,
+      "dimensions_m": [
+        3,
+        3,
+        0.08
+      ],
+      "position_W_m": [
+        0.3,
+        0.4,
+        -0.79
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ]
+    },
+    "loose_tube": {
+      "movable": true,
+      "dimensions_m": [
+        0.014,
+        0.098,
+        0.014
+      ],
+      "position_W_m": [
+        0.29,
+        0.096,
+        -0.012
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0.9977759539713196
+      ],
+      "unknowns": [
+        "Tube diameter, wall thickness and length estimated; the far tip is interpreted as rounded and closed."
+      ]
+    },
+    "tube_rack": {
+      "movable": true,
+      "dimensions_m": [
+        0.044,
+        0.179,
+        0.149
+      ],
+      "position_W_m": [
+        0.297,
+        0.318,
+        0.05449999999999999
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        -0.018
+      ],
+      "unknowns": [
+        "All dimensions and placement estimated from the assigned RGB and fixed camera calibration.",
+        "Hidden back edges and lower support frame completed as symmetric acrylic construction.",
+        "Acrylic optical properties, thickness, and hole diameter are visual estimates."
+      ]
+    },
+    "left_mounting_plate": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.112,
+        0.272,
+        0.012
+      ],
+      "position_W_m": [
+        -0.025,
+        -0.004,
+        -0.014
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ]
+    },
+    "right_mounting_plate": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.112,
+        0.265,
+        0.012
+      ],
+      "position_W_m": [
+        -0.018,
+        0.685,
+        -0.014
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ]
+    },
+    "left_calibration_tag": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.055,
+        0.069,
+        0.0015
+      ],
+      "position_W_m": [
+        -0.005,
+        -0.081,
+        -0.00725
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+      ]
+    },
+    "right_calibration_tag": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.055,
+        0.069,
+        0.0015
+      ],
+      "position_W_m": [
+        0.006,
+        0.606,
+        -0.00725
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+      ]
+    },
+    "left_mounting_ear": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.026,
+        0.035,
+        0.053
+      ],
+      "position_W_m": [
+        -0.068,
+        0.094,
+        0.0215
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ]
+    },
+    "right_mounting_ear": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.026,
+        0.035,
+        0.053
+      ],
+      "position_W_m": [
+        -0.061,
+        0.562,
+        0.0215
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ]
+    },
+    "central_post_foot": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.043,
+        0.043,
+        0.009
+      ],
+      "position_W_m": [
+        -0.043,
+        0.335,
+        -0.0155
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ]
+    },
+    "central_support_post": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.025,
+        0.025,
+        0.47
+      ],
+      "position_W_m": [
+        -0.043,
+        0.335,
+        0.224
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Top continues outside assigned crop; 0.47 m overall pole height is an estimate."
+      ]
+    }
+  },
+  "robotBounds": {
+    "isBox3": true,
+    "min": {
+      "x": -0.3138366639614105,
+      "y": -0.07250072807073593,
+      "z": -1.452830911130576e-17
+    },
+    "max": {
+      "x": 0.19229742884635925,
+      "y": 0.07249952852725983,
+      "z": 0.25739577412605286
+    }
+  }
+}

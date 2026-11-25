@@ -1,0 +1,1 @@
+frel=f4.copy(); frel[:3,3]-=up*.015; review('Jaws open to 35.5 mm; top shows tube dropped independently, with lip above second opening and rounded end below rack top.',poses={tube:prop(frel,'xz','xy')},held={'right':None}); rr=tcp(); mv(rr[:3,3]+up*.078,rr[:3,:3],'line'); display(robo.artifact('r_wrist.png'))

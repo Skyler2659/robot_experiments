@@ -1,0 +1,1 @@
+commit('Final calibrated top after right-arm homing shows the tube unchanged, upright in the second hole from the left, mouth exposed; measured right-arm TCP matches the initial pose.'); print('home joint max abs difference',np.max(np.abs(np.array(robo.state()['right']['joints'])-np.array(robo.state(step=0)['right']['joints']))))

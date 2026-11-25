@@ -1,0 +1,1 @@
+grip(0,{'grasp':{'right':tube}}); crop((325,605,535,880))

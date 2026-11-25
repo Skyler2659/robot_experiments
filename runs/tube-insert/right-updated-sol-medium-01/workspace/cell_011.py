@@ -1,0 +1,1 @@
+g=np.asarray(gp).copy(); g[2]=.007; mv(g,RG,'line',True)

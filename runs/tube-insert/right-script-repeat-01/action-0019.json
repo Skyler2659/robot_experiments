@@ -1,0 +1,32 @@
+{
+  "step": 19,
+  "command": {
+    "kind": "home",
+    "joints_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "completed",
+    "message": "Measured motor feedback reached the target",
+    "moved": true,
+    "measured_displacement": {
+      "joint_change_rad": [
+        -0.6127292088248826,
+        -1.680801312839643,
+        0.8951968676909459,
+        0.10365529321395602,
+        0.6700225068429063,
+        -0.10196146514088429
+      ],
+      "width_change_m": 0.0
+    },
+    "contact_confirmed": null
+  }
+}

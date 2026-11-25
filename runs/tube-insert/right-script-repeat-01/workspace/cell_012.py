@@ -1,0 +1,1 @@
+grip[2]=.036; mv(grip,R,'auto',True)

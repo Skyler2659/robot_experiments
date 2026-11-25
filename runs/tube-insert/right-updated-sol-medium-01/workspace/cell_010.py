@@ -1,0 +1,1 @@
+review('Pregrasp top image: rack stationary; wrist obscures the stationary tube.',unresolved={tube:'occluded by wrist above tube'}); mv(np.asarray(gp),RG,'line',True)

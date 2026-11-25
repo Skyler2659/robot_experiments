@@ -1,0 +1,1 @@
+review('After 85 mm withdrawal, wrist and calibrated top both show the tube stationary, mouth up in the second hole from image left; fingers visibly clear.',relations={tube:{'type':'inserted','target':rack,'hole_from_left':2}}); world.read_context(); print(str(robo.home(arm='right'))[:580]); print('joints',robo.state()['right']['joints'])

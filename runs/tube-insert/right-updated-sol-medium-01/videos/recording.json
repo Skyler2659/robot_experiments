@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "fps": 15.0,
+  "frames_per_camera": 7718,
+  "files": {
+    "top": "videos/top.mp4",
+    "r_wrist": "videos/r_wrist.mp4"
+  },
+  "pairing": {
+    "clock": "host_monotonic_ns",
+    "reference": "top",
+    "max_skew_ns": 75000000
+  }
+}

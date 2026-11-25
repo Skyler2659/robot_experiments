@@ -1,0 +1,5 @@
+def tube_from_top(uvmouth,uvtip,zm,prior,L=.098):
+ mm=back(uvmouth,zm); zs=np.linspace(zm-.103,zm-.075,281); bottoms=np.array([back(uvtip,z) for z in zs]); tip=bottoms[np.argmin(abs(np.linalg.norm(bottoms-mm,axis=1)-L))]; aa=unit(tip-mm); xx=unit(prior[:3,0]-aa*np.dot(prior[:3,0],aa)); return pose(np.column_stack([xx,aa,np.cross(xx,aa)]),mm+.0455*aa)
+def align(a,b):
+ vv=np.cross(a,b); xx,yy,zz=vv; skew=np.array([[0,-zz,yy],[zz,0,-xx],[-yy,xx,0]]); return np.eye(3)+skew+skew@skew/(1+np.dot(a,b))
+now=tcp(); fitted=tube_from_top((551,447),(606,579),now[2,3]+.014,pred); print(fitted[:3,3],fitted[:3,1]); pp=prop(fitted,'xz','xy'); pp['time_basis']='image'; review('Top shows both ends of upright tube, correcting the lateral offset and lean using calibrated rays, modeled length and grip-height prior; wrist lift already verified grasp.',poses={tube:pp},held={'right':tube}); rel=np.linalg.inv(now)@fitted; IR2=align(fitted[:3,1],-up)@now[:3,:3]; tipL=rel[:3,3]+.0525*rel[:3,1]; hover=hole+up*.018-IR2@tipL; print('hover',hover); mv(hover,IR2); display(robo.artifact('r_wrist.png'))

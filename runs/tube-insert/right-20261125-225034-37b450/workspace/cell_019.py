@@ -1,0 +1,4 @@
+A=tcp(); Q[:3,3]+=.5*(base(.177)-point(Q,[0,-.04607,0]) + top(.177)-point(Q,[0,.0525,0]));
+def kcommit(T,note,axes=[True,True,True],orient=[True,False,True]):
+ ctx=world.read_context(); out=world.commit_step(ctx['interaction']['pending_update']['capture'],expected_revision=ctx['revision'],note=note,poses={tube:{**pose(T,axes,orient),'time_basis':'image'}},held={'right':tube}); print({k:out[k] for k in ['updated','held','rejected_held','grasp_review']})
+kcommit(Q,'Top tabletop station now empty and tube visibly upright, rim and closed end identifiable; wrist confirms continued hold. Applied provisional top-view correction; use a known above-hole shift to resolve remaining depth.',[True,True,False],[False,False,False]); move(A[:3,3]-up*.024,A[:3,:3],'line'); bright((825,440,940,675))

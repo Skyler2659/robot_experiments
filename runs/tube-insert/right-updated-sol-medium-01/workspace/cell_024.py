@@ -1,0 +1,1 @@
+im=robo.image('top'); display(Image.fromarray(im[620:870,740:1135])); print(proj((tcp()@rel2@[0,-.04607,0,1])[:3]))

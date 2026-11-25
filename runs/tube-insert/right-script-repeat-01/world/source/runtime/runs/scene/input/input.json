@@ -1,0 +1,13 @@
+{
+  "reference": "reference.png",
+  "sha256": "008cd924e93566794b801db53bc9cb42d8ed30513d5e8817b9e8bff7e6c5e2f6",
+  "image_size": [
+    1920,
+    1080
+  ],
+  "input_kind": "single_rgb",
+  "view_ids": [
+    "top"
+  ],
+  "previous_reconstruction_used": false
+}

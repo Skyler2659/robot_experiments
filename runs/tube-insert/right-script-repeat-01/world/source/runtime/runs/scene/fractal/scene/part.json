@@ -1,0 +1,38 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [
+    "tube_rack",
+    "fixed_supports"
+  ],
+  "frame": "right_piper_base",
+  "units": "m",
+  "parameters": "parameters.json",
+  "viewer": "../../scene/index.html",
+  "camera_contract": "../../camera-contract.json",
+  "status": "complete",
+  "object_ids": [
+    "tabletop",
+    "table_support_frame",
+    "rear_wall",
+    "floor",
+    "loose_tube",
+    "tube_rack",
+    "left_mounting_plate",
+    "right_mounting_plate",
+    "left_calibration_tag",
+    "right_calibration_tag",
+    "left_mounting_ear",
+    "right_mounting_ear",
+    "central_post_foot",
+    "central_support_post",
+    "known_robot"
+  ],
+  "validation": "review/validation.json",
+  "review": [
+    "review/final_comparison.png",
+    "review/task_comparison.png",
+    "review/diagnostic_compass_sheet.png"
+  ],
+  "limitations": "Single-RGB geometric estimate with declared optical and hidden-shape residuals; public robot unchanged."
+}

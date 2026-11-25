@@ -1,0 +1,15 @@
+{
+  "mode": "imported_prior",
+  "frame": "right_piper_base",
+  "world": "/data/jlb/robot_experiments/runs/tube-insert/right-20261125-225034-37b450/world",
+  "initial_capture": "observations/75a06564c95d4e518a68ac65ea580ca9/capture.json",
+  "backend": "lab",
+  "scene_collision_checker": true,
+  "collision_excluded_objects": [
+    "rear_wall"
+  ],
+  "initial_pose_refresh_objects": [
+    "loose_tube",
+    "tube_rack"
+  ]
+}

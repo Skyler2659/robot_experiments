@@ -1,0 +1,121 @@
+{
+  "step": 13,
+  "command": {
+    "kind": "move",
+    "T_base_tcp": [
+      [
+        -0.03741315523674711,
+        -0.6253270228408547,
+        0.7794654388234439,
+        0.3703862174132109
+      ],
+      [
+        -0.0014313268226891426,
+        0.7800442716572263,
+        0.6257226906212315,
+        0.27473073672920667
+      ],
+      [
+        -0.9992988577591577,
+        0.022294590369419984,
+        -0.030078964767791833,
+        0.1564626054359799
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "T_base_flange": [
+      [
+        -0.03741315523674711,
+        -0.6253270228408547,
+        0.7794654388234439,
+        0.29633700072498376
+      ],
+      [
+        -0.0014313268226891426,
+        0.7800442716572263,
+        0.6257226906212315,
+        0.21528708112018968
+      ],
+      [
+        -0.9992988577591577,
+        0.022294590369419984,
+        -0.030078964767791833,
+        0.1593201070889201
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "path": "line",
+    "T_flange_tcp": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.095
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "blocked",
+    "moved": false,
+    "collision_check": {
+      "status": "COLLISION",
+      "hits": [
+        {
+          "first": "right/link7",
+          "second": "tube_rack"
+        }
+      ],
+      "samples_checked": 7,
+      "geometry_accuracy_verified": false,
+      "state_revision": 16,
+      "phase": "planned_hardware_path",
+      "expected_contacts": [
+        {
+          "first": "right/link8",
+          "second": "loose_tube"
+        }
+      ],
+      "initial_contacts_to_escape": [],
+      "unchanged_initial_contacts": [],
+      "invalidated_contact_intents": [],
+      "excluded_objects": [
+        "rear_wall"
+      ],
+      "coverage": "sampled_URDF_and_reconstructed_meshes",
+      "max_joint_increment_rad": 0.025,
+      "max_finger_increment_m": 0.002,
+      "visual_fallback_links": [],
+      "unresolved_objects": []
+    },
+    "message": "Controller path check: COLLISION"
+  }
+}

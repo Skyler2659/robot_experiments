@@ -1,0 +1,1 @@
+nt=tcp(); pred2=nt@rel; print([proj(pred2[:3,3]+ll*pred2[:3,1]).round(1) for ll in [-.0455,.0525]]); display(robo.image('top')[485:715,855:960])

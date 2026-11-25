@@ -1,0 +1,1 @@
+f3=tcp()@rel; p3=prop(f3,'xz','xy'); p3['time_basis']='image'; review('Top shows mouth up and shaft passing through second opening; visible mouth remains consistent with projected held pose; rounded tip now partly occluded.',poses={tube:p3},held={'right':tube}); down=tcp(); mv(down[:3,3]-up*.031,down[:3,:3],'line')

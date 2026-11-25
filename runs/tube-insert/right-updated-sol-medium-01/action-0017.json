@@ -1,0 +1,43 @@
+{
+  "step": 17,
+  "command": {
+    "kind": "grip",
+    "gripper_width_m": 0.067,
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "blocked",
+    "moved": false,
+    "collision_check": {
+      "status": "COLLISION",
+      "hits": [
+        {
+          "first": "right/link7",
+          "second": "tube_rack"
+        }
+      ],
+      "samples_checked": 4,
+      "geometry_accuracy_verified": false,
+      "state_revision": 24,
+      "phase": "planned_hardware_path",
+      "expected_contacts": [],
+      "initial_contacts_to_escape": [
+        {
+          "first": "right/link8",
+          "second": "loose_tube"
+        }
+      ],
+      "unchanged_initial_contacts": [],
+      "invalidated_contact_intents": [],
+      "excluded_objects": [
+        "rear_wall"
+      ],
+      "coverage": "sampled_URDF_and_reconstructed_meshes",
+      "max_joint_increment_rad": 0.025,
+      "max_finger_increment_m": 0.002,
+      "visual_fallback_links": [],
+      "unresolved_objects": []
+    },
+    "message": "Controller path check: COLLISION"
+  }
+}

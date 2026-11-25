@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21328-1ef1-72f1-8fef-7f05b534e01b",
+  "turnId": "01a21328-3299-7780-806d-3f9aa480e74f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "def prop(tf,ori='xyz',trans='xyz'):\n return {'T_W_object':tf.tolist(),'translation_observed_axes':[a in trans for a in 'xyz'],'orientation_observed_axes':[a in ori for a in 'xyz']}\nax=-axis; tt=pose(np.column_stack([np.cross(ax,up),ax,up]),mouth+.046*ax); print(str(world.integrate_rgb(obs['capture'],poses={tube:prop(tt,'z','xy'),rack:prop(rt,'z','xy')},expected_revision=world.snapshot().revision,note='Current calibrated top: tube mouth at (439,812), rounded end at (397,677); six rack holes fit to mesh pitch, feet at tabletop. Heights inferred from support and mesh.'))[:400]); print(world.snapshot().transform(rack)[:3,3]);\ndef tcp(): return np.array(robo.state()['right']['T_W_tcp'])\ndef review(note,**kw):\n c=world.read_context(); p=c['interaction']['pending_update'];\n if p: print('update:',str(world.commit_step(p['capture'],expected_revision=c['revision'],note=note,**kw))[:450]);\n return bool(p)\ndef mv(pos,rot,path='auto',grasp=False):\n world.read_context();\n if grasp: world.expect_contacts(grasp={'right':tube})\n try: print(str(robo.move_to(pos,rot,arm='right',path=path))[:1100]);\n except RuntimeError as e: print(str(e)[:1300]);\n print('TCP',tcp()[:3,3].round(4))\nR=np.column_stack([axis,np.cross(-up,axis),-up]); grip=mouth+.014*ax; grip[2]=-.003; pre=grip+up*.065; mv(pre,R)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "def prop(tf,ori='xyz',trans='xyz'):\n return {'T_W_object':tf.tolist(),'translation_observed_axes':[a in trans for a in 'xyz'],'orientation_observed_axes':[a in ori for a in 'xyz']}\nax=-axis; tt=pose(np.column_stack([np.cross(ax,up),ax,up]),mouth+.046*ax); print(str(world.integrate_rgb(obs['capture'],poses={tube:prop(tt,'z','xy'),rack:prop(rt,'z','xy')},expected_revision=world.snapshot().revision,note='Current calibrated top: tube mouth at (439,812), rounded end at (397,677); six rack holes fit to mesh pitch, feet at tabletop. Heights inferred from support and mesh.'))[:400]); print(world.snapshot().transform(rack)[:3,3]);\ndef tcp(): return np.array(robo.state()['right']['T_W_tcp'])\ndef review(note,**kw):\n c=world.read_context(); p=c['interaction']['pending_update'];\n if p: print('update:',str(world.commit_step(p['capture'],expected_revision=c['revision'],note=note,**kw))[:450]);\n return bool(p)\ndef mv(pos,rot,path='auto',grasp=False):\n world.read_context();\n if grasp: world.expect_contacts(grasp={'right':tube})\n try: print(str(robo.move_to(pos,rot,arm='right',path=path))[:1100]);\n except RuntimeError as e: print(str(e)[:1300]);\n print('TCP',tcp()[:3,3].round(4))\nR=np.column_stack([axis,np.cross(-up,axis),-up]); grip=mouth+.014*ax; grip[2]=-.003; pre=grip+up*.065; mv(pre,R)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

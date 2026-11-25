@@ -1,0 +1,1 @@
+display(robo.artifact('r_wrist.png'))

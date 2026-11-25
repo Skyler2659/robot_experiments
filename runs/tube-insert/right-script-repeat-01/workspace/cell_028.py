@@ -1,0 +1,1 @@
+review('Top confirms seated tube stays unchanged while jaws widen to 65.7 mm, with visible air gap.'); rr=tcp(); mv(rr[:3,3]+up*.078,rr[:3,:3],'line'); display(robo.artifact('r_wrist.png'))

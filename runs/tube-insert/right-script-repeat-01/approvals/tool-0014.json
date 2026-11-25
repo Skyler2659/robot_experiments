@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21328-1ef1-72f1-8fef-7f05b534e01b",
+  "turnId": "01a21328-3299-7780-806d-3f9aa480e74f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "review('Paired top rack unchanged, tube occluded by jaws; wrist visually shows open jaws straddling tube near mouth.'); defdummy=0\ndef jaw(w,g=False):\n world.read_context()\n if g: world.expect_contacts(grasp={'right':tube})\n print(str(robo.set_gripper(w,arm='right'))[:850]); print('width',robo.state()['right']['gripper_width_m'])\njaw(0,True)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "review('Paired top rack unchanged, tube occluded by jaws; wrist visually shows open jaws straddling tube near mouth.'); defdummy=0\ndef jaw(w,g=False):\n world.read_context()\n if g: world.expect_contacts(grasp={'right':tube})\n print(str(robo.set_gripper(w,arm='right'))[:850]); print('width',robo.state()['right']['gripper_width_m'])\njaw(0,True)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

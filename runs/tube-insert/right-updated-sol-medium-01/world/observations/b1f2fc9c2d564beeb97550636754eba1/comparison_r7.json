@@ -1,0 +1,28 @@
+{
+  "revision": 7,
+  "capture": "observations/b1f2fc9c2d564beeb97550636754eba1/capture.json",
+  "files": [
+    "observations/b1f2fc9c2d564beeb97550636754eba1/comparison_r7_0.png"
+  ],
+  "cameras": [
+    "top"
+  ],
+  "objects": [
+    "tabletop",
+    "table_support_frame",
+    "rear_wall",
+    "floor",
+    "loose_tube",
+    "tube_rack",
+    "left_mounting_plate",
+    "right_mounting_plate",
+    "left_calibration_tag",
+    "right_calibration_tag",
+    "left_mounting_ear",
+    "right_mounting_ear",
+    "central_post_foot",
+    "central_support_post"
+  ],
+  "camera_match": "recorded_K_and_T_W_C",
+  "interpretation": "Compare object pose/shape; ignore lighting and real-robot occlusion."
+}

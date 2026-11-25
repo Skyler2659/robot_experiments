@@ -1,0 +1,17 @@
+{
+  "inputs": {
+    "brief.md": "852dc334036ddcfad23eccce7a989f7a61c57fa9d8a4a750293a953ac7610445",
+    "target.png": "613a058644f34b35bb73de0d580a1b641f38981248bcfcbeb2a0c655c3f9615a",
+    "view.json": "d42489069d7726866d6f645ce0f7db6672d07036e23aea162e8ce2aaf5bfdf32",
+    "prompt": "732ba23dbc6c8ed23b0e8e9fb0aca738155e1c10139cc048b8104560fea5ceea",
+    "refinement": null
+  },
+  "files": {
+    "part.json": "784b220c0eaeef2cdae120c966717472ae3f83a0277835330ffad851221b6949",
+    "capture.mjs": "434fbac21c6b9beced26a602cb8588f3f66febfdee4e66e4fab8b340761e7ed8",
+    "target.png": "613a058644f34b35bb73de0d580a1b641f38981248bcfcbeb2a0c655c3f9615a",
+    "component.js": "11453177fc600069fd0d4a3e9cbdb35fc4f2a6ce593812833fb57c6b9f20e022",
+    "validate.mjs": "8a446f96e6269b3ce3f1be995a069ecc46aca9dd1d9999ea8fb05ad63b2ca13f"
+  },
+  "children": {}
+}

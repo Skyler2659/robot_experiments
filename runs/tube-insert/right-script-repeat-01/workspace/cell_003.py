@@ -1,0 +1,1 @@
+v=obs['views'][0]; print({k:str(val)[:1400] for k,val in v.items()}); s=world.snapshot(); print([n for n in dir(s) if not n.startswith('_')]); print(str(world.parts('tube_rack'))[:2200]); print(world.mesh('loose_tube').keys())

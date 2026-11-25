@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "def uprightfit(uvopen,uvcap,delta=.083):\n def f(p): return np.r_[proj(p)-uvopen,proj(p-delta*up)-uvcap]\n return least_squares(f,(pred@[0,-.04607,0,1])[:3]).x\nmouth=uprightfit(np.array([650.5,418]),np.array([688,553])); print('mouth fit',mouth,proj(mouth),proj(mouth-.083*up)); print('sensible at z',back(650.5,418,.268),back(688,553,.185)); print('relative mouth',np.linalg.solve(tcp(),np.r_[mouth,1])); print('hypothesis near-point',np.linalg.solve(tcp(),np.r_[back(650.5,418,.266),1]))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "def uprightfit(uvopen,uvcap,delta=.083):\n def f(p): return np.r_[proj(p)-uvopen,proj(p-delta*up)-uvcap]\n return least_squares(f,(pred@[0,-.04607,0,1])[:3]).x\nmouth=uprightfit(np.array([650.5,418]),np.array([688,553])); print('mouth fit',mouth,proj(mouth),proj(mouth-.083*up)); print('sensible at z',back(650.5,418,.268),back(688,553,.185)); print('relative mouth',np.linalg.solve(tcp(),np.r_[mouth,1])); print('hypothesis near-point',np.linalg.solve(tcp(),np.r_[back(650.5,418,.266),1]))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

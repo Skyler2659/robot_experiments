@@ -1,0 +1,2 @@
+stage1=tcp(); mouth1=np.array([650.5,418]); cap1=np.array([688,553]); defdummy=0
+rough=pred.copy(); rough[:3,3]+=(back(*mouth1,.258)-(pred@[0,-.04607,0,1])[:3]); rp=pp(rough,[True,True,False],[False]*3); rp['time_basis']='image'; review('Calibrated top shows raised open rim and rounded end; update visible lateral projection, exact depth pending a second top image after a translation.',poses={tube:rp},held={'right':tube}); mv(stage1[:3,3]+[.053,.064,.0],RI,'line')

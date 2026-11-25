@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21330-09a5-7ec1-836c-08f54571f409",
+  "turnId": "01a21330-1d59-7762-99e3-65a09861017a",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "uvR=(870.5,459.5); uvB=(881,599); L=.09857\nbase=lambda z: bp(*uvB,z); top=lambda z: bp(*uvR,z+L)\ndiff=top(0)-base(0); slope=top(1)-base(1)-diff; hfit=-diff[0]/slope[0]\nprint('z tip fit',hfit,'xy tip',base(hfit),'xy rim',top(hfit),'target',np.array(hole)); print([(z,base(z)[:2],top(z)[:2]) for z in [.164,.17,.175,.18,.185]])\nprint('actual tcp',tcp()[:3,3])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "uvR=(870.5,459.5); uvB=(881,599); L=.09857\nbase=lambda z: bp(*uvB,z); top=lambda z: bp(*uvR,z+L)\ndiff=top(0)-base(0); slope=top(1)-base(1)-diff; hfit=-diff[0]/slope[0]\nprint('z tip fit',hfit,'xy tip',base(hfit),'xy rim',top(hfit),'target',np.array(hole)); print([(z,base(z)[:2],top(z)[:2]) for z in [.164,.17,.175,.18,.185]])\nprint('actual tcp',tcp()[:3,3])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

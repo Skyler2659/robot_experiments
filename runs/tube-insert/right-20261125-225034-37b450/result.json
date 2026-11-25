@@ -1,0 +1,134 @@
+{
+  "schema": "pyrualean-episode-v2",
+  "system": "pyrualean",
+  "arm": "cells",
+  "backend": "physical",
+  "robot": "physical",
+  "suite": "tabletop",
+  "task": "insert",
+  "seed": 0,
+  "task_language": "\u628a\u684c\u4e0a\u7684\u8bd5\u7ba1\u653e\u8fdb\u8bd5\u7ba1\u67b6\u4ece\u5de6\u6570\u7b2c2\u4e2a\u5b54\uff0c\u7ba1\u53e3\u671d\u4e0a\u3002\u7528\u5f53\u524d\u6807\u5b9a\u9876\u89c6\u548c\u590d\u7528\u7f51\u683c\u505a\u51e0\u4f55\u5b9a\u4f4d\u3002\u6293\u8d77\u540e\u3001\u63a5\u8fd1\u76ee\u6807\u5b54\u4e14\u4e0b\u63a2\u524d\u3001\u677e\u722a\u64a4\u79bb\u540e\uff0c\u5206\u522b\u6267\u884c display(robo.artifact(\"r_wrist.png\"))\uff0c\u7ed3\u5408\u8155\u90e8\u5b9e\u62cd\u548c\u9876\u89c6\u5224\u65ad\u662f\u5426\u5939\u7262\u3001\u5bf9\u5b54\u3001\u653e\u597d\u3002\u53f3\u8155\u7167\u7247\u53ea\u7528\u4e8e\u89c6\u89c9\u590d\u6838\uff0c\u51e0\u4f55\u5b9a\u4f4d\u4e0e\u8def\u5f84\u7ee7\u7eed\u4f7f\u7528\u6807\u5b9a\u9876\u89c6\u3002 \u4ec5\u4f7f\u7528\u53f3\u81c2\u3002\u786e\u8ba4\u653e\u7f6e\u7ed3\u679c\uff0c\u64a4\u79bb\u7ba1\u67b6\u5e76\u8fd4\u56de\u521d\u59cb\u4f4d\u59ff\uff0c\u518d\u62a5\u544a\u6210\u529f\u3002",
+  "model": "gpt-6.2-sol",
+  "reasoning_effort": "medium",
+  "max_programs": null,
+  "images": "on-motion",
+  "feedback": "rich",
+  "guides": false,
+  "max_turns": 300,
+  "budget_mode": "calls",
+  "environment_success": null,
+  "status": "completed",
+  "reason": null,
+  "error": null,
+  "finish": {
+    "status": "success",
+    "summary": "\u53ea\u7528\u53f3\u81c2\u5c06\u8bd5\u7ba1\u7ba1\u53e3\u671d\u4e0a\u653e\u5165\u8bd5\u7ba1\u67b6\u4ece\u5de6\u6570\u7b2c 2 \u4e2a\u5b54\u3002\u5df2\u6309\u8981\u6c42\u5728\u4e09\u4e2a\u9636\u6bb5\u67e5\u770b\u53f3\u8155\u5b9e\u62cd\uff0c\u5e76\u7528\u6807\u5b9a\u9876\u89c6\u786e\u8ba4\u8bd5\u7ba1\u677e\u722a\u3001\u64a4\u79bb\u548c\u53f3\u81c2\u590d\u4f4d\u540e\u4ecd\u7a33\u5728\u5b54\u5185\u3002"
+  },
+  "calls": 223,
+  "stateful_calls": 17,
+  "env_steps": 17,
+  "tool_turns": 29,
+  "policy_wall_s": 464.4537176870508,
+  "startup_s": 7.604499330045655,
+  "total_wall_s": 474.7677588049555,
+  "timeout_s": 5400,
+  "max_episode_steps": 200,
+  "prompt": {
+    "chars": 24293,
+    "sha256": "e5f9f3210b70b693736948c66114e177c9f2179db0c3b876d9d6c4531e1cdda2",
+    "images": [
+      "/data/jlb/robot_experiments/runs/tube-insert/right-20261125-225034-37b450/initial/observations/cfa21f1d1f56490fa721b1e92e4f9069/rgb.png"
+    ]
+  },
+  "generation": {
+    "turns": 30,
+    "tool_calls": {
+      "python": 28,
+      "finish": 1
+    },
+    "shell_commands": [],
+    "file_changes": 0,
+    "errors": [],
+    "warnings": [],
+    "thread_ids": [
+      "01a21330-09a5-7ec1-836c-08f54571f409"
+    ],
+    "input_tokens": 4306472,
+    "cached_input_tokens": 4069888,
+    "output_tokens": 7073,
+    "reasoning_output_tokens": 1874,
+    "total_tokens": 4313545,
+    "sandbox_flags": [
+      {
+        "turn": 0,
+        "flags": [
+          "probe:dir"
+        ]
+      }
+    ]
+  },
+  "host": {
+    "python": "/home/embodied/miniconda3/envs/lerobot/bin/python",
+    "cuda_device": null,
+    "primitive_set": "full",
+    "boot_options": {
+      "config_path": "/data/jlb/robot_experiments/real_robot/data/configs/.insert-y99xj4dt.json",
+      "record_video": true
+    },
+    "codex_context": {
+      "model_context_window": null,
+      "model_auto_compact_token_limit": null,
+      "source": null
+    },
+    "sandbox": "imports limited to pure-computation modules and workspace files, open() confined to the workspace, exec/eval/compile removed, code naming __globals__/__func__/__subclasses__-style introspection refused before it runs; every cell is audited (sandbox_flags)"
+  },
+  "created_at": "2026-11-25T22:50:36+0800",
+  "notes": [
+    "1 cell(s) raised sandbox audit flags; see tool_turns.json"
+  ],
+  "codeworld": {
+    "mode": "imported_prior",
+    "frame": "right_piper_base",
+    "world": "/data/jlb/robot_experiments/runs/tube-insert/right-20261125-225034-37b450/world",
+    "initial_capture": "observations/75a06564c95d4e518a68ac65ea580ca9/capture.json",
+    "backend": "lab",
+    "scene_collision_checker": true,
+    "collision_excluded_objects": [
+      "rear_wall"
+    ],
+    "initial_pose_refresh_objects": [
+      "loose_tube",
+      "tube_rack"
+    ],
+    "final_interaction": {
+      "mode": "mandatory",
+      "action_count": 12,
+      "updated_count": 12,
+      "read_at": null,
+      "pending_update": null
+    }
+  },
+  "codex_returncode": 0,
+  "planner_attempts": 1,
+  "finish_recovery": {
+    "protocol": "recovery-review-v1",
+    "continuations": 0,
+    "events": [],
+    "accepted_finish": true
+  },
+  "env_steps_total": 17,
+  "recording": {
+    "status": "completed",
+    "fps": 15.0,
+    "frames_per_camera": 7011,
+    "files": {
+      "top": "videos/top.mp4",
+      "r_wrist": "videos/r_wrist.mp4"
+    },
+    "pairing": {
+      "clock": "host_monotonic_ns",
+      "reference": "top",
+      "max_skew_ns": 75000000
+    }
+  }
+}

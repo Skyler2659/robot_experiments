@@ -1,0 +1,235 @@
+{
+  "object_id": "central_post_foot",
+  "movable": false,
+  "role": "fixed_obstacle",
+  "geometry": {
+    "local_mesh": "geometry/central_post_foot/local.glb",
+    "local_bounds_m": [
+      [
+        -0.0215000007301569,
+        -0.0215000007301569,
+        -0.00449999980628491
+      ],
+      [
+        0.0215000007301569,
+        0.0215000007301569,
+        0.0065000000130385205
+      ]
+    ],
+    "vertices": 392,
+    "faces": 256
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -0.043
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.335
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      -0.0155
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/0/6/6",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -0.043,
+      0.335,
+      -0.0155,
+      1
+    ],
+    "user_data": {
+      "object_id": "central_post_foot",
+      "geometry_origin": "single_rgb_rcwm"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/0/6/6",
+      "name": "central_post_foot",
+      "type": "Group",
+      "object_id": "central_post_foot",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.043,
+        0.335,
+        -0.0155,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.043,
+        0.335,
+        -0.0155,
+        1
+      ],
+      "user_data": {
+        "object_id": "central_post_foot",
+        "geometry_origin": "single_rgb_rcwm"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/0/6/6/0",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "central_post_foot",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.043,
+        0.335,
+        -0.0155,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    },
+    {
+      "path": "scene/0/6/6/1",
+      "name": "",
+      "type": "Mesh",
+      "object_id": "central_post_foot",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0.005,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        -0.043,
+        0.335,
+        -0.010499999999999999,
+        1
+      ],
+      "user_data": {},
+      "vertices": 196
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "role": "fixed_obstacle",
+    "dimensions_m": [
+      0.0430000014603138,
+      0.0430000014603138,
+      0.01099999981932343
+    ],
+    "position_W_m": [
+      -0.043,
+      0.335,
+      -0.0155
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "unknowns": [
+      "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+    ],
+    "geometry_origin": "single_rgb_rcwm"
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21328-1ef1-72f1-8fef-7f05b534e01b",
+  "turnId": "01a21328-3299-7780-806d-3f9aa480e74f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "lift=tcp()@rel; pl=prop(lift,'z',''); pl['time_basis']='image'; review('Right wrist confirms the tube followed the 57 mm lift with lip and rounded end visible; top source area no longer shows the original tube. Offset depth remains kinematic.',poses={tube:pl},held={'right':tube}); print(str(world.read_context()['grasp_review'])[:500]); hole=world.snapshot().local_point(rack,[0,-.0375,.139]); radial=unit(hole*np.array([1,1,0])); IR=np.column_stack([-up,np.cross(radial,-up),radial]); mv(np.array([.325,.14,.227]),IR)"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "lift=tcp()@rel; pl=prop(lift,'z',''); pl['time_basis']='image'; review('Right wrist confirms the tube followed the 57 mm lift with lip and rounded end visible; top source area no longer shows the original tube. Offset depth remains kinematic.',poses={tube:pl},held={'right':tube}); print(str(world.read_context()['grasp_review'])[:500]); hole=world.snapshot().local_point(rack,[0,-.0375,.139]); radial=unit(hole*np.array([1,1,0])); IR=np.column_stack([-up,np.cross(radial,-up),radial]); mv(np.array([.325,.14,.227]),IR)",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,1 @@
+TI=np.array(world.snapshot().transform(tube)); kcommit(TI,'Top RGB shows the shaft guided through the second opening, below the top plate, with the bottom over the support tray. The fingers remain above the rack; release in place to let the tube settle the short remaining distance.'); grip(.044); bright((801,535,960,772))

@@ -1,0 +1,15 @@
+{
+  "mode": "imported_prior",
+  "frame": "right_piper_base",
+  "world": "/data/jlb/robot_experiments/runs/tube-insert/right-updated-sol-medium-01/world",
+  "initial_capture": "observations/9d162a8c9441425295be68d81f866321/capture.json",
+  "backend": "lab",
+  "scene_collision_checker": true,
+  "collision_excluded_objects": [
+    "rear_wall"
+  ],
+  "initial_pose_refresh_objects": [
+    "loose_tube",
+    "tube_rack"
+  ]
+}

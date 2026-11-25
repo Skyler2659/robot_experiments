@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21330-09a5-7ec1-836c-08f54571f409",
+  "turnId": "01a21330-1d59-7762-99e3-65a09861017a",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "def pose(T,ta=[True,True,False],ra=[False,False,True]): return {'T_W_object':T.tolist(),'translation_observed_axes':ta,'orientation_observed_axes':ra}\nprint(str(world.integrate_rgb(obs['capture'],poses={tube:pose(TR),rack:pose(RR)},expected_revision=snap.revision,note='Calibrated top: back-projected tube rim and rounded end on table-supported center plane; fit rack center and yaw to six rim centers using original mesh and table height.'))[:450])\ndef tcp(): return np.array(robo.state()['right']['T_W_tcp'])\ndef stat(): print('TCP',np.round(tcp()[:3,3],4),'jaw',robo.state()['right']['gripper_width_m'])\ndef move(p,R=None,path='auto',intent=None):\n world.read_context()\n if intent: world.expect_contacts(**intent)\n try: print(str(robo.move_to(np.asarray(p).tolist(),None if R is None else R.tolist(),arm='right',path=path))[:650])\n except RuntimeError as err: print(str(err)[:1250])\n stat()\ndef commit(note,**kwargs):\n ctx=world.read_context(); pending=ctx['interaction']['pending_update']; print('pending',bool(pending));\n if pending: print(str(world.commit_step(pending['capture'],expected_revision=ctx['revision'],note=note,**kwargs))[:600])\ndef grip(w,intent=None):\n world.read_context()\n if intent: world.expect_contacts(**intent)\n try: print(str(robo.set_gripper(w,arm='right'))[:500])\n except RuntimeError as err: print(str(err)[:1100])\n stat()\nRg=np.column_stack([-axis,np.cross(-up,-axis),-up]); gp=world.target(lambda s: s.local_point(tube,[0,.031,0])); move(np.array(gp)+up*.080,Rg); crop((305,550,515,850))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "def pose(T,ta=[True,True,False],ra=[False,False,True]): return {'T_W_object':T.tolist(),'translation_observed_axes':ta,'orientation_observed_axes':ra}\nprint(str(world.integrate_rgb(obs['capture'],poses={tube:pose(TR),rack:pose(RR)},expected_revision=snap.revision,note='Calibrated top: back-projected tube rim and rounded end on table-supported center plane; fit rack center and yaw to six rim centers using original mesh and table height.'))[:450])\ndef tcp(): return np.array(robo.state()['right']['T_W_tcp'])\ndef stat(): print('TCP',np.round(tcp()[:3,3],4),'jaw',robo.state()['right']['gripper_width_m'])\ndef move(p,R=None,path='auto',intent=None):\n world.read_context()\n if intent: world.expect_contacts(**intent)\n try: print(str(robo.move_to(np.asarray(p).tolist(),None if R is None else R.tolist(),arm='right',path=path))[:650])\n except RuntimeError as err: print(str(err)[:1250])\n stat()\ndef commit(note,**kwargs):\n ctx=world.read_context(); pending=ctx['interaction']['pending_update']; print('pending',bool(pending));\n if pending: print(str(world.commit_step(pending['capture'],expected_revision=ctx['revision'],note=note,**kwargs))[:600])\ndef grip(w,intent=None):\n world.read_context()\n if intent: world.expect_contacts(**intent)\n try: print(str(robo.set_gripper(w,arm='right'))[:500])\n except RuntimeError as err: print(str(err)[:1100])\n stat()\nRg=np.column_stack([-axis,np.cross(-up,-axis),-up]); gp=world.target(lambda s: s.local_point(tube,[0,.031,0])); move(np.array(gp)+up*.080,Rg); crop((305,550,515,850))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

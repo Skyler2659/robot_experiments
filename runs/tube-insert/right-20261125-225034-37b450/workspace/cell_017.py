@@ -1,0 +1,1 @@
+bright((825,435,925,615)); Q=np.array(world.snapshot().transform(tube)); print('prediction',proj(point(Q,[0,.0525,0])),proj(point(Q,[0,-.04607,0]))); print('ctx review',world.read_context()['grasp_review'])

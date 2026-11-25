@@ -1,0 +1,13 @@
+{
+  "module": "component.js",
+  "export": "build",
+  "children": [],
+  "object_ids": ["tube_rack"],
+  "frame": "right_piper_base",
+  "units": "m",
+  "composition": "Geometry already positioned in W; parent applies identity transform.",
+  "parameters_export": "objectParameters",
+  "preview": "preview.html",
+  "status": "complete",
+  "limitations": "Single-RGB dimensional and optical estimate; acrylic reflections and the partly overlapping rear lower rail retain visible residuals."
+}

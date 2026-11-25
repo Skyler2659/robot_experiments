@@ -1,0 +1,1 @@
+print(str(obs['views'])[:2800]); import inspect; print(inspect.signature(world.points)); print(robo.world_map.__doc__); print(world.parts('tube_rack')); print(world.parts('loose_tube'))

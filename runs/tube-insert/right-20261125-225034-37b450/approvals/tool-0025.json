@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21330-09a5-7ec1-836c-08f54571f409",
+  "turnId": "01a21330-1d59-7762-99e3-65a09861017a",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "TI=np.array(world.snapshot().transform(tube)); kcommit(TI,'Top RGB shows the shaft guided through the second opening, below the top plate, with the bottom over the support tray. The fingers remain above the rack; release in place to let the tube settle the short remaining distance.'); grip(.044); bright((801,535,960,772))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "TI=np.array(world.snapshot().transform(tube)); kcommit(TI,'Top RGB shows the shaft guided through the second opening, below the top plate, with the bottom over the support tray. The fingers remain above the rack; release in place to let the tube settle the short remaining distance.'); grip(.044); bright((801,535,960,772))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

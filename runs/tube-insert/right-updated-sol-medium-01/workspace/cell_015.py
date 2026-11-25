@@ -1,0 +1,1 @@
+Tclose=tcp(); rel=np.linalg.inv(Tclose)@TT; review('Wrist shows both jaws on the tube, measured 17.5 mm; retained calibrated table pose, grasp to be confirmed by vertical lift.',poses={tube:pp(TT)},held={'right':tube}); mv(Tclose[:3,3]+.065*up,RG,'line'); display(robo.artifact('r_wrist.png'))

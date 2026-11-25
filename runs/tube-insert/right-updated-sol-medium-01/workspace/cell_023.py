@@ -1,0 +1,1 @@
+ins=tcp(); ip=pp(ins@rel2,[True,True,False],[True,True,False]); ip['time_basis']='image'; review('Top RGB and wrist show the tube entering the second bore, with no movement of the rack; grip width unchanged.',poses={tube:ip}); mv(ins[:3,3]-.018*up,RI,'line'); display(robo.artifact('r_wrist.png'))

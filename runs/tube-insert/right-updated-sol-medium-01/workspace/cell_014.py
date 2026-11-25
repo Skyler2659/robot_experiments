@@ -1,0 +1,1 @@
+review('Wrist RGB confirms tube between open fingers and resting on tabletop; no displacement; prior calibrated top fit retained.',unchanged={tube:'visible in wrist at the predicted grasp pose'}); Tclose=tcp(); jaw(0,True); display(robo.artifact('r_wrist.png'))

@@ -1,0 +1,2 @@
+from PIL import Image
+im=robo.image('top'); display(Image.fromarray(im[390:595,590:735]).resize((435,615))); pred=tcp()@rel; print('pred',proj((pred@[0,-.04607,0,1])[:3]),proj((pred@[0,.0525,0,1])[:3]),np.asarray(hole))

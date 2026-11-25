@@ -1,0 +1,1 @@
+pick=tcp(); rel=np.linalg.inv(pick)@tt; review('Width 17.5 mm and contact confirmed; tube under jaws occluded in top; provisional grasp pending lift.',held={'right':tube}); mv(pick[:3,3]+up*.058,R,'line'); display(robo.artifact('r_wrist.png'))

@@ -1,0 +1,25 @@
+{
+  "step": 17,
+  "command": {
+    "kind": "grip",
+    "gripper_width_m": 0.066,
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "completed",
+    "message": "Measured motor feedback reached the target",
+    "moved": true,
+    "measured_displacement": {
+      "joint_change_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width_change_m": 0.028800000000000013
+    },
+    "contact_confirmed": null
+  }
+}

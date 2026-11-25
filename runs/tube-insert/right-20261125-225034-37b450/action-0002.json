@@ -1,0 +1,120 @@
+{
+  "step": 2,
+  "command": {
+    "kind": "move",
+    "T_base_tcp": [
+      [
+        -0.8892153742488307,
+        -0.45748881756772164,
+        0.0,
+        0.38346083705370293
+      ],
+      [
+        -0.45748881756772164,
+        0.8892153742488307,
+        0.0,
+        0.05852662159620493
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0,
+        -0.0009000000000000154
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "T_base_flange": [
+      [
+        -0.8892153742488307,
+        -0.45748881756772164,
+        0.0,
+        0.38346083705370293
+      ],
+      [
+        -0.45748881756772164,
+        0.8892153742488307,
+        0.0,
+        0.05852662159620493
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0,
+        0.09409999999999999
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "path": "line",
+    "T_flange_tcp": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.095
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "arm": "right"
+  },
+  "receipt": {
+    "status": "blocked",
+    "moved": false,
+    "collision_check": {
+      "status": "COLLISION",
+      "hits": [
+        {
+          "first": "right/link7",
+          "second": "tabletop"
+        },
+        {
+          "first": "right/link8",
+          "second": "tabletop"
+        }
+      ],
+      "samples_checked": 9,
+      "geometry_accuracy_verified": false,
+      "state_revision": 4,
+      "phase": "planned_hardware_path",
+      "expected_contacts": [],
+      "initial_contacts_to_escape": [],
+      "unchanged_initial_contacts": [],
+      "invalidated_contact_intents": [],
+      "excluded_objects": [
+        "rear_wall"
+      ],
+      "coverage": "sampled_URDF_and_reconstructed_meshes",
+      "max_joint_increment_rad": 0.025,
+      "max_finger_increment_m": 0.002,
+      "visual_fallback_links": [],
+      "unresolved_objects": []
+    },
+    "message": "Controller path check: COLLISION"
+  }
+}

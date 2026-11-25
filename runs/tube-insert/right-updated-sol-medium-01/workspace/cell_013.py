@@ -1,0 +1,1 @@
+g[2]=.030; mv(g,RG,'line',True); display(robo.artifact('r_wrist.png'))

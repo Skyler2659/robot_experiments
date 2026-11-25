@@ -1,0 +1,1 @@
+review('After 78 mm vertical withdrawal, wrist and top independently show tube stable in the second hole, mouth up, and fingers clear.'); world.read_context(); print(robo.home(arm='right')); print('joint residual',np.max(np.abs(robo.state()['right']['joints'])))

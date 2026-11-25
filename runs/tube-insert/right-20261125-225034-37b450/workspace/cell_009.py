@@ -1,0 +1,1 @@
+move(np.array(gp)+up*.014,Rg,'line'); crop((350,650,510,845))

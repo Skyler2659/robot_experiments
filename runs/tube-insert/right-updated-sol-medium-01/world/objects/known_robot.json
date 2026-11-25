@@ -1,0 +1,194 @@
+{
+  "object_id": "known_robot",
+  "movable": false,
+  "role": "robot_snapshot",
+  "geometry": {
+    "local_mesh": "geometry/known_robot/local.glb",
+    "local_bounds_m": [
+      [
+        -0.3138366639614105,
+        -0.07250072807073593,
+        -1.452830911130576e-17
+      ],
+      [
+        0.19229742884635925,
+        0.07249952852725983,
+        0.25739577412605286
+      ]
+    ],
+    "vertices": 551238,
+    "faces": 183746
+  },
+  "initial_T_W_object": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_binding": {
+    "node_path": "scene/3",
+    "matrix_world_column_major": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "user_data": {
+      "object_id": "known_robot",
+      "geometry_origin": "public_urdf_measured_joints"
+    }
+  },
+  "source_nodes": [
+    {
+      "path": "scene/3",
+      "name": "",
+      "type": "Group",
+      "object_id": "known_robot",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "user_data": {
+        "object_id": "known_robot",
+        "geometry_origin": "public_urdf_measured_joints"
+      },
+      "vertices": 0
+    },
+    {
+      "path": "scene/3/0",
+      "name": "link8STL",
+      "type": "Mesh",
+      "object_id": "known_robot",
+      "matrix_local_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrix_world_column_major": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "user_data": {
+        "header": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+        "name": "link8.STL",
+        "node": "link8.STL"
+      },
+      "vertices": 551238
+    }
+  ],
+  "declared": {
+    "movable": false,
+    "unknowns": [
+      "Public robot asset retained unchanged; appearance differs from photographed robot."
+    ],
+    "dimensions_m": [
+      0.5061340928077698,
+      0.14500025659799576,
+      0.25739577412605286
+    ],
+    "position_W_m": [
+      0,
+      0,
+      0
+    ],
+    "rotation_XYZ_rad": [
+      0,
+      0,
+      0
+    ],
+    "geometry_origin": "public_urdf_measured_joints"
+  },
+  "declaration_status": "source hypotheses; not geometry-certified; initial declarations are not live state",
+  "source_parameters": "source/runtime/runs/scene/fractal/scene/parameters.json"
+}

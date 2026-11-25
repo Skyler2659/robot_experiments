@@ -1,0 +1,1 @@
+obs=world.observe(); print(obs.keys()); print([x for x in dir(world) if not x.startswith('_')]); print([x for x in dir(robo) if not x.startswith('_')]); print(robo.state()['right'])

@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "cam=obs['views'][0]; K=np.array(cam['K']); C=np.array(cam['T_W_C']); up=np.array([0,0,1]); norm=lambda x:x/np.linalg.norm(x)\ndef back(u,v,z):\n d=C[:3,:3]@np.linalg.solve(K,[u,v,1]); return C[:3,3]+d*(z-C[2,3])/d[2]\ndef proj(p):\n q=K@(C[:3,:3].T@(p-C[:3,3])); return q[:2]/q[2]\ns=world.snapshot(); orig={i:np.asarray(s.transform(i)) for i in (tube,rack)}\ndef localverts(i):\n t=orig[i]; return (np.asarray(world.mesh(i).vertices)-t[:3,3])@t[:3,:3]\nfor i in (tube,rack):\n v=localverts(i); print(i,len(v),v.min(0),v.max(0)); print([(np.round(np.array(n['matrix_local_column_major'])[12:15],4).tolist(),n['vertices']) for n in world.parts(i)['nodes'] if n['type']=='Mesh'])\nprint([back(*uv,-.0049) for uv in [(553,715),(650,593)]]); print([back(*uv,.10) for uv in [(801,807),(852,776),(902,747),(950,718),(998,689),(1044,662)]])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "cam=obs['views'][0]; K=np.array(cam['K']); C=np.array(cam['T_W_C']); up=np.array([0,0,1]); norm=lambda x:x/np.linalg.norm(x)\ndef back(u,v,z):\n d=C[:3,:3]@np.linalg.solve(K,[u,v,1]); return C[:3,3]+d*(z-C[2,3])/d[2]\ndef proj(p):\n q=K@(C[:3,:3].T@(p-C[:3,3])); return q[:2]/q[2]\ns=world.snapshot(); orig={i:np.asarray(s.transform(i)) for i in (tube,rack)}\ndef localverts(i):\n t=orig[i]; return (np.asarray(world.mesh(i).vertices)-t[:3,3])@t[:3,:3]\nfor i in (tube,rack):\n v=localverts(i); print(i,len(v),v.min(0),v.max(0)); print([(np.round(np.array(n['matrix_local_column_major'])[12:15],4).tolist(),n['vertices']) for n in world.parts(i)['nodes'] if n['type']=='Mesh'])\nprint([back(*uv,-.0049) for uv in [(553,715),(650,593)]]); print([back(*uv,.10) for uv in [(801,807),(852,776),(902,747),(950,718),(998,689),(1044,662)]])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,1 @@
+review('Paired top shows rack unchanged and tube temporarily occluded by the pregrasp hand; no contact at clearance.'); mv(grip,R,'line',True)

@@ -1,0 +1,1 @@
+review('Wider jaw opening left tube in same second hole, upright and independent of arm.'); out=tcp(); mv(out[:3,3]+.085*up-.006*aim,out[:3,:3],'line'); display(robo.artifact('r_wrist.png'))

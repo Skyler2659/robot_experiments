@@ -1,0 +1,1 @@
+review('Top RGB shows tube and rack unchanged after opening jaws at home.'); down=-up; gx=-axis; gx[2]=0; gx=norm(gx); RG=np.column_stack([gx,np.cross(down,gx),down]); gp=world.target(lambda s:s.local_point(tube,[0,-.024,.0015])); mv(np.asarray(gp)+.085*up,RG)

@@ -1,0 +1,1 @@
+display(robo.image('top')[420:600,515:635]); pred=tcp()@rel; print('projected mouth and tip',proj(pred[:3,3]-.0455*pred[:3,1]),proj(pred[:3,3]+.0525*pred[:3,1])); print('rack',hole)

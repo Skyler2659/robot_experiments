@@ -1,0 +1,2 @@
+commit('After 81 mm vertical withdrawal, wrist and calibrated top both show the empty separated jaws and the tube stationary, upright in the second of six holes.');
+world.read_context(); print(str(robo.home(arm='right'))[:590]); print('home joint error',np.max(np.abs(np.array(robo.state()['right']['joints'])-np.array(robo.state(step=0)['right']['joints'])))); bright((744,565,1167,875))

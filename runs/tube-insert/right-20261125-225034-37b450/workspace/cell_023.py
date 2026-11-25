@@ -1,0 +1,1 @@
+G=tcp(); TG=np.array(world.snapshot().transform(tube)); print('proj',proj(point(TG,[0,.0525,0])),proj(point(TG,[0,-.04607,0]))); kcommit(TG,'Top shows shaft through second ring, first and third openings unoccupied; rack appears stationary. Jaw width unchanged. Continue straight to near the mesh support level.'); move(G[:3,3]-up*.026,G[:3,:3],'line'); bright((805,525,963,785))

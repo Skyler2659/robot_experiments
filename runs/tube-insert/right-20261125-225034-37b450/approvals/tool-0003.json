@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21330-09a5-7ec1-836c-08f54571f409",
+  "turnId": "01a21330-1d59-7762-99e3-65a09861017a",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "for key in [tube,rack]:\n T=np.array(snap.transform(key)); m=world.mesh(key); print(key,T, m.bounds); parts=world.parts(key); print([(n.get('name'),n.get('path')) for n in parts['nodes']][:35]);\nprint('obs',obs['capture']); print('rack visual base samples', [bp(u,v,-.012) for u,v in [(779,788),(1108,865),(780,783)]]); print('end panel',[(z,bp(783,580,z)) for z in [.07,.09,.11,.126]])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "for key in [tube,rack]:\n T=np.array(snap.transform(key)); m=world.mesh(key); print(key,T, m.bounds); parts=world.parts(key); print([(n.get('name'),n.get('path')) for n in parts['nodes']][:35]);\nprint('obs',obs['capture']); print('rack visual base samples', [bp(u,v,-.012) for u,v in [(779,788),(1108,865),(780,783)]]); print('end panel',[(z,bp(783,580,z)) for z in [.07,.09,.11,.126]])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

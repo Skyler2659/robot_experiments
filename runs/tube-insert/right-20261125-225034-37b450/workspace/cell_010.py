@@ -1,0 +1,1 @@
+move(np.array(gp)+up*.022,Rg,'line',{'grasp':{'right':tube}}); crop((355,640,510,840))

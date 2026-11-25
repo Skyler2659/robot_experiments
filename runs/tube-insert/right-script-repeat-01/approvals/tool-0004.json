@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21328-1ef1-72f1-8fef-7f05b534e01b",
+  "turnId": "01a21328-3299-7780-806d-3f9aa480e74f",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "K=np.array(v['K']); C=np.array(v['T_W_C']); invK=np.linalg.inv(K)\ndef back(uv,z):\n d=C[:3,:3]@invK@np.r_[uv,1]; return C[:3,3]+d*((z-C[2,3])/d[2])\ndef proj(p):\n q=K@(C[:3,:3].T@(np.array(p)-C[:3,3])); return q[:2]/q[2]\ndef unit(a): return a/np.linalg.norm(a)\nfor oid in ['loose_tube','tube_rack']:\n tf=s.transform(oid); m=world.mesh(oid); print(oid,m.bounds,tf); print([(n['path'],n['matrix_local_column_major'][12:15],n['vertices']) for n in world.parts(oid)['nodes'] if n['type']=='Mesh'])\nprint('tube', [back(uv,-.0049) for uv in [(438,813),(398,680)]]); print('holes', [back(uv,.086) for uv in [(850,677),(905,668),(959,660),(1014,651),(1067,643),(1121,635)]])"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "K=np.array(v['K']); C=np.array(v['T_W_C']); invK=np.linalg.inv(K)\ndef back(uv,z):\n d=C[:3,:3]@invK@np.r_[uv,1]; return C[:3,3]+d*((z-C[2,3])/d[2])\ndef proj(p):\n q=K@(C[:3,:3].T@(np.array(p)-C[:3,3])); return q[:2]/q[2]\ndef unit(a): return a/np.linalg.norm(a)\nfor oid in ['loose_tube','tube_rack']:\n tf=s.transform(oid); m=world.mesh(oid); print(oid,m.bounds,tf); print([(n['path'],n['matrix_local_column_major'][12:15],n['vertices']) for n in world.parts(oid)['nodes'] if n['type']=='Mesh'])\nprint('tube', [back(uv,-.0049) for uv in [(438,813),(398,680)]]); print('holes', [back(uv,.086) for uv in [(850,677),(905,668),(959,660),(1014,651),(1067,643),(1121,635)]])",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

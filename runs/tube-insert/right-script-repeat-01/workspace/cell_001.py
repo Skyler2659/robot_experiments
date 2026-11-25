@@ -1,0 +1,1 @@
+obs=world.observe(); print(obs.keys()); print([n for n in dir(robo) if not n.startswith('_')]); print([n for n in dir(world) if not n.startswith('_')]); print(robo.state()); print(world.parts('tube_rack').keys()); print(world.parts('loose_tube').keys())

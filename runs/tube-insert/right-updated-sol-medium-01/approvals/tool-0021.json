@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21317-18f1-7e81-8814-664c569e7207",
+  "turnId": "01a21317-2c98-7421-b30a-8fd8610beef6",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "mouth2=np.array([812,528]); cap1=np.array([690,544]); cap2=np.array([833,646]); pm=stereo(mouth1,mouth2,.258); pc=stereo(cap1,cap2,.175); print('free',pm,pc,np.linalg.norm(pc-pm));\ndef residual(q):\n a=q[:3]; b=q[3:]; return np.r_[proj(a)-mouth1,proj((D@np.r_[a,1])[:3])-mouth2,proj(b)-cap1,proj((D@np.r_[b,1])[:3])-cap2,(np.linalg.norm(b-a)-.089)*400]\nq=least_squares(residual,np.r_[pm,pc]).x; print('fitted',q,residual(q)); M=(D@np.r_[q[:3],1])[:3]; B=(D@np.r_[q[3:],1])[:3]; ay=norm(B-M); ax=norm(np.cross(ay,pred[:3,2])); New=np.eye(4); New[:3,:3]=np.column_stack([ax,ay,np.cross(ax,ay)]); New[:3,3]=M+.04607*ay; print('M,B,ay',M,B,ay); rel2=np.linalg.inv(stage2)@New; hp=np.asarray(hole); off=(RI@rel2[:3,:]@np.array([0,.050,0,1])); tipgoal=hp+.014*up; approach=tipgoal-off; print('target',approach); p2=pp(New,[True]*3,[True,True,False]); p2['time_basis']='image'; review('Tube followed lateral translation with unchanged jaws. Refit mouth and rounded cap from two calibrated top frames and measured relative hand motion; axis and offset corrected.',poses={tube:p2},held={'right':tube}); mv(approach,RI,'line'); display(robo.artifact('r_wrist.png'))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "mouth2=np.array([812,528]); cap1=np.array([690,544]); cap2=np.array([833,646]); pm=stereo(mouth1,mouth2,.258); pc=stereo(cap1,cap2,.175); print('free',pm,pc,np.linalg.norm(pc-pm));\ndef residual(q):\n a=q[:3]; b=q[3:]; return np.r_[proj(a)-mouth1,proj((D@np.r_[a,1])[:3])-mouth2,proj(b)-cap1,proj((D@np.r_[b,1])[:3])-cap2,(np.linalg.norm(b-a)-.089)*400]\nq=least_squares(residual,np.r_[pm,pc]).x; print('fitted',q,residual(q)); M=(D@np.r_[q[:3],1])[:3]; B=(D@np.r_[q[3:],1])[:3]; ay=norm(B-M); ax=norm(np.cross(ay,pred[:3,2])); New=np.eye(4); New[:3,:3]=np.column_stack([ax,ay,np.cross(ax,ay)]); New[:3,3]=M+.04607*ay; print('M,B,ay',M,B,ay); rel2=np.linalg.inv(stage2)@New; hp=np.asarray(hole); off=(RI@rel2[:3,:]@np.array([0,.050,0,1])); tipgoal=hp+.014*up; approach=tipgoal-off; print('target',approach); p2=pp(New,[True]*3,[True,True,False]); p2['time_basis']='image'; review('Tube followed lateral translation with unchanged jaws. Refit mouth and rounded cap from two calibrated top frames and measured relative hand motion; axis and offset corrected.',poses={tube:p2},held={'right':tube}); mv(approach,RI,'line'); display(robo.artifact('r_wrist.png'))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

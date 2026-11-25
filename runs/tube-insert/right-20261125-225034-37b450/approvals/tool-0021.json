@@ -1,0 +1,35 @@
+{
+  "threadId": "01a21330-09a5-7ec1-836c-08f54571f409",
+  "turnId": "01a21330-1d59-7762-99e3-65a09861017a",
+  "serverName": "pyrualean",
+  "mode": "form",
+  "_meta": {
+    "codex_approval_kind": "mcp_tool_call",
+    "persist": [
+      "session",
+      "always"
+    ],
+    "tool_name": "python",
+    "tool_annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": true
+    },
+    "tool_description": "Execute Python code in a persistent session where `robo` (the robot), `np`, `math` and `time` are defined. Variables, functions and imports persist between calls. Returns stdout, stderr, the exception if any, the value of a trailing expression, the robot state, and the current camera images whenever the robot moved.",
+    "tool_params": {
+      "code": "tubeAxis=unit(r3-b3); tubeX=unit(Q[:3,0]-tubeAxis*(tubeAxis@Q[:3,0])); T3=mat(np.column_stack([tubeX,tubeAxis,np.cross(tubeX,tubeAxis)]),(b3+r3)/2-tubeAxis*.003215); kcommit(T3,'Calibrated top rim and closed-tip correspondences from two measured right-arm positions recover the carried tube axis and depth; reprojection agrees with live RGB and jaw remains loaded.');\nRline=B[:3,:3]; hh=np.array(hole); deltaXY=np.r_[hh[:2]-(b3[:2]+tubeAxis[:2]*.022),0.]; H=B[:3,3]+deltaXY; print('correction',deltaXY); move(H,Rline,'line'); display(robo.artifact('r_wrist.png')); bright((823,465,946,688))"
+    },
+    "tool_params_display": [
+      {
+        "name": "code",
+        "value": "tubeAxis=unit(r3-b3); tubeX=unit(Q[:3,0]-tubeAxis*(tubeAxis@Q[:3,0])); T3=mat(np.column_stack([tubeX,tubeAxis,np.cross(tubeX,tubeAxis)]),(b3+r3)/2-tubeAxis*.003215); kcommit(T3,'Calibrated top rim and closed-tip correspondences from two measured right-arm positions recover the carried tube axis and depth; reprojection agrees with live RGB and jaw remains loaded.');\nRline=B[:3,:3]; hh=np.array(hole); deltaXY=np.r_[hh[:2]-(b3[:2]+tubeAxis[:2]*.022),0.]; H=B[:3,3]+deltaXY; print('correction',deltaXY); move(H,Rline,'line'); display(robo.artifact('r_wrist.png')); bright((823,465,946,688))",
+        "display_name": "code"
+      }
+    ]
+  },
+  "message": "Allow the pyrualean MCP server to run tool \"python\"?",
+  "requestedSchema": {
+    "type": "object",
+    "properties": {}
+  }
+}

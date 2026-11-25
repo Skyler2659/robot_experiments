@@ -1,0 +1,1 @@
+grip[2]=.026; mv(grip,R,'line',True)

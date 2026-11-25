@@ -1,0 +1,2 @@
+commit('Top/geometry pair: right arm reached clear pregrasp; visible tube segment and rack remain at initial locations.')
+move(np.array(gp)+up*.004,Rg,'line',{'grasp':{'right':tube}}); crop((350,650,510,845))

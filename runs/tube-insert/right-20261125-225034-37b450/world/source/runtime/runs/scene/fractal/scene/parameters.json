@@ -1,0 +1,356 @@
+{
+  "schema": "rcwm-operation-scene-v1",
+  "frame": "right_piper_base",
+  "units": "m",
+  "objects": {
+    "tabletop": {
+      "movable": false,
+      "dimensions_m": [
+        1.1799999475479126,
+        1.399999976158142,
+        0.04500000178813934
+      ],
+      "position_W_m": [
+        0.52,
+        0.49,
+        -0.0425
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "table_support_frame": {
+      "movable": false,
+      "dimensions_m": [
+        1.0650000017881394,
+        1.2650000017881395,
+        0.6850000023841858
+      ],
+      "position_W_m": [
+        0.52,
+        0.49,
+        -0.4075
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ],
+      "role": "fixed_obstacle",
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "rear_wall": {
+      "movable": false,
+      "dimensions_m": [
+        0.05000000074505806,
+        2,
+        1.5
+      ],
+      "position_W_m": [
+        -0.105,
+        0.4,
+        0
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "floor": {
+      "movable": false,
+      "dimensions_m": [
+        3,
+        3,
+        0.07999999821186066
+      ],
+      "position_W_m": [
+        0.3,
+        0.4,
+        -0.79
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Dimensions and occluded surfaces estimated from a single RGB image."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "loose_tube": {
+      "movable": true,
+      "dimensions_m": [
+        0.0142000000923872,
+        0.0985706341303885,
+        0.0142000000923872
+      ],
+      "position_W_m": [
+        0.29,
+        0.096,
+        -0.012
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0.9977759539713196
+      ],
+      "unknowns": [
+        "Tube diameter, wall thickness and length estimated; the far tip is interpreted as rounded and closed."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "tube_rack": {
+      "movable": true,
+      "dimensions_m": [
+        0.044839999993331714,
+        0.17983999999333183,
+        0.14900000393390656
+      ],
+      "position_W_m": [
+        0.297,
+        0.318,
+        -0.02
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        -0.018000000000000002
+      ],
+      "unknowns": [
+        "All dimensions and placement estimated from the assigned RGB and fixed camera calibration.",
+        "Hidden back edges and lower support frame completed as symmetric acrylic construction.",
+        "Acrylic optical properties, thickness, and hole diameter are visual estimates."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "left_mounting_plate": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.1120000034570694,
+        0.2720000147819519,
+        0.015000000047497452
+      ],
+      "position_W_m": [
+        -0.025,
+        -0.004,
+        -0.014
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "right_mounting_plate": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.1120000034570694,
+        0.26499998569488525,
+        0.015000000047497452
+      ],
+      "position_W_m": [
+        -0.018,
+        0.685,
+        -0.014
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "left_calibration_tag": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.054999999701976776,
+        0.0689999982714653,
+        0.0016200000050035305
+      ],
+      "position_W_m": [
+        -0.005,
+        -0.081,
+        -0.00725
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "right_calibration_tag": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.054999999701976776,
+        0.0689999982714653,
+        0.0016200000050035305
+      ],
+      "position_W_m": [
+        0.006,
+        0.606,
+        -0.00725
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Checkerboard interpreted as five columns by four rows; exact printed pattern is approximate."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "left_mounting_ear": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.026000000536441803,
+        0.03500000014901161,
+        0.052469732298050076
+      ],
+      "position_W_m": [
+        -0.068,
+        0.094,
+        0.0215
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "right_mounting_ear": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.026000000536441803,
+        0.03500000014901161,
+        0.052469732298050076
+      ],
+      "position_W_m": [
+        -0.061,
+        0.562,
+        0.0215
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "central_post_foot": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.0430000014603138,
+        0.0430000014603138,
+        0.01099999981932343
+      ],
+      "position_W_m": [
+        -0.043,
+        0.335,
+        -0.0155
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "central_support_post": {
+      "movable": false,
+      "role": "fixed_obstacle",
+      "dimensions_m": [
+        0.03099999949336052,
+        0.030999999493360523,
+        0.4699999988079071
+      ],
+      "position_W_m": [
+        -0.043,
+        0.335,
+        0.224
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "unknowns": [
+        "Single RGB estimate; hidden depth, back faces and attachment dimensions are not measured.",
+        "Top continues outside assigned crop; 0.47 m overall pole height is an estimate."
+      ],
+      "geometry_origin": "single_rgb_rcwm"
+    },
+    "known_robot": {
+      "movable": false,
+      "unknowns": [
+        "Public robot asset retained unchanged; appearance differs from photographed robot."
+      ],
+      "dimensions_m": [
+        0.5061340928077698,
+        0.14500025659799576,
+        0.25739577412605286
+      ],
+      "position_W_m": [
+        0,
+        0,
+        0
+      ],
+      "rotation_XYZ_rad": [
+        0,
+        0,
+        0
+      ],
+      "geometry_origin": "public_urdf_measured_joints"
+    }
+  },
+  "limitations": [
+    "Single-RGB scene estimate; no independent surface accuracy, contact validity or robot task success established.",
+    "Dimensions are bounds of estimated geometry in each object root frame; root positions and rotations are executed W transforms.",
+    "Supplied robot geometry is unchanged. Additional robot pixels excluded from scene reconstruction."
+  ]
+}
